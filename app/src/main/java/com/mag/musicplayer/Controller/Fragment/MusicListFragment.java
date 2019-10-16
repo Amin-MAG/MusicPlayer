@@ -17,15 +17,21 @@ import com.mag.musicplayer.R;
 public class MusicListFragment extends Fragment {
 
 
+    public static MusicListFragment newInstance() {
+        
+        Bundle args = new Bundle();
+        
+        MusicListFragment fragment = new MusicListFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     public MusicListFragment() {
-        // Required empty public constructor
     }
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_music_list, container, false);
     }
 
