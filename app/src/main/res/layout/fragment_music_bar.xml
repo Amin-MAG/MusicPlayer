@@ -1,14 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".Controller.Fragment.MusicBarFragment">
+    android:layout_height="72dp"
+    app:cardBackgroundColor="#D53C3CFF">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:padding="8dp"
+        tools:context=".Controller.Fragment.MusicBarFragment">
 
-</FrameLayout>
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="72dp"
+            android:layout_height="75dp"
+            android:src="@drawable/music_icon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <LinearLayout
+            android:layout_width="182dp"
+            android:layout_height="51dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.375">
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                app:icon="@drawable/ic_skip_previous">
+
+
+            </com.google.android.material.button.MaterialButton>
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:layout_marginLeft="8dp"
+                app:icon="@drawable/ic_play">
+
+
+            </com.google.android.material.button.MaterialButton>
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:layout_marginLeft="8dp"
+                app:icon="@drawable/ic_skip_next">
+
+
+            </com.google.android.material.button.MaterialButton>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="4dp"
+            android:text="Singer"
+            android:textColor="#C4E6E6E6"
+            android:textSize="14dp"
+            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="16dp"
+            android:text="Track Name"
+            android:textColor="#FFFFFF"
+            android:textSize="16dp"
+            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

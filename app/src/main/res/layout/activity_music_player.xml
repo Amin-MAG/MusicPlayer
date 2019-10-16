@@ -6,4 +6,29 @@
     android:layout_height="match_parent"
     tools:contextc=".MainMusicPlayer">
 
+    <include
+        android:id="@+id/musicPlayerActivity_trackFrame"
+        layout="@layout/fragment_music_bar"
+        android:layout_width="0dp"
+        android:layout_height="88dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <FrameLayout
+        android:id="@+id/musicPlayerActivity_listFrame"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/musicPlayerActivity_trackFrame"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" >
+
+
+
+    </FrameLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
