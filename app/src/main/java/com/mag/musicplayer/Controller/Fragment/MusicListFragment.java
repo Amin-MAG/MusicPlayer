@@ -53,6 +53,18 @@ public class MusicListFragment extends Fragment {
         recyclerView = view.findViewById(R.id.musicListFragment_recycler);
         adapter = new MusicListAdapter(new ArrayList<Track>(){{
             add(new Track(1,"air","david garrett 2010","david garret","somewhere", null,300, new Date()));
+            add(new Track(1,"air","david garrett 2010","david garret","somewhere", null,300, new Date()));
+            add(new Track(1,"air","david garrett 2010","david garret","somewhere", null,300, new Date()));
+            add(new Track(1,"air","david garrett 2010","david garret","somewhere", null,300, new Date()));
+            add(new Track(1,"air","david garrett 2010","david garret","somewhere", null,300, new Date()));
+            add(new Track(1,"air","david garrett 2010","david garret","somewhere", null,300, new Date()));
+            add(new Track(1,"air","david garrett 2010","david garret","somewhere", null,300, new Date()));
+            add(new Track(1,"air","david garrett 2010","david garret","somewhere", null,300, new Date()));
+            add(new Track(1,"air","david garrett 2010","david garret","somewhere", null,300, new Date()));
+            add(new Track(1,"air","david garrett 2010","david garret","somewhere", null,300, new Date()));
+            add(new Track(1,"air","david garrett 2010","david garret","somewhere", null,300, new Date()));
+            add(new Track(1,"air","david garrett 2010","david garret","somewhere", null,300, new Date()));
+            add(new Track(1,"air","david garrett 2010","david garret","somewhere", null,300, new Date()));
         }});
         recyclerView.setAdapter(adapter);
 

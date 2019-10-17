@@ -15,7 +15,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="84dp"
+        android:layout_height="56dp"
         android:background="#D53C3CFF"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
@@ -25,27 +25,27 @@
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="68dp"
-            android:layout_height="70dp"
+            android:layout_width="45dp"
+            android:layout_height="39dp"
+            android:layout_marginTop="4dp"
             android:src="@drawable/music_icon"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
             android:layout_width="182dp"
-            android:layout_height="51dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginRight="4dp"
             android:gravity="center"
             android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.375">
+            app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.button.MaterialButton
                 android:layout_width="56dp"
-                android:layout_height="56dp"
+                android:layout_height="42dp"
                 app:icon="@drawable/ic_skip_previous">
 
 
@@ -53,7 +53,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:layout_width="56dp"
-                android:layout_height="56dp"
+                android:layout_height="42dp"
                 android:layout_marginLeft="8dp"
                 app:icon="@drawable/ic_play">
 
@@ -62,7 +62,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:layout_width="56dp"
-                android:layout_height="56dp"
+                android:layout_height="42dp"
                 android:layout_marginLeft="8dp"
                 app:icon="@drawable/ic_skip_next">
 
@@ -75,12 +75,12 @@
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="8dp"
             android:text="Singer"
             android:textColor="#DBDBDB"
-            android:textSize="14dp"
+            android:textSize="10dp"
             app:layout_constraintStart_toEndOf="@+id/imageView"
             app:layout_constraintTop_toBottomOf="@+id/textView" />
 
@@ -88,12 +88,12 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginLeft="12dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="4dp"
             android:text="Track Name"
             android:textColor="#FFFFFF"
-            android:textSize="16dp"
+            android:textSize="12dp"
             app:layout_constraintStart_toEndOf="@+id/imageView"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
