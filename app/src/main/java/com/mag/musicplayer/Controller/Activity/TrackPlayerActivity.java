@@ -26,4 +26,5 @@ public class TrackPlayerActivity extends SingleFragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_track_player);
     }
+
 }
