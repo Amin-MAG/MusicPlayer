@@ -25,10 +25,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/musicPlayerActivity_collapsingToolbar"
-        app:layout_constraintVertical_bias="0.516">
-
-
-    </FrameLayout>
+        app:layout_constraintVertical_bias="0.516"/>
 
 
     <com.google.android.material.appbar.CollapsingToolbarLayout

@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import com.mag.musicplayer.Model.Adapter.MusicListAdapter;
 import com.mag.musicplayer.Model.Track;
 import com.mag.musicplayer.R;
+import com.mag.musicplayer.Util.MusicRepository;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -51,21 +52,7 @@ public class MusicListFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         recyclerView = view.findViewById(R.id.musicListFragment_recycler);
-        adapter = new MusicListAdapter(new ArrayList<Track>(){{
-            add(new Track(1,"air","david garrett 2010","david garret","somewhere", null,300, new Date()));
-            add(new Track(1,"air","david garrett 2010","david garret","somewhere", null,300, new Date()));
-            add(new Track(1,"air","david garrett 2010","david garret","somewhere", null,300, new Date()));
-            add(new Track(1,"air","david garrett 2010","david garret","somewhere", null,300, new Date()));
-            add(new Track(1,"air","david garrett 2010","david garret","somewhere", null,300, new Date()));
-            add(new Track(1,"air","david garrett 2010","david garret","somewhere", null,300, new Date()));
-            add(new Track(1,"air","david garrett 2010","david garret","somewhere", null,300, new Date()));
-            add(new Track(1,"air","david garrett 2010","david garret","somewhere", null,300, new Date()));
-            add(new Track(1,"air","david garrett 2010","david garret","somewhere", null,300, new Date()));
-            add(new Track(1,"air","david garrett 2010","david garret","somewhere", null,300, new Date()));
-            add(new Track(1,"air","david garrett 2010","david garret","somewhere", null,300, new Date()));
-            add(new Track(1,"air","david garrett 2010","david garret","somewhere", null,300, new Date()));
-            add(new Track(1,"air","david garrett 2010","david garret","somewhere", null,300, new Date()));
-        }});
+        adapter = new MusicListAdapter(MusicRepository.getInstance().getTracks());
         recyclerView.setAdapter(adapter);
 
     }

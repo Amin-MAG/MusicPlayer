@@ -8,11 +8,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mag.musicplayer.Model.Track;
 import com.mag.musicplayer.R;
+import com.mag.musicplayer.Util.MusicUtil;
 
+import java.io.IOException;
 import java.util.List;
 
 public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.MusicListViewHolder> {
@@ -47,11 +50,13 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.Musi
 
         private ImageView trackImage;
         private TextView trackName, trackArtistName, trackLength;
+        private CardView trackCardView;
 
 
         public MusicListViewHolder(@NonNull View view) {
             super(view);
 
+            trackCardView = view.findViewById(R.id.trackLayout_cardView);
             trackImage = view.findViewById(R.id.trackLayout_trackImage);
             trackName = view.findViewById(R.id.trackLayout_trackName);
             trackArtistName = view.findViewById(R.id.trackLayout_trackArtistName);
@@ -59,15 +64,32 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.Musi
 
         }
 
-        public void bind(Track track) {
+        public void bind(final Track track) {
 
-            trackName.setText(track.getTrackName());
+            trackName.setText(track.getTrackTitle().length() > 24 ? track.getTrackTitle() + "..." : track.getTrackTitle());
             trackArtistName.setText(track.getArtistName());
+            trackLength.setText(getLengthText(track.getTrackLength() / 1000));
 
-            int seconds = track.getTrackLength();
+
+            trackCardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    try {
+                        MusicUtil.playMusic(track.getTrackId(), activity);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            });
+
+        }
+
+        private String getLengthText(int seconds) {
             int minutes = seconds / 60;
-            trackLength.setText((minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds % 60 < 10 ? "0" + seconds % 10 : seconds % 10));
-
+            int secondReminder = seconds % 60;
+            return (minutes < 10 ? "0" + minutes : minutes) + ":" + (secondReminder < 10 ? "0" + secondReminder : secondReminder);
         }
 
     }
