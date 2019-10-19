@@ -15,7 +15,7 @@ import com.mag.musicplayer.R;
 import com.mag.musicplayer.Util.MusicPlayer;
 import com.mag.musicplayer.Util.UiUtil;
 
-public class MusicPlayerActivity extends AppCompatActivity implements MusicListFragment.MusicListCallback {
+public class MusicPlayerActivity extends AppCompatActivity implements MusicListFragment.MusicListCallback{
 
 
     public static final String TAG_FRAGMENT_MUSIC_LIST = "tag_fragment_music_list";

@@ -1,8 +1,9 @@
 package com.mag.musicplayer.Controller.Fragment;
 
 
-import android.media.Image;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.button.MaterialButton;
 import com.mag.musicplayer.Model.Track;
 import com.mag.musicplayer.R;
+import com.mag.musicplayer.Util.MusicPlayer;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -52,6 +54,32 @@ public class MusicBarFragment extends Fragment {
 
         findItems(view);
 
+        playPauseBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (MusicPlayer.getInstance().getMediaPlayer().isPlaying()) {
+                    MusicPlayer.getInstance().getMediaPlayer().pause();
+                    playPauseBtn.setIcon(getResources().getDrawable(R.drawable.ic_play));
+                }
+                else {
+                    MusicPlayer.getInstance().getMediaPlayer().start();
+                    playPauseBtn.setIcon(getResources().getDrawable(R.drawable.ic_pause));
+                }
+            }
+        });
+
+        skipNextBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            }
+        });
+
+        skipPreBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            }
+        });
+
     }
 
     private void findItems(@NonNull View view) {
@@ -68,7 +96,9 @@ public class MusicBarFragment extends Fragment {
 
         trackName.setText(track.getTrackTitle());
         trackArtist.setText(track.getArtistName());
+        playPauseBtn.setIcon(getResources().getDrawable(R.drawable.ic_pause));
 
     }
+
 
 }

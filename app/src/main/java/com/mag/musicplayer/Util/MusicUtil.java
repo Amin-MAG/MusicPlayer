@@ -9,6 +9,7 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.provider.MediaStore;
 
+import com.mag.musicplayer.Model.MusicRepository;
 import com.mag.musicplayer.Model.Track;
 import com.mag.musicplayer.Var.Constants;
 

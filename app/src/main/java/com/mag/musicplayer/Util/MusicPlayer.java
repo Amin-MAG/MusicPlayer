@@ -74,4 +74,12 @@ public class MusicPlayer {
 
     }
 
+    public MediaPlayer getMediaPlayer() {
+        return mediaPlayer;
+    }
+
+    public Track getCurrentTrack() {
+        return currentTrack;
+    }
+
 }
