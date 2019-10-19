@@ -6,9 +6,8 @@
     android:layout_height="match_parent"
     tools:contextc=".MainMusicPlayer">
 
-    <include
+    <FrameLayout
         android:id="@+id/musicPlayerActivity_trackFrame"
-        layout="@layout/fragment_music_bar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -49,10 +48,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/musicPlayerActivity_itemsFrame">
-
-
-            </FrameLayout>
+                app:layout_constraintTop_toBottomOf="@+id/musicPlayerActivity_itemsFrame"/>
 
             <FrameLayout
                 android:id="@+id/musicPlayerActivity_itemsFrame"
@@ -61,10 +57,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-
-            </FrameLayout>
+                app:layout_constraintTop_toTopOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -1,6 +1,8 @@
 package com.mag.musicplayer.Model.Adapter;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,18 +15,23 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.mag.musicplayer.Model.Track;
 import com.mag.musicplayer.R;
-import com.mag.musicplayer.Util.MusicUtil;
+import com.mag.musicplayer.Util.MusicPlayer;
 
 import java.io.IOException;
 import java.util.List;
 
 public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.MusicListViewHolder> {
 
-    private Activity activity;
     private List<Track> tracks;
+    private Track selectedTrack;
+    private MusicListAdapterCallback callBack;
 
-    public MusicListAdapter(List<Track> tracks) {
+    private Activity activity;
+    private CardView selectedCardView;
+
+    public MusicListAdapter(List<Track> tracks, MusicListAdapterCallback callBack) {
         this.tracks = tracks;
+        this.callBack = callBack;
     }
 
     @NonNull
@@ -64,26 +71,54 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.Musi
 
         }
 
+        @SuppressLint("ResourceType")
         public void bind(final Track track) {
 
             trackName.setText(track.getTrackTitle().length() > 24 ? track.getTrackTitle() + "..." : track.getTrackTitle());
             trackArtistName.setText(track.getArtistName());
             trackLength.setText(getLengthText(track.getTrackLength() / 1000));
 
+            if (selectedTrack != null && track.getTrackId() == selectedTrack.getTrackId()) {
+                trackCardView.setBackgroundColor(Color.parseColor(activity.getString(R.color.colorPrimary)));
+            } else {
+                trackCardView.setBackgroundColor(Color.parseColor("#CB893CD5"));
+            }
 
             trackCardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
+                    selectedTrack = track;
+
                     try {
-                        MusicUtil.playMusic(track.getTrackId(), activity);
+                        MusicPlayer.getInstance().playMusic(track, activity);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
 
+                    updateUi((CardView) view);
+
                 }
             });
 
+        }
+
+        private void updateUi(CardView cardView) {
+
+            updateCardView(cardView);
+            callBack.updateMusicBar(selectedTrack);
+
+        }
+
+        @SuppressLint("ResourceType")
+        private void updateCardView(CardView view) {
+            if (selectedCardView == null) {
+                selectedCardView = view;
+            } else {
+                selectedCardView.setBackgroundColor(Color.parseColor("#CB893CD5"));
+                selectedCardView = view;
+            }
+            selectedCardView.setBackgroundColor(Color.parseColor(activity.getString(R.color.colorPrimary)));
         }
 
         private String getLengthText(int seconds) {
@@ -92,6 +127,10 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.Musi
             return (minutes < 10 ? "0" + minutes : minutes) + ":" + (secondReminder < 10 ? "0" + secondReminder : secondReminder);
         }
 
+    }
+
+    public interface MusicListAdapterCallback {
+        void updateMusicBar(Track track);
     }
 
 }
