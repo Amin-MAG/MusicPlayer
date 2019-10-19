@@ -73,6 +73,10 @@ public class MusicListFragment extends Fragment {
 
     }
 
+    public MusicListAdapter getAdapter() {
+        return adapter;
+    }
+
     public interface MusicListCallback {
         void updateMusicBar(Track track);
     }

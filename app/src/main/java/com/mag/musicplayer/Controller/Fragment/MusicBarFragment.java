@@ -1,6 +1,7 @@
 package com.mag.musicplayer.Controller.Fragment;
 
 
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -20,6 +21,8 @@ import com.mag.musicplayer.Model.Track;
 import com.mag.musicplayer.R;
 import com.mag.musicplayer.Util.MusicPlayer;
 
+import java.io.IOException;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -29,6 +32,17 @@ public class MusicBarFragment extends Fragment {
     private ImageView trackImage;
     private MaterialButton skipPreBtn, skipNextBtn, playPauseBtn;
     private SeekBar trackSeekBar;
+
+    private MusicBarCallback callback = null;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        if (getActivity() instanceof  MusicBarCallback)
+            callback = (MusicBarCallback) getActivity();
+
+    }
 
     public static MusicBarFragment newInstance() {
 
@@ -71,12 +85,28 @@ public class MusicBarFragment extends Fragment {
         skipNextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Track nextTrack = callback.getNextTrack();
+                try {
+                    MusicPlayer.getInstance().playMusic(nextTrack, getContext());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                playPauseBtn.setIcon(getResources().getDrawable(R.drawable.ic_pause));
+                updateBar(nextTrack);
             }
         });
 
         skipPreBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Track previousTrack = callback.getPreviousTrack();
+                try {
+                    MusicPlayer.getInstance().playMusic(previousTrack, getContext());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                playPauseBtn.setIcon(getResources().getDrawable(R.drawable.ic_pause));
+                updateBar(previousTrack);
             }
         });
 
@@ -100,5 +130,9 @@ public class MusicBarFragment extends Fragment {
 
     }
 
+    public interface MusicBarCallback {
+        Track getNextTrack();
+        Track getPreviousTrack();
+    }
 
 }

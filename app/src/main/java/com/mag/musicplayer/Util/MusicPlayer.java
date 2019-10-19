@@ -74,6 +74,21 @@ public class MusicPlayer {
 
     }
 
+    public void playMusic(long id, Context context) throws IOException {
+
+        mediaPlayer.stop();
+
+        Uri contentUri = ContentUris.withAppendedId(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, id);
+
+        mediaPlayer = new MediaPlayer();
+        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        mediaPlayer.setDataSource(context.getApplicationContext(), contentUri);
+        mediaPlayer.prepare();
+        mediaPlayer.start();
+
+    }
+
+
     public MediaPlayer getMediaPlayer() {
         return mediaPlayer;
     }

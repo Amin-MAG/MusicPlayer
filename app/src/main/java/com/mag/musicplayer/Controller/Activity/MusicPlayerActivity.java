@@ -15,7 +15,7 @@ import com.mag.musicplayer.R;
 import com.mag.musicplayer.Util.MusicPlayer;
 import com.mag.musicplayer.Util.UiUtil;
 
-public class MusicPlayerActivity extends AppCompatActivity implements MusicListFragment.MusicListCallback{
+public class MusicPlayerActivity extends AppCompatActivity implements MusicListFragment.MusicListCallback, MusicBarFragment.MusicBarCallback {
 
 
     public static final String TAG_FRAGMENT_MUSIC_LIST = "tag_fragment_music_list";
@@ -50,6 +50,20 @@ public class MusicPlayerActivity extends AppCompatActivity implements MusicListF
 
         musicBarFragment.updateBar(track);
 
+    }
+
+    @Override
+    public Track getNextTrack() {
+        Track track = musicListFragment.getAdapter().getTracks().get((musicListFragment.getAdapter().findTrackIndex(MusicPlayer.getInstance().getCurrentTrack()) + 1) % musicListFragment.getAdapter().getItemCount());
+        musicListFragment.getAdapter().setSelectedTrack(track);
+        return track;
+    }
+
+    @Override
+    public Track getPreviousTrack() {
+        Track track = musicListFragment.getAdapter().getTracks().get((musicListFragment.getAdapter().findTrackIndex(MusicPlayer.getInstance().getCurrentTrack()) - 1) % musicListFragment.getAdapter().getItemCount());
+        musicListFragment.getAdapter().setSelectedTrack(track);
+        return track;
     }
 
 }

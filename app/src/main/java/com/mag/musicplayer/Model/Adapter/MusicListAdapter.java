@@ -103,24 +103,6 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.Musi
 
         }
 
-        private void updateUi(CardView cardView) {
-
-            updateCardView(cardView);
-            callBack.updateMusicBar(selectedTrack);
-
-        }
-
-        @SuppressLint("ResourceType")
-        private void updateCardView(CardView view) {
-            if (selectedCardView == null) {
-                selectedCardView = view;
-            } else {
-                selectedCardView.setBackgroundColor(Color.parseColor("#CB893CD5"));
-                selectedCardView = view;
-            }
-            selectedCardView.setBackgroundColor(Color.parseColor(activity.getString(R.color.colorPrimary)));
-        }
-
         private String getLengthText(int seconds) {
             int minutes = seconds / 60;
             int secondReminder = seconds % 60;
@@ -129,8 +111,45 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.Musi
 
     }
 
+
+    public void updateUi(CardView cardView) {
+
+        updateCardView(cardView);
+        callBack.updateMusicBar(selectedTrack);
+
+    }
+
+    @SuppressLint("ResourceType")
+    private void updateCardView(CardView view) {
+        if (selectedCardView == null) {
+            selectedCardView = view;
+        } else {
+            selectedCardView.setBackgroundColor(Color.parseColor("#CB893CD5"));
+            selectedCardView = view;
+        }
+        selectedCardView.setBackgroundColor(Color.parseColor(activity.getString(R.color.colorPrimary)));
+    }
+
+
+    public int findTrackIndex(Track track) {
+        for (int i = 0 ; i < tracks.size();i++) {
+            if (tracks.get(i).getTrackId() == track.getTrackId())
+                return i;
+        }
+        return -1;
+    }
+
+    public List<Track> getTracks() {
+        return tracks;
+    }
+
+    public void setSelectedTrack(Track selectedTrack) {
+        this.selectedTrack = selectedTrack;
+    }
+
     public interface MusicListAdapterCallback {
         void updateMusicBar(Track track);
     }
+
 
 }
