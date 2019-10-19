@@ -53,16 +53,14 @@ public class MusicPlayerActivity extends AppCompatActivity implements MusicListF
     }
 
     @Override
-    public Track getNextTrack() {
-        Track track = musicListFragment.getAdapter().getTracks().get((musicListFragment.getAdapter().findTrackIndex(MusicPlayer.getInstance().getCurrentTrack()) + 1) % musicListFragment.getAdapter().getItemCount());
+    public Track getTrackDistance(int n) {
+        int index = musicListFragment.getAdapter().findTrackIndex(MusicPlayer.getInstance().getCurrentTrack()) + n;
+        int size = musicListFragment.getAdapter().getItemCount();
+        if (index% size < 0) index += size;
+        index %= size;
+        Track track = musicListFragment.getAdapter().getTracks().get(index);
         musicListFragment.getAdapter().setSelectedTrack(track);
-        return track;
-    }
-
-    @Override
-    public Track getPreviousTrack() {
-        Track track = musicListFragment.getAdapter().getTracks().get((musicListFragment.getAdapter().findTrackIndex(MusicPlayer.getInstance().getCurrentTrack()) - 1) % musicListFragment.getAdapter().getItemCount());
-        musicListFragment.getAdapter().setSelectedTrack(track);
+        musicListFragment.getAdapter().updateUi();
         return track;
     }
 

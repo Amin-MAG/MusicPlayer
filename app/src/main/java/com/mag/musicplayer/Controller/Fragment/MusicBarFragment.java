@@ -85,7 +85,7 @@ public class MusicBarFragment extends Fragment {
         skipNextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Track nextTrack = callback.getNextTrack();
+                Track nextTrack = callback.getTrackDistance(+1);
                 try {
                     MusicPlayer.getInstance().playMusic(nextTrack, getContext());
                 } catch (IOException e) {
@@ -99,7 +99,7 @@ public class MusicBarFragment extends Fragment {
         skipPreBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Track previousTrack = callback.getPreviousTrack();
+                Track previousTrack = callback.getTrackDistance(-1);
                 try {
                     MusicPlayer.getInstance().playMusic(previousTrack, getContext());
                 } catch (IOException e) {
@@ -131,8 +131,7 @@ public class MusicBarFragment extends Fragment {
     }
 
     public interface MusicBarCallback {
-        Track getNextTrack();
-        Track getPreviousTrack();
+        Track getTrackDistance(int distance);
     }
 
 }

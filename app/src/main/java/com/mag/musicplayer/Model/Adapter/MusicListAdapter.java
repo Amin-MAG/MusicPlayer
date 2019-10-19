@@ -96,7 +96,7 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.Musi
                         e.printStackTrace();
                     }
 
-                    updateUi((CardView) view);
+                    updateUi();
 
                 }
             });
@@ -112,24 +112,12 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.Musi
     }
 
 
-    public void updateUi(CardView cardView) {
+    public void updateUi() {
 
-        updateCardView(cardView);
         callBack.updateMusicBar(selectedTrack);
+        notifyDataSetChanged();
 
     }
-
-    @SuppressLint("ResourceType")
-    private void updateCardView(CardView view) {
-        if (selectedCardView == null) {
-            selectedCardView = view;
-        } else {
-            selectedCardView.setBackgroundColor(Color.parseColor("#CB893CD5"));
-            selectedCardView = view;
-        }
-        selectedCardView.setBackgroundColor(Color.parseColor(activity.getString(R.color.colorPrimary)));
-    }
-
 
     public int findTrackIndex(Track track) {
         for (int i = 0 ; i < tracks.size();i++) {
