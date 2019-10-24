@@ -1,14 +1,155 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Controller.Fragment.TrackPlayerFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
 
-</FrameLayout>
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/trackPlayerActivity_trackLength"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/trackPlayerActivity_trackTime"
+        app:layout_constraintTop_toBottomOf="@+id/trackPlayerActivity_seekbar"
+        app:layout_constraintVertical_bias="0.439">
+
+
+        <ImageButton
+            android:id="@+id/trackPlayerActivity_skipPrevious"
+            style="@style/Widget.MaterialComponents.Button.Icon"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:background="@drawable/roundcorner"
+            android:paddingLeft="16dp"
+            android:src="@drawable/ic_skip_previous" />
+
+        <ImageButton
+            android:id="@+id/trackPlayerActivity_play_pause"
+            style="@style/Widget.MaterialComponents.Button.Icon"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:layout_marginLeft="4dp"
+            android:background="@drawable/roundcorner"
+            android:paddingLeft="16dp"
+            android:src="@drawable/ic_play" />
+
+        <ImageButton
+            android:id="@+id/trackPlayerActivity_skipNext"
+            style="@style/Widget.MaterialComponents.Button.Icon"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_marginLeft="4dp"
+            android:background="@drawable/roundcorner"
+            android:paddingLeft="16dp"
+            android:src="@drawable/ic_skip_next" />
+
+        <!--            <com.google.android.material.button.MaterialButton-->
+        <!--                android:id="@+id/musicBarFragment_skipPrevious"-->
+        <!--                android:layout_width="41dp"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                app:cornerRadius="50dp"-->
+        <!--                app:icon="@drawable/ic_skip_previous">-->
+
+
+        <!--            </com.google.android.material.button.MaterialButton>-->
+
+        <!--            <com.google.android.material.button.MaterialButton-->
+        <!--                android:id="@+id/musicBarFragment_play_pause"-->
+        <!--                android:layout_width="56dp"-->
+        <!--                android:layout_height="42dp"-->
+        <!--                android:layout_marginLeft="4dp"-->
+        <!--                app:icon="@drawable/ic_play">-->
+
+
+        <!--            </com.google.android.material.button.MaterialButton>-->
+
+        <!--            <com.google.android.material.button.MaterialButton-->
+        <!--                android:id="@+id/musicBarFragment_skipNext"-->
+        <!--                android:layout_width="56dp"-->
+        <!--                android:layout_height="42dp"-->
+        <!--                android:layout_marginLeft="4dp"-->
+        <!--                app:icon="@drawable/ic_skip_next">-->
+
+
+        <!--            </com.google.android.material.button.MaterialButton>-->
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/trackPlayerActivity_cover"
+        android:layout_width="357dp"
+        android:layout_height="365dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars[0]" />
+
+    <TextView
+        android:id="@+id/trackPlayerActivity_trackTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
+        android:gravity="center"
+        android:text="TextView"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="@+id/trackPlayerActivity_cover"
+        app:layout_constraintHorizontal_bias="0.469"
+        app:layout_constraintStart_toStartOf="@+id/trackPlayerActivity_cover"
+        app:layout_constraintTop_toBottomOf="@+id/trackPlayerActivity_cover" />
+
+    <TextView
+        android:id="@+id/trackPlayerActivity_trackLength"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp"
+        android:text="TextView"
+        android:textSize="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/trackPlayerActivity_trackArtist" />
+
+    <SeekBar
+        android:id="@+id/trackPlayerActivity_seekbar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginRight="4dp"
+        app:layout_constraintEnd_toStartOf="@+id/trackPlayerActivity_trackLength"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/trackPlayerActivity_trackTime"
+        app:layout_constraintTop_toBottomOf="@+id/trackPlayerActivity_trackArtist" />
+
+    <TextView
+        android:id="@+id/trackPlayerActivity_trackArtist"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="@+id/trackPlayerActivity_trackTitle"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/trackPlayerActivity_trackTitle"
+        app:layout_constraintTop_toBottomOf="@+id/trackPlayerActivity_trackTitle" />
+
+    <TextView
+        android:id="@+id/trackPlayerActivity_trackTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:text="TextView"
+        android:textSize="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/trackPlayerActivity_trackArtist" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

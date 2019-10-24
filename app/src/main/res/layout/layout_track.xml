@@ -4,19 +4,18 @@
     android:id="@+id/trackLayout_cardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="2dp"
     android:orientation="vertical"
     app:cardBackgroundColor="#CB893CD5">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="4dp">
+        android:padding="2dp">
 
         <ImageView
             android:id="@+id/trackLayout_trackImage"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/music_icon" />
@@ -25,12 +24,11 @@
             android:id="@+id/trackLayout_trackArtistName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginLeft="12dp"
+            android:layout_marginLeft="16dp"
             android:layout_marginTop="4dp"
             android:text="Artist Name"
             android:textColor="#DBDBDB"
-            android:textSize="14dp"
+            android:textSize="10dp"
             app:layout_constraintLeft_toRightOf="@+id/trackLayout_trackImage"
             app:layout_constraintTop_toBottomOf="@+id/trackLayout_trackName" />
 
@@ -51,12 +49,11 @@
             android:id="@+id/trackLayout_trackName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginLeft="12dp"
+            android:layout_marginLeft="16dp"
             android:layout_marginTop="8dp"
             android:text="Track Name"
             android:textColor="#FFFFFF"
-            android:textSize="16dp"
+            android:textSize="12dp"
             app:layout_constraintLeft_toRightOf="@+id/trackLayout_trackImage"
             app:layout_constraintTop_toTopOf="parent" />
 

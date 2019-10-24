@@ -1,33 +1,39 @@
 package com.mag.musicplayer.Model;
 
+import android.graphics.Bitmap;
+import android.net.Uri;
+
+import java.io.Serializable;
 import java.util.Date;
 
-public class Track {
+public class Track implements Serializable {
 
     private long trackId;
     private String trackTitle;
     private String albumName;
     private String artistName;
-    private String imagePath;
+    private Uri imagePath;
+    private Bitmap imageThumbnail;
     // length to seconds
     private int trackLength;
     private Date lastModified;
     private int trackPlayCount;
 
 
-    public Track(long trackId, String trackTitle, String albumName, String artistName, String imagePath, int trackLength, Date lastModified, int trackPlayCount) {
+    public Track(long trackId, String trackTitle, String albumName, String artistName, Uri imagePath,Bitmap imageThumbnail, int trackLength, Date lastModified, int trackPlayCount) {
         this.trackId = trackId;
         this.trackTitle = trackTitle;
         this.albumName = albumName;
         this.artistName = artistName;
         this.imagePath = imagePath;
+        this.imageThumbnail = imageThumbnail;
         this.trackLength = trackLength;
         this.lastModified = lastModified;
         this.trackPlayCount = trackPlayCount;
     }
 
-    public Track(long trackId, String trackTitle, String albumName, String artistName, String imagePath, int trackLength, Date lastModified) {
-        this(trackId, trackTitle, albumName, artistName, imagePath, trackLength, lastModified, 0);
+    public Track(long trackId, String trackTitle, String albumName, String artistName, Uri imagePath, Bitmap imageThumbnail, int trackLength, Date lastModified) {
+        this(trackId, trackTitle, albumName, artistName, imagePath, imageThumbnail, trackLength, lastModified, 0);
     }
 
 
@@ -47,7 +53,7 @@ public class Track {
         return artistName;
     }
 
-    public String getImagePath() {
+    public Uri getImagePath() {
         return imagePath;
     }
 
@@ -61,6 +67,10 @@ public class Track {
 
     public int getTrackPlayCount() {
         return trackPlayCount;
+    }
+
+    public Bitmap getImageThumbnail() {
+        return imageThumbnail;
     }
 
     public void addCount() {

@@ -1,105 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/musicBarFragment_mainLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="63dp"
+    android:background="#D53C3CFF"
+    android:padding="4dp"
+    tools:context=".Controller.Fragment.MusicBarFragment"
+    tools:layout_editor_absoluteX="0dp"
+    tools:layout_editor_absoluteY="-2dp">
 
-    <androidx.appcompat.widget.AppCompatSeekBar
-        android:id="@+id/musicBarFragment_trackSeekBar"
-        android:layout_width="match_parent"
+
+    <ImageView
+        android:id="@+id/musicBarFragment_trackImage"
+        android:layout_width="48dp"
+        android:layout_height="52dp"
+        android:background="#00FA1E1E"
+        android:src="@drawable/music_icon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#D53C3CFF"
-        android:outlineAmbientShadowColor="#fff"
-        android:outlineSpotShadowColor="#fff" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:background="#D53C3CFF"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
-        android:paddingBottom="8dp"
-        tools:context=".Controller.Fragment.MusicBarFragment">
+        android:layout_marginRight="8dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
 
-        <ImageView
-            android:id="@+id/musicBarFragment_trackImage"
-            android:layout_width="45dp"
-            android:layout_height="39dp"
-            android:layout_marginTop="4dp"
-            android:src="@drawable/music_icon"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <ImageButton
+            android:id="@+id/trackPlayerActivity_skipPrevious"
+            style="@style/Widget.MaterialComponents.Button.Icon"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:background="@drawable/roundcorner"
+            android:paddingLeft="16dp"
+            android:src="@drawable/ic_skip_previous" />
 
-        <LinearLayout
-            android:layout_width="182dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="4dp"
-            android:layout_marginRight="4dp"
-            android:gravity="center"
-            android:orientation="horizontal"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+        <ImageButton
+            android:id="@+id/trackPlayerActivity_play_pause"
+            style="@style/Widget.MaterialComponents.Button.Icon"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_marginLeft="4dp"
+            android:background="@drawable/roundcorner"
+            android:paddingLeft="16dp"
+            android:src="@drawable/ic_play" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/musicBarFragment_skipPrevious"
-                android:layout_width="56dp"
-                android:layout_height="42dp"
-                app:icon="@drawable/ic_skip_previous">
+        <ImageButton
+            android:id="@+id/trackPlayerActivity_skipNext"
+            style="@style/Widget.MaterialComponents.Button.Icon"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:layout_marginLeft="4dp"
+            android:background="@drawable/roundcorner"
+            android:paddingLeft="16dp"
+            android:src="@drawable/ic_skip_next" />
 
-
-            </com.google.android.material.button.MaterialButton>
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/musicBarFragment_play_pause"
-                android:layout_width="56dp"
-                android:layout_height="42dp"
-                android:layout_marginLeft="8dp"
-                app:icon="@drawable/ic_play">
-
-
-            </com.google.android.material.button.MaterialButton>
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/musicBarFragment_skipNext"
-                android:layout_width="56dp"
-                android:layout_height="42dp"
-                android:layout_marginLeft="8dp"
-                app:icon="@drawable/ic_skip_next">
+        <!--            <com.google.android.material.button.MaterialButton-->
+        <!--                android:id="@+id/musicBarFragment_skipPrevious"-->
+        <!--                android:layout_width="41dp"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                app:cornerRadius="50dp"-->
+        <!--                app:icon="@drawable/ic_skip_previous">-->
 
 
-            </com.google.android.material.button.MaterialButton>
+        <!--            </com.google.android.material.button.MaterialButton>-->
 
-        </LinearLayout>
+        <!--            <com.google.android.material.button.MaterialButton-->
+        <!--                android:id="@+id/musicBarFragment_play_pause"-->
+        <!--                android:layout_width="56dp"-->
+        <!--                android:layout_height="42dp"-->
+        <!--                android:layout_marginLeft="4dp"-->
+        <!--                app:icon="@drawable/ic_play">-->
 
-        <TextView
-            android:id="@+id/musicBarFragment_trackArtist"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginLeft="12dp"
-            android:layout_marginTop="8dp"
-            android:text="Singer"
-            android:textColor="#DBDBDB"
-            android:textSize="10dp"
-            app:layout_constraintLeft_toRightOf="@+id/musicBarFragment_trackImage"
-            app:layout_constraintTop_toBottomOf="@+id/musicBarFragment_trackName" />
 
-        <TextView
-            android:id="@+id/musicBarFragment_trackName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="4dp"
-            android:text="Track Name"
-            android:textColor="#FFFFFF"
-            android:textSize="12dp"
-            app:layout_constraintLeft_toRightOf="@+id/musicBarFragment_trackImage"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <!--            </com.google.android.material.button.MaterialButton>-->
 
-</LinearLayout>
+        <!--            <com.google.android.material.button.MaterialButton-->
+        <!--                android:id="@+id/musicBarFragment_skipNext"-->
+        <!--                android:layout_width="56dp"-->
+        <!--                android:layout_height="42dp"-->
+        <!--                android:layout_marginLeft="4dp"-->
+        <!--                app:icon="@drawable/ic_skip_next">-->
+
+
+        <!--            </com.google.android.material.button.MaterialButton>-->
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/musicBarFragment_trackArtist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
+        android:text="Singer"
+        android:textColor="#DBDBDB"
+        android:textSize="10dp"
+        app:layout_constraintLeft_toRightOf="@+id/musicBarFragment_trackImage"
+        app:layout_constraintTop_toBottomOf="@+id/musicBarFragment_trackName" />
+
+    <TextView
+        android:id="@+id/musicBarFragment_trackName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="8dp"
+        android:text="Track Name"
+        android:textColor="#FFFFFF"
+        android:textSize="14dp"
+        app:layout_constraintLeft_toRightOf="@+id/musicBarFragment_trackImage"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_max="210dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>

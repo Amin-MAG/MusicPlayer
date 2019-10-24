@@ -2,7 +2,9 @@ package com.mag.musicplayer.Model.Adapter;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +18,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.mag.musicplayer.Model.Track;
 import com.mag.musicplayer.R;
 import com.mag.musicplayer.Util.MusicPlayer;
+import com.mag.musicplayer.Util.PictureUtil;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.MusicListViewHolder> {
@@ -76,7 +81,12 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.Musi
 
             trackName.setText(track.getTrackTitle().length() > 24 ? track.getTrackTitle() + "..." : track.getTrackTitle());
             trackArtistName.setText(track.getArtistName());
-            trackLength.setText(getLengthText(track.getTrackLength() / 1000));
+            if (track.getImageThumbnail() != null)
+                trackImage.setImageBitmap(track.getImageThumbnail());
+            else
+                trackImage.setImageDrawable(activity.getResources().getDrawable(R.drawable.music_icon));
+
+            trackLength.setText(MusicPlayer.getLengthText(track.getTrackLength() / 1000));
 
             if (selectedTrack != null && track.getTrackId() == selectedTrack.getTrackId()) {
                 trackCardView.setBackgroundColor(Color.parseColor(activity.getString(R.color.colorPrimary)));
@@ -103,12 +113,6 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.Musi
 
         }
 
-        private String getLengthText(int seconds) {
-            int minutes = seconds / 60;
-            int secondReminder = seconds % 60;
-            return (minutes < 10 ? "0" + minutes : minutes) + ":" + (secondReminder < 10 ? "0" + secondReminder : secondReminder);
-        }
-
     }
 
 
@@ -120,7 +124,7 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.Musi
     }
 
     public int findTrackIndex(Track track) {
-        for (int i = 0 ; i < tracks.size();i++) {
+        for (int i = 0; i < tracks.size(); i++) {
             if (tracks.get(i).getTrackId() == track.getTrackId())
                 return i;
         }

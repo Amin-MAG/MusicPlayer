@@ -15,12 +15,7 @@ import com.mag.musicplayer.Util.UiUtil;
 public abstract class SingleFragmentActivity extends AppCompatActivity {
 
     public abstract Fragment getFragment();
-
     public abstract String getTagName();
-
-    public Intent newIntent(Context context) {
-        return new Intent(context, SingleFragmentActivity.class);
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
