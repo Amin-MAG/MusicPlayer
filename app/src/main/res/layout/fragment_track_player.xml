@@ -11,15 +11,14 @@
         android:id="@+id/linearLayout2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="28dp"
         android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/trackPlayerActivity_trackLength"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/trackPlayerActivity_trackTime"
-        app:layout_constraintTop_toBottomOf="@+id/trackPlayerActivity_seekbar"
-        app:layout_constraintVertical_bias="0.439">
+        app:layout_constraintStart_toStartOf="@+id/trackPlayerActivity_trackTime">
 
 
         <ImageButton
@@ -85,8 +84,8 @@
 
     <ImageView
         android:id="@+id/trackPlayerActivity_cover"
-        android:layout_width="357dp"
-        android:layout_height="365dp"
+        android:layout_width="333dp"
+        android:layout_height="349dp"
         android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -97,59 +96,58 @@
         android:id="@+id/trackPlayerActivity_trackTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
+        android:layout_marginBottom="16dp"
         android:gravity="center"
         android:text="TextView"
         android:textSize="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/trackPlayerActivity_trackArtist"
         app:layout_constraintEnd_toEndOf="@+id/trackPlayerActivity_cover"
-        app:layout_constraintHorizontal_bias="0.469"
-        app:layout_constraintStart_toStartOf="@+id/trackPlayerActivity_cover"
-        app:layout_constraintTop_toBottomOf="@+id/trackPlayerActivity_cover" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/trackPlayerActivity_cover" />
 
     <TextView
         android:id="@+id/trackPlayerActivity_trackLength"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
         android:layout_marginEnd="4dp"
         android:layout_marginRight="4dp"
+        android:layout_marginBottom="16dp"
         android:text="TextView"
         android:textSize="12dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/trackPlayerActivity_trackArtist" />
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <SeekBar
         android:id="@+id/trackPlayerActivity_seekbar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="4dp"
-        android:layout_marginTop="48dp"
         android:layout_marginRight="4dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
         app:layout_constraintEnd_toStartOf="@+id/trackPlayerActivity_trackLength"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/trackPlayerActivity_trackTime"
-        app:layout_constraintTop_toBottomOf="@+id/trackPlayerActivity_trackArtist" />
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/trackPlayerActivity_trackTime" />
 
     <TextView
         android:id="@+id/trackPlayerActivity_trackArtist"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginBottom="20dp"
         android:gravity="center"
         android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/trackPlayerActivity_seekbar"
         app:layout_constraintEnd_toEndOf="@+id/trackPlayerActivity_trackTitle"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/trackPlayerActivity_trackTitle"
-        app:layout_constraintTop_toBottomOf="@+id/trackPlayerActivity_trackTitle" />
+        app:layout_constraintStart_toStartOf="@+id/trackPlayerActivity_trackTitle" />
 
     <TextView
         android:id="@+id/trackPlayerActivity_trackTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
         android:text="TextView"
         android:textSize="12dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/trackPlayerActivity_trackArtist" />
+        app:layout_constraintBottom_toBottomOf="@+id/trackPlayerActivity_seekbar"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

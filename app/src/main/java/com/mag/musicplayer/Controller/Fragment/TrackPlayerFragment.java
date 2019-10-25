@@ -1,9 +1,8 @@
 package com.mag.musicplayer.Controller.Fragment;
 
 
-import android.graphics.Bitmap;
+import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +27,18 @@ public class TrackPlayerFragment extends Fragment {
     private TextView trackTitle, trackArtist, trackLength, trackTime;
     private SeekBar trackSeekBar;
     private ImageButton playPauseBtn, skipNextBtn, skipPreviousBtn;
+
+    private TrackPlayerCallback callback;
+
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        if (getActivity() instanceof TrackPlayerCallback)
+            callback = (TrackPlayerCallback) getActivity();
+
+    }
 
     public static TrackPlayerFragment newInstance(Track track) {
 
@@ -66,9 +77,14 @@ public class TrackPlayerFragment extends Fragment {
 
         trackTitle.setText(track.getTrackTitle());
         trackArtist.setText(track.getArtistName());
-        trackLength.setText(MusicPlayer.getLengthText(track.getTrackLength()/1000));
+        trackLength.setText(MusicPlayer.getLengthText(track.getTrackLength() / 1000));
 
-        Log.d("pathLog", track.getImagePath() + "") ;
+        if (MusicPlayer.getInstance().getMediaPlayer().isPlaying()) {
+            playPauseBtn.setImageDrawable(getResources().getDrawable(R.drawable.ic_pause));
+        } else {
+            playPauseBtn.setImageDrawable(getResources().getDrawable(R.drawable.ic_play));
+        }
+
 
         if (track.getImageThumbnail() == null)
             trackImage.setImageDrawable(getResources().getDrawable(R.drawable.music_icon));
@@ -76,6 +92,23 @@ public class TrackPlayerFragment extends Fragment {
             trackImage.setImageBitmap(PictureUtil.getScaleBitmap(MusicPlayer.getInputStreamOfImage(getActivity().getContentResolver(), track.getImagePath()), 512, 512));
 
 
+        playPauseBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (MusicPlayer.getInstance().getMediaPlayer().isPlaying()) {
+                    MusicPlayer.getInstance().getMediaPlayer().pause();
+                    playPauseBtn.setImageDrawable(getResources().getDrawable(R.drawable.ic_play));
+                } else {
+                    MusicPlayer.getInstance().getMediaPlayer().start();
+                    playPauseBtn.setImageDrawable(getResources().getDrawable(R.drawable.ic_pause));
+                }
+            }
+        });
+
+    }
+
+    public interface TrackPlayerCallback {
+        void updateMusicBar(Track track);
     }
 
 }

@@ -3,7 +3,9 @@ package com.mag.musicplayer.Controller.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.mag.musicplayer.Controller.Fragment.FilterItemsFragment;
@@ -32,6 +34,19 @@ public class MusicPlayerActivity extends AppCompatActivity implements MusicListF
         return new Intent(context, MusicPlayerActivity.class);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        updateMusicBar(null);
+
+    }
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_music_player);
@@ -48,7 +63,11 @@ public class MusicPlayerActivity extends AppCompatActivity implements MusicListF
     @Override
     public void updateMusicBar(Track track) {
 
-        musicBarFragment.updateBar(track);
+        if (track == null) {
+            musicBarFragment.updateBar();;
+        } else {
+            musicBarFragment.updateBar(track);
+        }
 
     }
 
@@ -56,7 +75,7 @@ public class MusicPlayerActivity extends AppCompatActivity implements MusicListF
     public Track getTrackDistance(int n) {
         int index = musicListFragment.getAdapter().findTrackIndex(MusicPlayer.getInstance().getCurrentTrack()) + n;
         int size = musicListFragment.getAdapter().getItemCount();
-        if (index% size < 0) index += size;
+        if (index % size < 0) index += size;
         index %= size;
         Track track = musicListFragment.getAdapter().getTracks().get(index);
         musicListFragment.getAdapter().setSelectedTrack(track);

@@ -56,7 +56,6 @@ public class MusicBarFragment extends Fragment {
     public MusicBarFragment() {
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_music_bar, container, false);
@@ -132,7 +131,8 @@ public class MusicBarFragment extends Fragment {
 
         trackName.setText(track.getTrackTitle().length() > 12 ? track.getTrackTitle() + "..." : track.getTrackTitle());
         trackArtist.setText(track.getArtistName());
-        playPauseBtn.setImageDrawable(getResources().getDrawable(R.drawable.ic_pause));
+
+        updatePlayPause();
 
         if (track.getImageThumbnail() != null) {
             trackImage.setImageBitmap(track.getImageThumbnail());
@@ -141,6 +141,20 @@ public class MusicBarFragment extends Fragment {
         }
 
         barTrack = track;
+
+    }
+
+    public void updateBar() {
+        updatePlayPause();
+    }
+
+    private void updatePlayPause() {
+
+        if (MusicPlayer.getInstance().getMediaPlayer().isPlaying()) {
+            playPauseBtn.setImageDrawable(getResources().getDrawable(R.drawable.ic_pause));
+        } else {
+            playPauseBtn.setImageDrawable(getResources().getDrawable(R.drawable.ic_play));
+        }
 
     }
 
