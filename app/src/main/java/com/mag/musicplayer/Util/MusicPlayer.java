@@ -4,20 +4,15 @@ import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.media.AudioManager;
-import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.provider.MediaStore;
-import android.util.Log;
 
 import com.mag.musicplayer.Model.MusicRepository;
 import com.mag.musicplayer.Model.Track;
 import com.mag.musicplayer.Var.Constants;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -28,6 +23,7 @@ public class MusicPlayer {
 
     public static final String CONTENT_MEDIA_EXTERNAL_AUDIO_ALBUMART = "content://media/external/audio/albumart";
     private static MusicPlayer instance;
+    private MusicPlayerCallback callback;
 
     private MusicPlayer() {
         this.mediaPlayer = new MediaPlayer();
@@ -47,7 +43,7 @@ public class MusicPlayer {
         Cursor cursor = contentResolver.query(Constants.externalMusicUri, null, null, null, null);
         List<Track> tracks = new ArrayList<>();
 
-        while (cursor.moveToNext()){
+        while (cursor.moveToNext()) {
 
 
             String trackId = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media._ID));
@@ -62,7 +58,7 @@ public class MusicPlayer {
             Uri uri = ContentUris.withAppendedId(sArtworkUri, Long.parseLong(cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID))));
             InputStream in = getInputStreamOfImage(contentResolver, uri);
 
-            tracks.add(new Track(Long.parseLong(trackId), trackTitle, trackAlbum, trackArtist, uri,PictureUtil.getScaleBitmap(in,96,96), Integer.parseInt(trackLength), null));
+            tracks.add(new Track(Long.parseLong(trackId), trackTitle, trackAlbum, trackArtist, uri, PictureUtil.getScaleBitmap(in, 96, 96), Integer.parseInt(trackLength), null));
 
         }
 
@@ -83,21 +79,34 @@ public class MusicPlayer {
         return in;
     }
 
-    public void playMusic(Track track, Context context) throws IOException {
+    public void playMusic(Track track, final Context context) throws IOException {
 
         mediaPlayer.stop();
 
-        currentTrack = track;       
+        currentTrack = track;
 
         Uri contentUri = ContentUris.withAppendedId(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, currentTrack.getTrackId());
 
         mediaPlayer = new MediaPlayer();
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         mediaPlayer.setDataSource(context.getApplicationContext(), contentUri);
+        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                Track nextTrack = callback.getNextTrack();
+                try {
+                    playMusic(nextTrack, context);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                callback.updateUiAutoSkip();
+            }
+        });
         mediaPlayer.prepare();
         mediaPlayer.start();
 
     }
+
 
 //    public void playMusic(long id, Context context) throws IOException {
 //
@@ -114,6 +123,10 @@ public class MusicPlayer {
 //    }
 
 
+    public void setCallback(MusicPlayerCallback callback) {
+        this.callback = callback;
+    }
+
     public MediaPlayer getMediaPlayer() {
         return mediaPlayer;
     }
@@ -126,6 +139,11 @@ public class MusicPlayer {
         int minutes = seconds / 60;
         int secondReminder = seconds % 60;
         return (minutes < 10 ? "0" + minutes : minutes) + ":" + (secondReminder < 10 ? "0" + secondReminder : secondReminder);
+    }
+
+    public interface MusicPlayerCallback {
+        Track getNextTrack();
+        void updateUiAutoSkip();
     }
 
 }

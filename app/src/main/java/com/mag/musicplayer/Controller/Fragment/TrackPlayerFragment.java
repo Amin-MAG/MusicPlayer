@@ -139,7 +139,7 @@ public class TrackPlayerFragment extends Fragment {
 
     }
 
-    private void update(Track track) {
+    public void update(Track track) {
 
         trackTitle.setText(track.getTrackTitle());
         trackArtist.setText(track.getArtistName());

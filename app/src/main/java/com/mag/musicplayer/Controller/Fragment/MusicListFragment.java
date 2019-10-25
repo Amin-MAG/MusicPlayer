@@ -3,20 +3,21 @@ package com.mag.musicplayer.Controller.Fragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
+import com.mag.musicplayer.Controller.Activity.TrackPlayerActivity;
 import com.mag.musicplayer.Model.Adapter.MusicListAdapter;
+import com.mag.musicplayer.Model.MusicRepository;
 import com.mag.musicplayer.Model.Track;
 import com.mag.musicplayer.R;
-import com.mag.musicplayer.Model.MusicRepository;
+import com.mag.musicplayer.Util.MusicPlayer;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -69,6 +70,23 @@ public class MusicListFragment extends Fragment {
                     callback.updateMusicBar(track);
             }
         });
+        MusicPlayer.getInstance().setCallback(new MusicPlayer.MusicPlayerCallback() {
+            private Track nextTrack;
+
+            @Override
+            public Track getNextTrack() {
+                nextTrack = callback.getNext();
+                return nextTrack;
+            }
+
+            @Override
+            public void updateUiAutoSkip() {
+                callback.updateMusicBar(nextTrack);
+                if (TrackPlayerActivity.getTrackPlayerActivity() != null)
+                    TrackPlayerActivity.getTrackPlayerActivity().update(nextTrack);
+            }
+
+        });
         recyclerView.setAdapter(adapter);
 
     }
@@ -79,6 +97,8 @@ public class MusicListFragment extends Fragment {
 
     public interface MusicListCallback {
         void updateMusicBar(Track track);
+
+        Track getNext();
     }
 
 }

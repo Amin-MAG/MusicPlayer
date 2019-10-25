@@ -1,6 +1,7 @@
 package com.mag.musicplayer.Controller.Fragment;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;

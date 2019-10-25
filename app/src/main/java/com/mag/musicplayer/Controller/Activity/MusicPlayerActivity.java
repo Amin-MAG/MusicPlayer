@@ -64,11 +64,17 @@ public class MusicPlayerActivity extends AppCompatActivity implements MusicListF
     public void updateMusicBar(Track track) {
 
         if (track == null) {
-            musicBarFragment.updateBar();;
+            musicBarFragment.updateBar();
+            ;
         } else {
             musicBarFragment.updateBar(track);
         }
 
+    }
+
+    @Override
+    public Track getNext() {
+        return getTrackDistance(+1);
     }
 
     @Override
