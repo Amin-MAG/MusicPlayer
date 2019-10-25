@@ -70,7 +70,12 @@ public class MusicBarFragment extends Fragment {
         mainLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(TrackPlayerActivity.newIntent(getActivity(), barTrack));
+                startActivity(TrackPlayerActivity.newIntent(getActivity(), barTrack, new TrackPlayerActivity.TrackActivityCallback() {
+                    @Override
+                    public Track getTrackDistanceFromAdapter(int distance) {
+                        return callback.getTrackDistance(distance);
+                    }
+                }));
             }
         });
 

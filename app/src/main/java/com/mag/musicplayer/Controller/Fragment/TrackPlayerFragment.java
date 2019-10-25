@@ -20,6 +20,8 @@ import com.mag.musicplayer.R;
 import com.mag.musicplayer.Util.MusicPlayer;
 import com.mag.musicplayer.Util.PictureUtil;
 
+import java.io.IOException;
+
 public class TrackPlayerFragment extends Fragment {
 
     public static final String ARG_TRACK = "arg_track";
@@ -105,10 +107,60 @@ public class TrackPlayerFragment extends Fragment {
             }
         });
 
+        skipPreviousBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Track previousTrack = callback.getTrackDistance(-1);
+                try {
+                    MusicPlayer.getInstance().playMusic(previousTrack, getContext());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                playPauseBtn.setImageDrawable(getResources().getDrawable(R.drawable.ic_pause));
+                update(previousTrack);
+            }
+        });
+
+        skipNextBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Track nextTrack = callback.getTrackDistance(+1);
+                try {
+                    MusicPlayer.getInstance().playMusic(nextTrack, getContext());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                playPauseBtn.setImageDrawable(getResources().getDrawable(R.drawable.ic_pause));
+                update(nextTrack);
+            }
+        });
+
+    }
+
+    private void update(Track track) {
+
+        trackTitle.setText(track.getTrackTitle());
+        trackArtist.setText(track.getArtistName());
+        trackLength.setText(MusicPlayer.getLengthText(track.getTrackLength() / 1000));
+
+        if (MusicPlayer.getInstance().getMediaPlayer().isPlaying()) {
+            playPauseBtn.setImageDrawable(getResources().getDrawable(R.drawable.ic_pause));
+        } else {
+            playPauseBtn.setImageDrawable(getResources().getDrawable(R.drawable.ic_play));
+        }
+
+
+        if (track.getImageThumbnail() == null)
+            trackImage.setImageDrawable(getResources().getDrawable(R.drawable.music_icon));
+        else
+            trackImage.setImageBitmap(PictureUtil.getScaleBitmap(MusicPlayer.getInputStreamOfImage(getActivity().getContentResolver(), track.getImagePath()), 512, 512));
+
+
+
     }
 
     public interface TrackPlayerCallback {
-        void updateMusicBar(Track track);
+        Track getTrackDistance(int distance);
     }
 
 }
