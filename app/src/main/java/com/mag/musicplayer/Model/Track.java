@@ -3,10 +3,9 @@ package com.mag.musicplayer.Model;
 import android.graphics.Bitmap;
 import android.net.Uri;
 
-import java.io.Serializable;
 import java.util.Date;
 
-public class Track implements Serializable {
+public class Track {
 
     private long trackId;
     private String trackTitle;
@@ -20,7 +19,7 @@ public class Track implements Serializable {
     private int trackPlayCount;
 
 
-    public Track(long trackId, String trackTitle, String albumName, String artistName, Uri imagePath,Bitmap imageThumbnail, int trackLength, Date lastModified, int trackPlayCount) {
+    public Track(long trackId, String trackTitle, String albumName, String artistName, Uri imagePath, Bitmap imageThumbnail, int trackLength, Date lastModified, int trackPlayCount) {
         this.trackId = trackId;
         this.trackTitle = trackTitle;
         this.albumName = albumName;

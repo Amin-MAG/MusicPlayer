@@ -30,4 +30,10 @@ public class MusicRepository {
         return tracks;
     }
 
+    public Track getTrackById(long trackId) {
+        for (Track track : tracks)
+            if (track.getTrackId() == trackId) return track;
+        return null;
+    }
+
 }
