@@ -19,9 +19,6 @@ import com.mag.musicplayer.Model.Track;
 import com.mag.musicplayer.R;
 import com.mag.musicplayer.Util.MusicPlayer;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class MusicListFragment extends Fragment {
 
     private RecyclerView recyclerView;

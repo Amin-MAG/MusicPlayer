@@ -1,7 +1,6 @@
 package com.mag.musicplayer.Controller.Fragment;
 
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -20,6 +19,7 @@ import com.mag.musicplayer.Controller.Activity.TrackPlayerActivity;
 import com.mag.musicplayer.Model.Track;
 import com.mag.musicplayer.R;
 import com.mag.musicplayer.Util.MusicPlayer;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 
@@ -140,11 +140,7 @@ public class MusicBarFragment extends Fragment {
 
         updatePlayPause();
 
-        if (track.getImageThumbnail() != null) {
-            trackImage.setImageBitmap(track.getImageThumbnail());
-        } else {
-            trackImage.setImageDrawable(getResources().getDrawable(R.drawable.music_icon));
-        }
+        Picasso.get().load(track.getImagePath()).placeholder(getResources().getDrawable(R.drawable.music_icon)).into(trackImage);
 
         barTrack = track;
 

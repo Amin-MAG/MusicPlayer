@@ -45,20 +45,15 @@ public class MusicPlayer {
 
         while (cursor.moveToNext()) {
 
-
             String trackId = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media._ID));
             String trackTitle = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.TITLE));
             String trackAlbum = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM));
             String trackArtist = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST));
             String trackLength = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.DURATION));
+            // Music Cover Uri
+            Uri uri = ContentUris.withAppendedId(Uri.parse(CONTENT_MEDIA_EXTERNAL_AUDIO_ALBUMART), Long.parseLong(cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID))));
 
-            // Music Cover
-
-            Uri sArtworkUri = Uri.parse(CONTENT_MEDIA_EXTERNAL_AUDIO_ALBUMART);
-            Uri uri = ContentUris.withAppendedId(sArtworkUri, Long.parseLong(cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID))));
-            InputStream in = getInputStreamOfImage(contentResolver, uri);
-
-            tracks.add(new Track(Long.parseLong(trackId), trackTitle, trackAlbum, trackArtist, uri, PictureUtil.getScaleBitmap(in, 96, 96), Integer.parseInt(trackLength), null));
+            tracks.add(new Track(Long.parseLong(trackId), trackTitle, trackAlbum, trackArtist, uri, Integer.parseInt(trackLength), null));
 
         }
 
@@ -107,22 +102,6 @@ public class MusicPlayer {
 
     }
 
-
-//    public void playMusic(long id, Context context) throws IOException {
-//
-//        mediaPlayer.stop();
-//
-//        Uri contentUri = ContentUris.withAppendedId(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, id);
-//
-//        mediaPlayer = new MediaPlayer();
-//        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-//        mediaPlayer.setDataSource(context.getApplicationContext(), contentUri);
-//        mediaPlayer.prepare();
-//        mediaPlayer.start();
-//
-//    }
-
-
     public void setCallback(MusicPlayerCallback callback) {
         this.callback = callback;
     }
@@ -143,6 +122,7 @@ public class MusicPlayer {
 
     public interface MusicPlayerCallback {
         Track getNextTrack();
+
         void updateUiAutoSkip();
     }
 

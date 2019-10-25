@@ -19,7 +19,7 @@ import com.mag.musicplayer.Model.MusicRepository;
 import com.mag.musicplayer.Model.Track;
 import com.mag.musicplayer.R;
 import com.mag.musicplayer.Util.MusicPlayer;
-import com.mag.musicplayer.Util.PictureUtil;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 
@@ -66,7 +66,7 @@ public class TrackPlayerFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        long trackId =  getArguments().getLong(ARG_TRACK);
+        long trackId = getArguments().getLong(ARG_TRACK);
         Track track = MusicRepository.getInstance().getTrackById(trackId);
 
         trackTitle = view.findViewById(R.id.trackPlayerActivity_trackTitle);
@@ -90,11 +90,7 @@ public class TrackPlayerFragment extends Fragment {
         }
 
 
-        if (track.getImageThumbnail() == null)
-            trackImage.setImageDrawable(getResources().getDrawable(R.drawable.music_icon));
-        else
-            trackImage.setImageBitmap(PictureUtil.getScaleBitmap(MusicPlayer.getInputStreamOfImage(getActivity().getContentResolver(), track.getImagePath()), 512, 512));
-
+        Picasso.get().load(track.getImagePath()).placeholder(getResources().getDrawable(R.drawable.music_icon)).into(trackImage);
 
         playPauseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -151,12 +147,7 @@ public class TrackPlayerFragment extends Fragment {
             playPauseBtn.setImageDrawable(getResources().getDrawable(R.drawable.ic_play));
         }
 
-        if (track.getImageThumbnail() == null) {
-            trackImage.setImageDrawable(getResources().getDrawable(R.drawable.music_icon));
-        } else {
-            trackImage.setImageBitmap(PictureUtil.getScaleBitmap(MusicPlayer.getInputStreamOfImage(getActivity().getContentResolver(), track.getImagePath()), 512, 512));
-        }
-
+        Picasso.get().load(track.getImagePath()).placeholder(getResources().getDrawable(R.drawable.music_icon)).into(trackImage);
 
     }
 

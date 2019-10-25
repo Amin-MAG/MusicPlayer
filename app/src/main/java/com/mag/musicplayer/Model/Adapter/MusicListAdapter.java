@@ -2,9 +2,7 @@ package com.mag.musicplayer.Model.Adapter;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.ContentResolver;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,11 +16,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.mag.musicplayer.Model.Track;
 import com.mag.musicplayer.R;
 import com.mag.musicplayer.Util.MusicPlayer;
-import com.mag.musicplayer.Util.PictureUtil;
+import com.squareup.picasso.Picasso;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 
 public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.MusicListViewHolder> {
@@ -81,10 +77,8 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.Musi
 
             trackName.setText(track.getTrackTitle().length() > 24 ? track.getTrackTitle() + "..." : track.getTrackTitle());
             trackArtistName.setText(track.getArtistName());
-            if (track.getImageThumbnail() != null)
-                trackImage.setImageBitmap(track.getImageThumbnail());
-            else
-                trackImage.setImageDrawable(activity.getResources().getDrawable(R.drawable.music_icon));
+
+            Picasso.get().load(track.getImagePath()).placeholder(activity.getResources().getDrawable(R.drawable.music_icon)).into(trackImage);
 
             trackLength.setText(MusicPlayer.getLengthText(track.getTrackLength() / 1000));
 
