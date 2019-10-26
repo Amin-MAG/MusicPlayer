@@ -16,7 +16,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <FrameLayout
-        android:id="@+id/musicPlayerActivity_listFrame"
+        android:id="@+id/musicPlayerActivity_viewPagerFrame"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/musicPlayerActivity_trackFrame"
