@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/albumBoxLayout_image"
+        android:layout_width="0dp"
+        android:layout_height="219dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars[0]" />
+
+    <TextView
+        android:id="@+id/albumBoxLayout_albumName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Album Name"
+        android:textSize="24dp"
+        app:layout_constraintEnd_toEndOf="@+id/albumBoxLayout_image"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="@+id/albumBoxLayout_image"
+        app:layout_constraintTop_toBottomOf="@+id/albumBoxLayout_image" />
+
+    <TextView
+        android:id="@+id/albumBoxLayout_artsitName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Artist Name"
+        app:layout_constraintEnd_toEndOf="@+id/albumBoxLayout_albumName"
+        app:layout_constraintStart_toStartOf="@+id/albumBoxLayout_albumName"
+        app:layout_constraintTop_toBottomOf="@+id/albumBoxLayout_albumName" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

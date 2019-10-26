@@ -28,7 +28,6 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.Musi
     private MusicListAdapterCallback callBack;
 
     private Activity activity;
-    private CardView selectedCardView;
 
     public MusicListAdapter(List<Track> tracks, MusicListAdapterCallback callBack) {
         this.tracks = tracks;
