@@ -9,6 +9,8 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.provider.MediaStore;
 
+import com.mag.musicplayer.Model.Album;
+import com.mag.musicplayer.Model.Artist;
 import com.mag.musicplayer.Model.MusicRepository;
 import com.mag.musicplayer.Model.Track;
 import com.mag.musicplayer.Var.Constants;
@@ -18,6 +20,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class MusicPlayer {
 
@@ -42,6 +45,8 @@ public class MusicPlayer {
 
         Cursor cursor = contentResolver.query(Constants.externalMusicUri, null, null, null, null);
         List<Track> tracks = new ArrayList<>();
+        List<Album> albums = new ArrayList<>();
+        List<Artist> artists = new ArrayList<>();
 
         while (cursor.moveToNext()) {
 
@@ -53,13 +58,30 @@ public class MusicPlayer {
             // Music Cover Uri
             Uri uri = ContentUris.withAppendedId(Uri.parse(CONTENT_MEDIA_EXTERNAL_AUDIO_ALBUMART), Long.parseLong(cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID))));
 
-            tracks.add(new Track(Long.parseLong(trackId), trackTitle, trackAlbum, trackArtist, uri, Integer.parseInt(trackLength), null));
+            Track thisLoopTrack = new Track(Long.parseLong(trackId), trackTitle, trackAlbum, trackArtist, uri, Integer.parseInt(trackLength), null);
+
+//            boolean artistExists = false;
+//            for (Track artist : artists) {
+//                if (artist.)
+//            }
+
+            boolean albumExists = false;
+            for (Album album : albums)
+                if (album.getAlbumTitle().equals(thisLoopTrack.getAlbumName())) {
+                    albumExists = true;
+                    album.getTracks().add(thisLoopTrack.getTrackId());
+                }
+            if (!albumExists)
+                albums.add(new Album(UUID.randomUUID(), trackAlbum, trackArtist, uri));
+
+            tracks.add(thisLoopTrack);
 
         }
 
         cursor.close();
 
         MusicRepository.getInstance().setTracks(tracks);
+        MusicRepository.getInstance().setAlbums(albums);
 
     }
 

@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
     android:orientation="vertical">
 
     <ImageView
@@ -20,17 +21,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Album Name"
-        android:textSize="24dp"
+        android:textSize="16dp"
         app:layout_constraintEnd_toEndOf="@+id/albumBoxLayout_image"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="@+id/albumBoxLayout_image"
         app:layout_constraintTop_toBottomOf="@+id/albumBoxLayout_image" />
 
     <TextView
-        android:id="@+id/albumBoxLayout_artsitName"
+        android:id="@+id/albumBoxLayout_artistName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Artist Name"
+        android:textSize="12dp"
         app:layout_constraintEnd_toEndOf="@+id/albumBoxLayout_albumName"
         app:layout_constraintStart_toStartOf="@+id/albumBoxLayout_albumName"
         app:layout_constraintTop_toBottomOf="@+id/albumBoxLayout_albumName" />

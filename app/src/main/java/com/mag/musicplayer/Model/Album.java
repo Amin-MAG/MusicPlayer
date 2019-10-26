@@ -2,22 +2,27 @@ package com.mag.musicplayer.Model;
 
 import android.net.Uri;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
 public class Album {
 
-    private long albumId;
+    private UUID albumId;
     private String albumTitle;
-    private long artistId;
+    private String artistName;
     private Uri imagePath;
+    private List<Long> tracks = new ArrayList<>();
 
 
-    public Album(long albumId, String albumTitle, long artistId, Uri imagePath) {
+    public Album(UUID albumId, String albumTitle, String artistName, Uri imagePath) {
         this.albumId = albumId;
         this.albumTitle = albumTitle;
-        this.artistId = artistId;
+        this.artistName = artistName;
         this.imagePath = imagePath;
     }
 
-    public long getAlbumId() {
+    public UUID getAlbumId() {
         return albumId;
     }
 
@@ -25,12 +30,16 @@ public class Album {
         return albumTitle;
     }
 
-    public long getArtistId() {
-        return artistId;
+    public String getArtistName() {
+        return artistName;
     }
 
     public Uri getImagePath() {
         return imagePath;
+    }
+
+    public List<Long> getTracks() {
+        return tracks;
     }
 
 }
