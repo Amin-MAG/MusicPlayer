@@ -13,7 +13,6 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.mag.musicplayer.Model.Album;
 import com.mag.musicplayer.Model.Track;
 import com.mag.musicplayer.R;
 import com.mag.musicplayer.Util.MusicPlayer;
@@ -74,7 +73,7 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.Musi
         @SuppressLint("ResourceType")
         public void bind(final Track track) {
 
-            trackName.setText(track.getTrackTitle().length() > 30 ? track.getTrackTitle() .substring(0,30)+ "..." : track.getTrackTitle());
+            trackName.setText(track.getTrackTitle().length() > 30 ? track.getTrackTitle().substring(0, 30) + "..." : track.getTrackTitle());
             trackArtistName.setText(track.getArtistName());
 
             Picasso.get().load(track.getImagePath()).placeholder(activity.getResources().getDrawable(R.drawable.music_icon)).into(trackImage);

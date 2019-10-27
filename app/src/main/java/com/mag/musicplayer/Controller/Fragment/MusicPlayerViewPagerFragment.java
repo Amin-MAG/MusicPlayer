@@ -52,7 +52,6 @@ public class MusicPlayerViewPagerFragment extends Fragment {
         fragments.put(VIEW_PAGER__MUSIC_LIST, MusicListFragment.newInstance());
         fragments.put(VIEW_PAGER_ALBUM_LIST , AlbumListFragment.newInstance());
         fragments.put(VIEW_PAGER__ARTIST_LIST, ArtistListFragment.newInstance());
-        fragments.put(VIEW_PAGER__MUSIC_LIST + "4", MusicListFragment.newInstance());
 
         viewPager = view.findViewById(R.id.musicViewPagerFragment_viewPager);
         musicViewPagerAdapter = new MusicViewPagerAdapter(getFragmentManager(), fragments);

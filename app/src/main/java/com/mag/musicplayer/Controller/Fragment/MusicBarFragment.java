@@ -71,12 +71,13 @@ public class MusicBarFragment extends Fragment {
         mainLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(TrackPlayerActivity.newIntent(getActivity(), barTrack, new TrackPlayerActivity.TrackActivityCallback() {
-                    @Override
-                    public Track getTrackDistanceFromAdapter(int distance) {
-                        return callback.getTrackDistance(distance);
-                    }
-                }));
+                if (barTrack != null)
+                    startActivity(TrackPlayerActivity.newIntent(getActivity(), barTrack, new TrackPlayerActivity.TrackActivityCallback() {
+                        @Override
+                        public Track getTrackDistanceFromAdapter(int distance) {
+                            return callback.getTrackDistance(distance);
+                        }
+                    }));
             }
         });
 
@@ -97,8 +98,8 @@ public class MusicBarFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Track nextTrack = callback.getTrackDistance(+1);
+                callback.updateRecyclerSelectedTrack(nextTrack);
                 try {
-                    callback.updateRecyclerSelectedTrack(nextTrack);
                     MusicPlayer.getInstance().playMusic(nextTrack, getContext());
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -112,8 +113,8 @@ public class MusicBarFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Track previousTrack = callback.getTrackDistance(-1);
+                callback.updateRecyclerSelectedTrack(previousTrack);
                 try {
-                    callback.updateRecyclerSelectedTrack(previousTrack);
                     MusicPlayer.getInstance().playMusic(previousTrack, getContext());
                 } catch (IOException e) {
                     e.printStackTrace();
