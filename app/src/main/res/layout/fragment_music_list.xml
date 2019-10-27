@@ -1,11 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/musicListFragment_recycler"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#B426FF4A"
-    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-    tools:context=".Controller.Fragment.MusicListFragment" />
+    android:orientation="vertical"
+    tools:context=".Controller.Fragment.MusicListFragment">
+
+    <SearchView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/musicListFragment_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#B426FF4A"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+</LinearLayout>
