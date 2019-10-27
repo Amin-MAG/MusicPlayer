@@ -95,4 +95,8 @@ public class AlbumListFragment extends Fragment {
         void updateMusicBar(Track track);
     }
 
+    public MusicListAdapter getMusicListAdapter() {
+        return musicListAdapter;
+    }
+
 }

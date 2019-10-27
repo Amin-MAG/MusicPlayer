@@ -91,4 +91,10 @@ public class MusicPlayerActivity extends AppCompatActivity implements MusicListF
         return track;
     }
 
+    @Override
+    public void updateRecyclerSelectedTrack(Track track) {
+        musicPlayerViewPagerFragment.getMusicList().getAdapter().setSelectedTrack(track);
+        musicPlayerViewPagerFragment.getAlbumList().getMusicListAdapter().setSelectedTrack(track);
+    }
+
 }

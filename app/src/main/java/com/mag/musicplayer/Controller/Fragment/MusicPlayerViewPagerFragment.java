@@ -78,4 +78,8 @@ public class MusicPlayerViewPagerFragment extends Fragment {
         return (MusicListFragment) fragments.get(VIEW_PAGER__MUSIC_LIST);
     }
 
+    public AlbumListFragment getAlbumList() {
+        return (AlbumListFragment) fragments.get(VIEW_PAGER_ALBUM_LIST);
+    }
+
 }

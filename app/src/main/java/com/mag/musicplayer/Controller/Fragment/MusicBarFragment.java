@@ -98,6 +98,7 @@ public class MusicBarFragment extends Fragment {
             public void onClick(View view) {
                 Track nextTrack = callback.getTrackDistance(+1);
                 try {
+                    callback.updateRecyclerSelectedTrack(nextTrack);
                     MusicPlayer.getInstance().playMusic(nextTrack, getContext());
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -112,6 +113,7 @@ public class MusicBarFragment extends Fragment {
             public void onClick(View view) {
                 Track previousTrack = callback.getTrackDistance(-1);
                 try {
+                    callback.updateRecyclerSelectedTrack(previousTrack);
                     MusicPlayer.getInstance().playMusic(previousTrack, getContext());
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -162,6 +164,7 @@ public class MusicBarFragment extends Fragment {
 
     public interface MusicBarCallback {
         Track getTrackDistance(int distance);
+        void updateRecyclerSelectedTrack(Track track);
     }
 
 }
