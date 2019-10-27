@@ -32,6 +32,13 @@ public class MusicRepository {
         return tracks;
     }
 
+    public List<Album> getAlbums() {
+        return albums;
+    }
+
+    public List<Artist> getArtists() {
+        return  artists;
+    }
 
     public Track getTrackById(long trackId) {
         for (Track track : tracks)
@@ -46,12 +53,18 @@ public class MusicRepository {
         return items;
     }
 
+    public List<Track> getTrackByArtist(Artist artist) {
+        List<Track>  items = new ArrayList<>();;
+        for (Track track : tracks)
+            if (track.getArtistName() .equals(artist.getArtistName())) items.add(track);
+        return items;
+    }
+
     public void setAlbums(List<Album> albums) {
         this.albums = albums;
     }
 
-    public List<Album> getAlbums() {
-        return albums;
+    public void setArtists(List<Artist> artists) {
+        this.artists = artists;
     }
-
 }

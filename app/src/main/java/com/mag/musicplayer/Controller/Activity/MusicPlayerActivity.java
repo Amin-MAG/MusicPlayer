@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.mag.musicplayer.Controller.Fragment.AlbumListFragment;
+import com.mag.musicplayer.Controller.Fragment.ArtistListFragment;
 import com.mag.musicplayer.Controller.Fragment.FilterItemsFragment;
 import com.mag.musicplayer.Controller.Fragment.MusicBarFragment;
 import com.mag.musicplayer.Controller.Fragment.MusicListFragment;
@@ -17,7 +18,7 @@ import com.mag.musicplayer.R;
 import com.mag.musicplayer.Util.MusicPlayer;
 import com.mag.musicplayer.Util.UiUtil;
 
-public class MusicPlayerActivity extends AppCompatActivity implements MusicListFragment.MusicListUiCallback, MusicBarFragment.MusicBarCallback, AlbumListFragment.AlbumListUiCallback {
+public class MusicPlayerActivity extends AppCompatActivity implements MusicListFragment.MusicListUiCallback, MusicBarFragment.MusicBarCallback, AlbumListFragment.AlbumListUiCallback , ArtistListFragment.ArtistListUiCallback {
 
 
     public static final String TAG_FRAGMENT_FILTER_ITEMS_LIST = "tag_fragment_filter_items_list";

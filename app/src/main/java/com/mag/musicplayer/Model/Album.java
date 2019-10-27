@@ -15,8 +15,8 @@ public class Album {
     private List<Long> tracks = new ArrayList<>();
 
 
-    public Album(UUID albumId, String albumTitle, String artistName, Uri imagePath) {
-        this.albumId = albumId;
+    public Album(String albumTitle, String artistName, Uri imagePath) {
+        this.albumId = UUID.randomUUID();
         this.albumTitle = albumTitle;
         this.artistName = artistName;
         this.imagePath = imagePath;

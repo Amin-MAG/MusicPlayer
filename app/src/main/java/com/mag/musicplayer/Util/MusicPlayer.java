@@ -50,29 +50,62 @@ public class MusicPlayer {
 
         while (cursor.moveToNext()) {
 
+            // Music Detail
             String trackId = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media._ID));
             String trackTitle = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.TITLE));
             String trackAlbum = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM));
             String trackArtist = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST));
             String trackLength = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.DURATION));
+
             // Music Cover Uri
             Uri uri = ContentUris.withAppendedId(Uri.parse(CONTENT_MEDIA_EXTERNAL_AUDIO_ALBUMART), Long.parseLong(cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID))));
 
+            // Track
             Track thisLoopTrack = new Track(Long.parseLong(trackId), trackTitle, trackAlbum, trackArtist, uri, Integer.parseInt(trackLength), null);
 
-//            boolean artistExists = false;
-//            for (Track artist : artists) {
-//                if (artist.)
-//            }
+            // Albums
+            Album thisLoopAlbum = null;
 
             boolean albumExists = false;
-            for (Album album : albums)
-                if (album.getAlbumTitle().equals(thisLoopTrack.getAlbumName())) {
+            for (Album album : albums) {
+                if (album.getAlbumTitle().equals(trackAlbum)) {
                     albumExists = true;
-                    album.getTracks().add(thisLoopTrack.getTrackId());
+                    thisLoopAlbum = album;
+                    album.getTracks().add(Long.parseLong(trackId));
                 }
-            if (!albumExists)
-                albums.add(new Album(UUID.randomUUID(), trackAlbum, trackArtist, uri));
+            }
+            if (!albumExists) {
+                thisLoopAlbum = new Album(trackAlbum, trackArtist, uri);
+                albums.add(thisLoopAlbum);
+            }
+
+            // Artist
+            boolean artistExists = false;
+            for (Artist artist : artists) {
+                if (artist.getArtistName().equals(trackArtist)) {
+
+                    artistExists = true;
+                    artist.getTracks().add(thisLoopTrack.getTrackId());
+
+
+                    // Album For Each Artist
+                    boolean artistAlbumExists = false;
+                    for (UUID artistAlbums : artist.getAlbums()) {
+                        if (thisLoopAlbum.getAlbumId().equals(artistAlbums)) {
+                            artistAlbumExists = true;
+                            break;
+                        }
+                    }
+                    if (!artistAlbumExists) {
+                        artist.getAlbums().add(thisLoopAlbum.getAlbumId());
+                    }
+
+                }
+            }
+            if (!artistExists) {
+                artists.add(new Artist(trackArtist, uri));
+            }
+
 
             tracks.add(thisLoopTrack);
 
@@ -82,6 +115,7 @@ public class MusicPlayer {
 
         MusicRepository.getInstance().setTracks(tracks);
         MusicRepository.getInstance().setAlbums(albums);
+        MusicRepository.getInstance().setArtists(artists);
 
     }
 

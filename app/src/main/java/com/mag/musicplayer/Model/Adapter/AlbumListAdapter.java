@@ -1,7 +1,6 @@
 package com.mag.musicplayer.Model.Adapter;
 
 import android.app.Activity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,10 +58,10 @@ public class AlbumListAdapter extends RecyclerView.Adapter<AlbumListAdapter.Albu
         public AlbumListViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            cardView = itemView.findViewById(R.id.albumBoxLayout_cardView);
-            albumCover = itemView.findViewById(R.id.albumBoxLayout_image);
-            albumName= itemView.findViewById(R.id.albumBoxLayout_albumName);
-            artistName = itemView.findViewById(R.id.albumBoxLayout_artistName);
+            cardView = itemView.findViewById(R.id.boxLayout_cardView);
+            albumCover = itemView.findViewById(R.id.boxLayout_image);
+            albumName= itemView.findViewById(R.id.boxLayout_titile);
+            artistName = itemView.findViewById(R.id.boxLayout_descritption);
 
         }
 

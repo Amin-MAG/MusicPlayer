@@ -22,7 +22,7 @@ public class MusicViewPagerAdapter extends FragmentStatePagerAdapter {
             case 1:
                 return fragments.get("view_pager__album_list");
             case 2:
-                return fragments.get("view_pager__music_list3");
+                return fragments.get("view_pager__artist_list");
             case 3:
                 return fragments.get("view_pager__music_list4");
             default:
