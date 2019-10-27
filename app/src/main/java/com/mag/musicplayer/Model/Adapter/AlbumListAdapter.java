@@ -21,6 +21,7 @@ import java.util.List;
 public class AlbumListAdapter extends RecyclerView.Adapter<AlbumListAdapter.AlbumListViewHolder> {
 
     private List<Album> albums;
+    private Album selectedAlbum;
     private AlbumListAdapterCallback callback;
 
     private Activity activity;
@@ -75,6 +76,7 @@ public class AlbumListAdapter extends RecyclerView.Adapter<AlbumListAdapter.Albu
                 @Override
                 public void onClick(View view) {
 
+                    selectedAlbum = album;
                     callback.updateUi(album);
 
                 }
@@ -82,6 +84,10 @@ public class AlbumListAdapter extends RecyclerView.Adapter<AlbumListAdapter.Albu
 
         }
 
+    }
+
+    public Album getSelectedAlbum() {
+        return selectedAlbum;
     }
 
     public interface AlbumListAdapterCallback {

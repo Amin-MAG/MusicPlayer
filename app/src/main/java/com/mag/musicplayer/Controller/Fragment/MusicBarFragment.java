@@ -137,7 +137,7 @@ public class MusicBarFragment extends Fragment {
 
     public void updateBar(Track track) {
 
-        trackName.setText(track.getTrackTitle().length() > 12 ? track.getTrackTitle() + "..." : track.getTrackTitle());
+        trackName.setText(track.getTrackTitle().length() > 24 ? track.getTrackTitle().substring(0,24) + "..." : track.getTrackTitle());
         trackArtist.setText(track.getArtistName());
 
         updatePlayPause();

@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.mag.musicplayer.Model.Album;
 import com.mag.musicplayer.Model.Track;
 import com.mag.musicplayer.R;
 import com.mag.musicplayer.Util.MusicPlayer;
@@ -58,7 +59,6 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.Musi
         private ImageView trackImage;
         private TextView trackName, trackArtistName, trackLength;
         private CardView trackCardView;
-
 
         public MusicListViewHolder(@NonNull View view) {
             super(view);
@@ -138,6 +138,7 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.Musi
 
     public interface MusicListAdapterCallback {
         void updateMusicBar(Track track);
+
     }
 
 
