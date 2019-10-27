@@ -124,6 +124,10 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.Musi
         return -1;
     }
 
+    public void setTracks(List<Track> tracks) {
+        this.tracks = tracks;
+    }
+
     public List<Track> getTracks() {
         return tracks;
     }

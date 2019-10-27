@@ -19,20 +19,21 @@ import com.mag.musicplayer.Model.Track;
 import com.mag.musicplayer.R;
 import com.mag.musicplayer.Util.MusicPlayer;
 
+import java.util.List;
+
 public class MusicListFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private MusicListAdapter adapter;
 
-    private MusicListCallback callback = null;
-
+    private MusicListUiCallback uiCallback = null;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
 
-        if (getActivity() instanceof MusicListCallback) {
-            callback = (MusicListCallback) getActivity();
+        if (getActivity() instanceof MusicListUiCallback) {
+            uiCallback = (MusicListUiCallback) getActivity();
         }
 
     }
@@ -46,7 +47,7 @@ public class MusicListFragment extends Fragment {
         return fragment;
     }
 
-    public MusicListFragment() {
+    public MusicListFragment( ) {
     }
 
 
@@ -63,8 +64,8 @@ public class MusicListFragment extends Fragment {
         adapter = new MusicListAdapter(MusicRepository.getInstance().getTracks(), new MusicListAdapter.MusicListAdapterCallback() {
             @Override
             public void updateMusicBar(Track track) {
-                if (callback != null)
-                    callback.updateMusicBar(track);
+                if (uiCallback != null)
+                    uiCallback.updateMusicBar(track);
             }
         });
         MusicPlayer.getInstance().setCallback(new MusicPlayer.MusicPlayerCallback() {
@@ -72,13 +73,13 @@ public class MusicListFragment extends Fragment {
 
             @Override
             public Track getNextTrack() {
-                nextTrack = callback.getNext();
+                nextTrack = uiCallback.getNext();
                 return nextTrack;
             }
 
             @Override
             public void updateUiAutoSkip() {
-                callback.updateMusicBar(nextTrack);
+                uiCallback.updateMusicBar(nextTrack);
                 if (TrackPlayerActivity.getTrackPlayerActivity() != null)
                     TrackPlayerActivity.getTrackPlayerActivity().update(nextTrack);
             }
@@ -92,9 +93,8 @@ public class MusicListFragment extends Fragment {
         return adapter;
     }
 
-    public interface MusicListCallback {
+    public interface MusicListUiCallback {
         void updateMusicBar(Track track);
-
         Track getNext();
     }
 

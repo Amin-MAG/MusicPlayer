@@ -1,40 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/albumBoxLayout_cardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    android:orientation="vertical">
+    android:layout_margin="4dp">
 
-    <ImageView
-        android:id="@+id/albumBoxLayout_image"
-        android:layout_width="0dp"
-        android:layout_height="219dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars[0]" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="4dp"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/albumBoxLayout_albumName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Album Name"
-        android:textSize="16dp"
-        app:layout_constraintEnd_toEndOf="@+id/albumBoxLayout_image"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="@+id/albumBoxLayout_image"
-        app:layout_constraintTop_toBottomOf="@+id/albumBoxLayout_image" />
+        <ImageView
+            android:id="@+id/albumBoxLayout_image"
+            android:layout_width="0dp"
+            android:layout_height="219dp"
+            android:src="@drawable/music_icon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/albumBoxLayout_artistName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Artist Name"
-        android:textSize="12dp"
-        app:layout_constraintEnd_toEndOf="@+id/albumBoxLayout_albumName"
-        app:layout_constraintStart_toStartOf="@+id/albumBoxLayout_albumName"
-        app:layout_constraintTop_toBottomOf="@+id/albumBoxLayout_albumName" />
+        <TextView
+            android:id="@+id/albumBoxLayout_albumName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Album Name"
+            android:textSize="16dp"
+            app:layout_constraintEnd_toEndOf="@+id/albumBoxLayout_image"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="@+id/albumBoxLayout_image"
+            app:layout_constraintTop_toBottomOf="@+id/albumBoxLayout_image" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/albumBoxLayout_artistName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Artist Name"
+            android:textSize="12dp"
+            app:layout_constraintEnd_toEndOf="@+id/albumBoxLayout_albumName"
+            app:layout_constraintStart_toStartOf="@+id/albumBoxLayout_albumName"
+            app:layout_constraintTop_toBottomOf="@+id/albumBoxLayout_albumName" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

@@ -12,9 +12,12 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.mag.musicplayer.Model.Adapter.MusicViewPagerAdapter;
+import com.mag.musicplayer.Model.MusicRepository;
+import com.mag.musicplayer.Model.Track;
 import com.mag.musicplayer.R;
 
 import java.util.HashMap;
+import java.util.List;
 
 public class MusicPlayerViewPagerFragment extends Fragment {
 

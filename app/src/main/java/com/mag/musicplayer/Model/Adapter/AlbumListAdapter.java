@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mag.musicplayer.Model.Album;
@@ -20,11 +21,13 @@ import java.util.List;
 public class AlbumListAdapter extends RecyclerView.Adapter<AlbumListAdapter.AlbumListViewHolder> {
 
     private List<Album> albums;
+    private AlbumListAdapterCallback callback;
 
     private Activity activity;
 
-    public AlbumListAdapter(List<Album> albums) {
+    public AlbumListAdapter(List<Album> albums, AlbumListAdapterCallback callback)  {
         this.albums = albums;
+        this.callback = callback;
     }
 
     @NonNull
@@ -48,26 +51,41 @@ public class AlbumListAdapter extends RecyclerView.Adapter<AlbumListAdapter.Albu
 
     public class AlbumListViewHolder extends RecyclerView.ViewHolder {
 
+        private CardView cardView;
         private ImageView albumCover;
         private TextView albumName, artistName;
 
         public AlbumListViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            cardView = itemView.findViewById(R.id.albumBoxLayout_cardView);
             albumCover = itemView.findViewById(R.id.albumBoxLayout_image);
             albumName= itemView.findViewById(R.id.albumBoxLayout_albumName);
             artistName = itemView.findViewById(R.id.albumBoxLayout_artistName);
 
         }
 
-        public void bind(Album album) {
+        public void bind(final Album album) {
 
             albumName.setText(album.getAlbumTitle().length() > 24 ? album.getAlbumTitle().substring(0,24)+ "..." : album.getAlbumTitle());
             artistName.setText(album.getArtistName());
             Picasso.get().load(album.getImagePath()).placeholder(activity.getResources().getDrawable(R.drawable.music_icon)).into(albumCover);
 
+            cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    callback.updateUi(album);
+
+                }
+            });
+
         }
 
+    }
+
+    public interface AlbumListAdapterCallback {
+        void updateUi(Album album);
     }
 
 }

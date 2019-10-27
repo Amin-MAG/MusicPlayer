@@ -32,10 +32,18 @@ public class MusicRepository {
         return tracks;
     }
 
+
     public Track getTrackById(long trackId) {
         for (Track track : tracks)
             if (track.getTrackId() == trackId) return track;
         return null;
+    }
+
+    public List<Track> getTrackByAlbum(Album album) {
+        List<Track>  items = new ArrayList<>();;
+        for (Track track : tracks)
+            if (track.getAlbumName() .equals(album.getAlbumTitle())) items.add(track);
+        return items;
     }
 
     public void setAlbums(List<Album> albums) {
