@@ -112,7 +112,7 @@ public class TrackPlayerFragment extends Fragment {
 
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 progressChangedValue = progress;
-                trackTime.setText(MusicPlayer.getStringTime((int) ((double) (progressChangedValue * MusicPlayer.getInstance().getMediaPlayer().getDuration()/1000) / 100)));
+                trackTime.setText(MusicPlayer.getStringTime((int) ((double) (progressChangedValue * MusicPlayer.getInstance().getMediaPlayer().getDuration() / 1000) / 100)));
             }
 
             public void onStartTrackingTouch(SeekBar seekBar) {
@@ -179,17 +179,21 @@ public class TrackPlayerFragment extends Fragment {
 
     public void update(Track track) {
 
-        trackTitle.setText(track.getTrackTitle());
-        trackArtist.setText(track.getArtistName());
-        trackLength.setText(MusicPlayer.getStringTime(track.getTrackLength() / 1000));
+        if (getActivity() != null) {
 
-        if (MusicPlayer.getInstance().getMediaPlayer().isPlaying()) {
-            playPauseBtn.setImageDrawable(getResources().getDrawable(R.drawable.ic_pause));
-        } else {
-            playPauseBtn.setImageDrawable(getResources().getDrawable(R.drawable.ic_play));
+            trackTitle.setText(track.getTrackTitle());
+            trackArtist.setText(track.getArtistName());
+            trackLength.setText(MusicPlayer.getStringTime(track.getTrackLength() / 1000));
+
+            if (MusicPlayer.getInstance().getMediaPlayer().isPlaying()) {
+                playPauseBtn.setImageDrawable(getResources().getDrawable(R.drawable.ic_pause));
+            } else {
+                playPauseBtn.setImageDrawable(getResources().getDrawable(R.drawable.ic_play));
+            }
+
+            Picasso.get().load(track.getImagePath()).placeholder(getResources().getDrawable(R.drawable.music_icon)).into(trackImage);
+
         }
-
-        Picasso.get().load(track.getImagePath()).placeholder(getResources().getDrawable(R.drawable.music_icon)).into(trackImage);
 
     }
 

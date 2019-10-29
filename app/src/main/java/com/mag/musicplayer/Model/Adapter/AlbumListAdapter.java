@@ -89,6 +89,10 @@ public class AlbumListAdapter extends RecyclerView.Adapter<AlbumListAdapter.Albu
         return selectedAlbum;
     }
 
+    public void setAlbums(List<Album> albums) {
+        this.albums = albums;
+    }
+
     public interface AlbumListAdapterCallback {
         void updateUi(Album album);
     }

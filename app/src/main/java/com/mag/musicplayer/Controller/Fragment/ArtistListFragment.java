@@ -122,6 +122,19 @@ public class ArtistListFragment extends Fragment {
             }
         });
 
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                albumListAdapter.setArtists(MusicRepository.getInstance().getArtists(s.toLowerCase()));
+                albumListAdapter.notifyDataSetChanged();
+                return false;
+            }
+        });
 
     }
 

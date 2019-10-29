@@ -8,6 +8,7 @@
     tools:context=".Controller.Fragment.MusicListFragment">
 
     <SearchView
+        android:id="@+id/musicListFragment_searchView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

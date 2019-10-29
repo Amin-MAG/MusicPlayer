@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,6 +26,7 @@ public class MusicListFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private MusicListAdapter adapter;
+    private SearchView searchView;
 
     private MusicListUiCallback uiCallback = null;
 
@@ -86,6 +88,22 @@ public class MusicListFragment extends Fragment {
 
         });
         recyclerView.setAdapter(adapter);
+
+
+        searchView = view.findViewById(R.id.musicListFragment_searchView);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                adapter.setTracks(MusicRepository.getInstance().getTracks(s.toLowerCase()));
+                adapter.notifyDataSetChanged();
+                return false;
+            }
+        });
 
     }
 

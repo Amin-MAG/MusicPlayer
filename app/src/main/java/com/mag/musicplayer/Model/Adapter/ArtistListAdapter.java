@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.mag.musicplayer.Model.Album;
 import com.mag.musicplayer.Model.Artist;
 import com.mag.musicplayer.R;
 import com.squareup.picasso.Picasso;
@@ -88,6 +89,10 @@ public class ArtistListAdapter extends RecyclerView.Adapter<ArtistListAdapter.Ar
 
     public Artist getSelectedArtist() {
         return selectedArtist;
+    }
+
+    public void setArtists(List<Artist> artists) {
+        this.artists = artists;
     }
 
     public interface ArtistListAdapterCallback {
