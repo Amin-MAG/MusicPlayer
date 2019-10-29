@@ -78,7 +78,7 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.Musi
 
             Picasso.get().load(track.getImagePath()).placeholder(activity.getResources().getDrawable(R.drawable.music_icon)).into(trackImage);
 
-            trackLength.setText(MusicPlayer.getLengthText(track.getTrackLength() / 1000));
+            trackLength.setText(MusicPlayer.getStringTime(track.getTrackLength() / 1000));
 
             if (selectedTrack != null && track.getTrackId() == selectedTrack.getTrackId()) {
                 trackCardView.setBackgroundColor(Color.parseColor(activity.getString(R.color.colorPrimary)));

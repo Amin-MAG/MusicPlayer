@@ -105,13 +105,14 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/trackPlayerActivity_cover" />
 
+
     <TextView
         android:id="@+id/trackPlayerActivity_trackLength"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="1dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginRight="4dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
         android:text="TextView"
         android:textSize="12dp"
         app:layout_constraintBottom_toBottomOf="@+id/trackPlayerActivity_seekbar"
@@ -121,6 +122,12 @@
 
     <SeekBar
         android:id="@+id/trackPlayerActivity_seekbar"
+        android:minHeight="15dp"
+        android:minWidth="15dp"
+        android:maxHeight="15dp"
+        android:maxWidth="15dp"
+        android:progressDrawable="@drawable/custom_seekbar"
+        android:thumb="@drawable/custom_thumb"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
@@ -128,6 +135,16 @@
         app:layout_constraintEnd_toStartOf="@+id/trackPlayerActivity_trackLength"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/trackPlayerActivity_trackTime" />
+
+<!--    <SeekBar-->
+<!--        android:id="@+id/trackPlayerActivity_seekbar"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginBottom="16dp"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"-->
+<!--        app:layout_constraintEnd_toStartOf="@+id/trackPlayerActivity_trackLength"-->
+<!--        app:layout_constraintHorizontal_bias="1.0"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/trackPlayerActivity_trackTime" />-->
 
     <TextView
         android:id="@+id/trackPlayerActivity_trackArtist"
@@ -145,9 +162,9 @@
         android:id="@+id/trackPlayerActivity_trackTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="1dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="4dp"
         android:text="TextView"
         android:textSize="12dp"
         app:layout_constraintBottom_toBottomOf="@+id/trackPlayerActivity_seekbar"
