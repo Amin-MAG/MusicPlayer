@@ -33,14 +33,14 @@ public class MusicPlayerViewPagerFragment extends Fragment {
     private MusicViewPagerAdapter musicViewPagerAdapter;
     private ViewPager viewPager;
 
-    private  SyncTabViewPager syncer;
+    private SyncTabViewPager syncer;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
 
         if (getContext() instanceof SyncTabViewPager)
-            syncer= (SyncTabViewPager) getContext();
+            syncer = (SyncTabViewPager) getContext();
 
     }
 
@@ -65,6 +65,8 @@ public class MusicPlayerViewPagerFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        viewPager = view.findViewById(R.id.musicViewPagerFragment_viewPager);
+
         musicViewPagerAdapter = new MusicViewPagerAdapter(getFragmentManager());
         musicViewPagerAdapter.addFrag(MusicListFragment.newInstance(), "All Musics", VIEW_PAGER__MUSIC_LIST);
         musicViewPagerAdapter.addFrag(AlbumListFragment.newInstance(), "Albums", VIEW_PAGER_ALBUM_LIST);
@@ -72,7 +74,14 @@ public class MusicPlayerViewPagerFragment extends Fragment {
         musicViewPagerAdapter.addFrag(PlayListFragment.newInstance(), "Playlists", VIEW_PAGER__PLAY_LIST);
         musicViewPagerAdapter.addFrag(FileExplorerFragment.newInstance(), "File Explorer", VIEW_PAGER__FILE_EXPLORER);
 
-        viewPager = view.findViewById(R.id.musicViewPagerFragment_viewPager);
+
+        setViewpager();
+
+        setTabLayout();
+
+    }
+
+    private void setViewpager() {
         viewPager.setAdapter(musicViewPagerAdapter);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 
@@ -91,13 +100,29 @@ public class MusicPlayerViewPagerFragment extends Fragment {
 
             }
         });
+    }
 
+    private void setTabLayout() {
         TabLayout tabLayout = syncer.getTablayout();
-        for (int k = tabLayout.getTabCount() ; k < musicViewPagerAdapter.getCount(); k++)
+        for (int k = tabLayout.getTabCount(); k < musicViewPagerAdapter.getCount(); k++)
             tabLayout.addTab(tabLayout.newTab().setText(musicViewPagerAdapter.getPageTitle(k)));
         syncer.getTablayout().getTabAt(0).select();
+        syncer.getTablayout().addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+            }
 
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
 
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
     }
 
     public MusicListFragment getMusicList() {
@@ -116,7 +141,7 @@ public class MusicPlayerViewPagerFragment extends Fragment {
         return viewPager;
     }
 
-    public interface SyncTabViewPager{
+    public interface SyncTabViewPager {
         TabLayout getTablayout();
     }
 
