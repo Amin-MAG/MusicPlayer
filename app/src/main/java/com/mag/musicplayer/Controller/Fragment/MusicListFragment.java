@@ -1,11 +1,14 @@
 package com.mag.musicplayer.Controller.Fragment;
 
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
@@ -20,13 +23,12 @@ import com.mag.musicplayer.Model.Track;
 import com.mag.musicplayer.R;
 import com.mag.musicplayer.Util.MusicPlayer;
 
-import java.util.List;
-
 public class MusicListFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private MusicListAdapter adapter;
     private SearchView searchView;
+    private ImageButton reapeatBtn, shuffleBtn;
 
     private MusicListUiCallback uiCallback = null;
 
@@ -49,7 +51,7 @@ public class MusicListFragment extends Fragment {
         return fragment;
     }
 
-    public MusicListFragment( ) {
+    public MusicListFragment() {
     }
 
 
@@ -62,6 +64,20 @@ public class MusicListFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        shuffleBtn = view.findViewById(R.id.musicListFragment_shuffleButton);
+        shuffleBtn.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("ResourceAsColor")
+            @Override
+            public void onClick(View view) {
+                MusicRepository.getInstance().setShuffleMode(!MusicRepository.getInstance().isShuffle());
+                if (MusicRepository.getInstance().isShuffle())
+                    MusicRepository.getInstance().makeShuffle();
+                updateOptionsBtns();
+            }
+        });
+
+        reapeatBtn = view.findViewById(R.id.musicListFragment_repeatButton);
+
         recyclerView = view.findViewById(R.id.musicListFragment_recycler);
         adapter = new MusicListAdapter(MusicRepository.getInstance().getTracks(), new MusicListAdapter.MusicListAdapterCallback() {
             @Override
@@ -70,6 +86,7 @@ public class MusicListFragment extends Fragment {
                     uiCallback.updateMusicBar(track);
             }
         });
+
         MusicPlayer.getInstance().setCallback(new MusicPlayer.MusicPlayerCallback() {
             private Track nextTrack;
 
@@ -91,6 +108,22 @@ public class MusicListFragment extends Fragment {
 
 
         searchView = view.findViewById(R.id.musicListFragment_searchView);
+        searchView.setOnSearchClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                reapeatBtn.setVisibility(View.GONE);
+                shuffleBtn.setVisibility(View.GONE);
+                searchView.setVisibility(View.VISIBLE);
+            }
+        });
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                reapeatBtn.setVisibility(View.VISIBLE);
+                shuffleBtn.setVisibility(View.VISIBLE);
+                return false;
+            }
+        });
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
@@ -107,12 +140,20 @@ public class MusicListFragment extends Fragment {
 
     }
 
+    private void updateOptionsBtns() {
+
+        shuffleBtn.setBackgroundColor(Color.parseColor(MusicRepository.getInstance().isShuffle() ? "#E6FF1D1D" : "#00FFFFFF"));
+
+    }
+
+
     public MusicListAdapter getAdapter() {
         return adapter;
     }
 
     public interface MusicListUiCallback {
         void updateMusicBar(Track track);
+
         Track getNext();
     }
 

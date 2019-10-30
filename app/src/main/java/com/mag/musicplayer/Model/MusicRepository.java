@@ -1,6 +1,7 @@
 package com.mag.musicplayer.Model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class MusicRepository {
@@ -21,8 +22,10 @@ public class MusicRepository {
     // Music
 
     private List<Track> tracks = new ArrayList<>();
+    private List<Track> shuffleTracks;
     private List<Album> albums = new ArrayList<>();
     private List<Artist> artists = new ArrayList<>();
+    private boolean isShuffleMode = false;
 
     public void setTracks(List<Track> tracks) {
         this.tracks = tracks;
@@ -32,12 +35,24 @@ public class MusicRepository {
         return tracks;
     }
 
+    public List<Track> getShuffleTracks() {
+        return shuffleTracks;
+    }
+
     public List<Track> getTracks(String search) {
         List<Track> target = new ArrayList<>();
         for (Track track : tracks)
             if (track.getTrackTitle().toLowerCase().contains(search) || track.getAlbumName().toLowerCase().contains(search) || track.getArtistName().toLowerCase().contains(search))
                 target.add(track);
         return target;
+    }
+
+    public int getTrackIndex(Track track) {
+        List<Track> allItems = isShuffleMode ? shuffleTracks : tracks;
+        for (int i = 0; i < allItems.size(); i++)
+            if (allItems.get(i).getTrackId() == track.getTrackId())
+                return i;
+        return 0;
     }
 
     public List<Album> getAlbums() {
@@ -74,7 +89,6 @@ public class MusicRepository {
 
     public List<Track> getTrackByAlbum(Album album) {
         List<Track> items = new ArrayList<>();
-        ;
         for (Track track : tracks)
             if (track.getAlbumName().equals(album.getAlbumTitle())) items.add(track);
         return items;
@@ -88,6 +102,11 @@ public class MusicRepository {
         return items;
     }
 
+    public void makeShuffle() {
+        shuffleTracks = new ArrayList<>(tracks);
+        Collections.shuffle(shuffleTracks);
+    }
+
     public void setAlbums(List<Album> albums) {
         this.albums = albums;
     }
@@ -95,4 +114,13 @@ public class MusicRepository {
     public void setArtists(List<Artist> artists) {
         this.artists = artists;
     }
+
+    public void setShuffleMode(boolean shuffleMode) {
+        isShuffleMode = shuffleMode;
+    }
+
+    public boolean isShuffle() {
+        return isShuffleMode;
+    }
+
 }

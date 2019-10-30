@@ -3,6 +3,7 @@ package com.mag.musicplayer.Controller.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +14,7 @@ import com.mag.musicplayer.Controller.Fragment.ArtistListFragment;
 import com.mag.musicplayer.Controller.Fragment.MusicBarFragment;
 import com.mag.musicplayer.Controller.Fragment.MusicListFragment;
 import com.mag.musicplayer.Controller.Fragment.MusicPlayerViewPagerFragment;
+import com.mag.musicplayer.Model.MusicRepository;
 import com.mag.musicplayer.Model.Track;
 import com.mag.musicplayer.R;
 import com.mag.musicplayer.Util.MusicPlayer;
@@ -78,16 +80,31 @@ public class MusicPlayerActivity extends AppCompatActivity implements MusicPlaye
 
     @Override
     public Track getTrackDistance(int n) {
-        int index = musicPlayerViewPagerFragment.getMusicList().getAdapter().findTrackIndex(MusicPlayer.getInstance().getCurrentTrack()) + n;
-        int size = musicPlayerViewPagerFragment.getMusicList().getAdapter().getItemCount();
-        if (index % size < 0) index += size;
-        index %= size;
-        Track track = musicPlayerViewPagerFragment.getMusicList().getAdapter().getTracks().get(index);
-        musicPlayerViewPagerFragment.getMusicList().getAdapter().setSelectedTrack(track);
-        musicPlayerViewPagerFragment.getMusicList().getAdapter().updateUi();
-        return track;
-
-
+        if (MusicRepository.getInstance().isShuffle()) {
+            int index = MusicRepository.getInstance().getTrackIndex(MusicPlayer.getInstance().getCurrentTrack()) + n;
+            int size = MusicRepository.getInstance().getTracks().size();
+            if (index % size < 0) index += size;
+            index %= size;
+            Track track = MusicRepository.getInstance().getShuffleTracks().get(index);
+            musicPlayerViewPagerFragment.getMusicList().getAdapter().setSelectedTrack(track);
+            musicPlayerViewPagerFragment.getMusicList().getAdapter().updateUi();
+            return track;
+        } else {
+            Log.d("SomsomSom", musicPlayerViewPagerFragment.getMusicList() + " ");
+            int index = musicPlayerViewPagerFragment
+                    .getMusicList()
+                    .getAdapter()
+                    .findTrackIndex(MusicPlayer
+                            .getInstance()
+                            .getCurrentTrack()) + n;
+            int size = musicPlayerViewPagerFragment.getMusicList().getAdapter().getItemCount();
+            if (index % size < 0) index += size;
+            index %= size;
+            Track track = musicPlayerViewPagerFragment.getMusicList().getAdapter().getTracks().get(index);
+            musicPlayerViewPagerFragment.getMusicList().getAdapter().setSelectedTrack(track);
+            musicPlayerViewPagerFragment.getMusicList().getAdapter().updateUi();
+            return track;
+        }
     }
 
     @Override

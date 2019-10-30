@@ -29,7 +29,6 @@ public class MusicPlayerViewPagerFragment extends Fragment {
     public static final String VIEW_PAGER__ARTIST_LIST = "view_pager__artist_list";
     public static final String VIEW_PAGER__PLAY_LIST = "view_pager__play_list";
     public static final String VIEW_PAGER__FILE_EXPLORER = "view_pager__file_explorer";
-    private HashMap<String, Fragment> fragments = new HashMap<>();
     private MusicViewPagerAdapter musicViewPagerAdapter;
     private ViewPager viewPager;
 
@@ -126,15 +125,15 @@ public class MusicPlayerViewPagerFragment extends Fragment {
     }
 
     public MusicListFragment getMusicList() {
-        return (MusicListFragment) fragments.get(VIEW_PAGER__MUSIC_LIST);
+        return (MusicListFragment) musicViewPagerAdapter.getmFragmentList(VIEW_PAGER__MUSIC_LIST);
     }
 
     public AlbumListFragment getAlbumList() {
-        return (AlbumListFragment) fragments.get(VIEW_PAGER_ALBUM_LIST);
+        return (AlbumListFragment) musicViewPagerAdapter.getmFragmentList(VIEW_PAGER_ALBUM_LIST);
     }
 
     public ArtistListFragment getArtistList() {
-        return (ArtistListFragment) fragments.get(VIEW_PAGER__ARTIST_LIST);
+        return (ArtistListFragment) musicViewPagerAdapter.getmFragmentList(VIEW_PAGER__ARTIST_LIST);
     }
 
     public ViewPager getViewPager() {

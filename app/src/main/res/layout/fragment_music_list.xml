@@ -13,15 +13,28 @@
         android:paddingTop="8dp"
         android:paddingBottom="8dp">
 
-        <ImageView
+        <ImageButton
             android:id="@+id/musicListFragment_shuffleButton"
             android:layout_width="31dp"
             android:layout_height="34dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:background="#00F00000"
             android:src="@drawable/ic_shuffle"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/musicListFragment_repeatButton"
+            android:layout_width="31dp"
+            android:layout_height="34dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:background="#00FFFFFF"
+            android:src="@drawable/ic_repeat"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/musicListFragment_shuffleButton"
             app:layout_constraintTop_toTopOf="parent" />
 
         <SearchView
@@ -30,6 +43,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
