@@ -4,35 +4,41 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class MusicViewPagerAdapter extends FragmentStatePagerAdapter {
 
-    private HashMap<String, Fragment> fragments;
-    public MusicViewPagerAdapter(FragmentManager fm, HashMap<String, Fragment> fragments) {
+    private final List<Fragment> mFragmentList = new ArrayList<>();
+    private final List<String> mFragmentTitleList = new ArrayList<>();
+
+    public MusicViewPagerAdapter(FragmentManager fm) {
         super(fm);
-        this.fragments = fragments;
+    }
+
+    public void addFrag(Fragment fragment, String title, String tag) {
+        mFragmentList.add(fragment);
+        mFragmentTitleList.add(title);
     }
 
     @Override
     public Fragment getItem(int position) {
-        switch (position) {
-            case 0:
-                return fragments.get("view_pager__music_list");
-            case 1:
-                return fragments.get("view_pager__album_list");
-            case 2:
-                return fragments.get("view_pager__artist_list");
-            case 3:
-                return fragments.get("view_pager__music_list4");
-            default:
-                return null;
-        }
+        return  mFragmentList.get(position);
     }
 
     @Override
     public int getCount() {
-        return fragments.size();
+        return mFragmentList.size();
+    }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return mFragmentTitleList.get(position);
+    }
+
+    public List<Fragment> getmFragmentList() {
+        return mFragmentList;
     }
 
 }

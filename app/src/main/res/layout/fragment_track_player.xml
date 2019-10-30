@@ -136,16 +136,6 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/trackPlayerActivity_trackTime" />
 
-<!--    <SeekBar-->
-<!--        android:id="@+id/trackPlayerActivity_seekbar"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginBottom="16dp"-->
-<!--        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"-->
-<!--        app:layout_constraintEnd_toStartOf="@+id/trackPlayerActivity_trackLength"-->
-<!--        app:layout_constraintHorizontal_bias="1.0"-->
-<!--        app:layout_constraintStart_toEndOf="@+id/trackPlayerActivity_trackTime" />-->
-
     <TextView
         android:id="@+id/trackPlayerActivity_trackArtist"
         android:layout_width="0dp"

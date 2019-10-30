@@ -11,7 +11,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -119,7 +118,6 @@ public class TrackPlayerFragment extends Fragment {
             }
 
             public void onStopTrackingTouch(SeekBar seekBar) {
-                Toast.makeText(getActivity(), "Seek bar progress is :" + progressChangedValue, Toast.LENGTH_SHORT).show();
                 MediaPlayer md = MusicPlayer.getInstance().getMediaPlayer();
                 md.seekTo((int) ((double) (md.getDuration() * progressChangedValue) / 100));
             }
