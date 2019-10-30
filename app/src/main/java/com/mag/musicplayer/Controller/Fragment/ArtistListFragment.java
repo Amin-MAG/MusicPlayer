@@ -1,26 +1,27 @@
 package com.mag.musicplayer.Controller.Fragment;
 
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AutoCompleteTextView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.SearchView;
-import android.widget.TextView;
-
-import com.mag.musicplayer.Model.Adapter.AlbumListAdapter;
 import com.mag.musicplayer.Model.Adapter.ArtistListAdapter;
 import com.mag.musicplayer.Model.Adapter.MusicListAdapter;
-import com.mag.musicplayer.Model.Album;
 import com.mag.musicplayer.Model.Artist;
 import com.mag.musicplayer.Model.MusicRepository;
 import com.mag.musicplayer.Model.Track;
@@ -75,13 +76,13 @@ public class ArtistListFragment extends Fragment {
         artistName = view.findViewById(R.id.artistListFragment_artistName);
         searchView = view.findViewById(R.id.artistListFragment_searchview);
 
-        artistRecyclerView= view.findViewById(R.id.artistListFragment_artistRecycler);
+        artistRecyclerView = view.findViewById(R.id.artistListFragment_artistRecycler);
         artistRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        albumListAdapter = new ArtistListAdapter(MusicRepository.getInstance().getArtists(), new ArtistListAdapter.ArtistListAdapterCallback(){
+        albumListAdapter = new ArtistListAdapter(MusicRepository.getInstance().getArtists(), new ArtistListAdapter.ArtistListAdapterCallback() {
             @Override
             public void updateUi(Artist artist) {
 
-                artistName.setText(artist.getArtistName().length() > 30 ? artist.getArtistName().substring(0,30) + "..." : artist.getArtistName());
+                artistName.setText(artist.getArtistName().length() > 30 ? artist.getArtistName().substring(0, 30) + "..." : artist.getArtistName());
                 artistRecyclerView.setVisibility(View.GONE);
                 searchView.setVisibility(View.GONE);
                 musicListAdapter.setTracks(MusicRepository.getInstance().getTrackByArtist(artist));
@@ -98,7 +99,7 @@ public class ArtistListFragment extends Fragment {
         musicListAdapter = new MusicListAdapter(new ArrayList<Track>(), new MusicListAdapter.MusicListAdapterCallback() {
             @Override
             public void updateMusicBar(Track track) {
-                if (uiCallback != null){
+                if (uiCallback != null) {
                     uiCallback.updateMusicBar(track);
                 }
             }
@@ -135,7 +136,17 @@ public class ArtistListFragment extends Fragment {
                 return false;
             }
         });
+        makeSearchViewWhite();
 
+    }
+
+    @SuppressLint("ResourceType")
+    private void makeSearchViewWhite() {
+        LinearLayout linearLayout1 = (LinearLayout) searchView.getChildAt(0);
+        LinearLayout linearLayout2 = (LinearLayout) linearLayout1.getChildAt(2);
+        LinearLayout linearLayout3 = (LinearLayout) linearLayout2.getChildAt(1);
+        AutoCompleteTextView autoComplete = (AutoCompleteTextView) linearLayout3.getChildAt(0);
+        autoComplete.setTextColor(Color.parseColor(getResources().getString(R.color.white)));
     }
 
     public interface ArtistListUiCallback {

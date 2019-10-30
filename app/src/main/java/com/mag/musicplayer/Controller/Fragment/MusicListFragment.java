@@ -8,11 +8,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AutoCompleteTextView;
 import android.widget.ImageButton;
-import android.widget.SearchView;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -144,13 +146,24 @@ public class MusicListFragment extends Fragment {
                 return false;
             }
         });
+        makeSearchViewWhite();
 
     }
 
+    @SuppressLint("ResourceType")
+    private void makeSearchViewWhite() {
+        LinearLayout linearLayout1 = (LinearLayout) searchView.getChildAt(0);
+        LinearLayout linearLayout2 = (LinearLayout) linearLayout1.getChildAt(2);
+        LinearLayout linearLayout3 = (LinearLayout) linearLayout2.getChildAt(1);
+        AutoCompleteTextView autoComplete = (AutoCompleteTextView) linearLayout3.getChildAt(0);
+        autoComplete.setTextColor(Color.parseColor(getResources().getString(R.color.white)));
+    }
+
+    @SuppressLint("ResourceType")
     private void updateOptionsBtns() {
 
-        shuffleBtn.setBackgroundColor(Color.parseColor(MusicRepository.getInstance().isShuffle() ? "#E6FF1D1D" : "#00FFFFFF"));
-        repeatBtn.setBackgroundColor(Color.parseColor(MusicRepository.getInstance().isRepeatingMode() ? "#E6FF1D1D" : "#00FFFFFF"));
+        shuffleBtn.setBackgroundColor(Color.parseColor(MusicRepository.getInstance().isShuffle() ? getResources().getString(R.color.colorPrimaryDark) : "#00FFFFFF"));
+        repeatBtn.setBackgroundColor(Color.parseColor(MusicRepository.getInstance().isRepeatingMode() ? getResources().getString(R.color.colorPrimaryDark) : "#00FFFFFF"));
         repeatBtn.setImageDrawable(MusicRepository.getInstance().isRepeatingMode() ? getResources().getDrawable(R.drawable.ic_repeat_one) : getResources().getDrawable(R.drawable.ic_repeat));
 
     }

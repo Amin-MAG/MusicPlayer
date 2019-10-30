@@ -6,7 +6,7 @@
     android:id="@+id/musicBarFragment_mainLayout"
     android:layout_width="match_parent"
     android:layout_height="63dp"
-    android:background="#D53C3CFF"
+    android:background="@color/colorPrimary"
     android:padding="4dp"
     tools:context=".Controller.Fragment.MusicBarFragment"
     tools:layout_editor_absoluteX="0dp"
@@ -62,36 +62,6 @@
             android:background="@drawable/roundcorner"
             android:paddingLeft="16dp"
             android:src="@drawable/ic_skip_next" />
-
-        <!--            <com.google.android.material.button.MaterialButton-->
-        <!--                android:id="@+id/musicBarFragment_skipPrevious"-->
-        <!--                android:layout_width="41dp"-->
-        <!--                android:layout_height="wrap_content"-->
-        <!--                app:cornerRadius="50dp"-->
-        <!--                app:icon="@drawable/ic_skip_previous">-->
-
-
-        <!--            </com.google.android.material.button.MaterialButton>-->
-
-        <!--            <com.google.android.material.button.MaterialButton-->
-        <!--                android:id="@+id/musicBarFragment_play_pause"-->
-        <!--                android:layout_width="56dp"-->
-        <!--                android:layout_height="42dp"-->
-        <!--                android:layout_marginLeft="4dp"-->
-        <!--                app:icon="@drawable/ic_play">-->
-
-
-        <!--            </com.google.android.material.button.MaterialButton>-->
-
-        <!--            <com.google.android.material.button.MaterialButton-->
-        <!--                android:id="@+id/musicBarFragment_skipNext"-->
-        <!--                android:layout_width="56dp"-->
-        <!--                android:layout_height="42dp"-->
-        <!--                android:layout_marginLeft="4dp"-->
-        <!--                app:icon="@drawable/ic_skip_next">-->
-
-
-        <!--            </com.google.android.material.button.MaterialButton>-->
 
     </LinearLayout>
 

@@ -6,10 +6,14 @@
     android:layout_height="match_parent">
 
 
-    <SearchView
+    <androidx.appcompat.widget.SearchView
         android:id="@+id/albumListFragment_searchview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:closeIcon="@drawable/ic_search_close"
+        app:searchHintIcon="@drawable/ic_search_hint"
+        app:searchIcon="@drawable/ic_search"
+        android:background="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -49,6 +53,7 @@
         android:id="@+id/albumListFragment_albumRecycler"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:background="@color/colorPrimaryLight"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

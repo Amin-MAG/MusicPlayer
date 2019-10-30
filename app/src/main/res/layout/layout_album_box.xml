@@ -2,6 +2,7 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/boxLayout_cardView"
+    android:backgroundTint="@color/colorPrimaryMedium"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="4dp">
@@ -10,7 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="4dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingBottom="8dp">
 
         <ImageView
             android:id="@+id/boxLayout_image"
@@ -26,6 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Album Name"
+            android:textColor="@color/white"
             android:textSize="16dp"
             app:layout_constraintEnd_toEndOf="@+id/boxLayout_image"
             app:layout_constraintHorizontal_bias="0.498"
@@ -37,6 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Artist Name"
+            android:textColor="@color/white"
             android:textSize="12dp"
             app:layout_constraintEnd_toEndOf="@+id/boxLayout_titile"
             app:layout_constraintStart_toStartOf="@+id/boxLayout_titile"

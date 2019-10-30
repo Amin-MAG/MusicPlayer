@@ -27,6 +27,7 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.Musi
     private Track selectedTrack;
     private MusicListAdapterCallback callBack;
 
+
     private Activity activity;
 
     public MusicListAdapter(List<Track> tracks, MusicListAdapterCallback callBack) {
@@ -81,9 +82,9 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.Musi
             trackLength.setText(MusicPlayer.getStringTime(track.getTrackLength() / 1000));
 
             if (selectedTrack != null && track.getTrackId() == selectedTrack.getTrackId()) {
-                trackCardView.setBackgroundColor(Color.parseColor(activity.getString(R.color.colorPrimary)));
+                trackCardView.setBackgroundColor(Color.parseColor(activity.getString(R.color.colorAccent)));
             } else {
-                trackCardView.setBackgroundColor(Color.parseColor("#CB893CD5"));
+                trackCardView.setBackgroundColor(Color.parseColor(activity.getString(R.color.colorPrimaryLight)));
             }
 
             trackCardView.setOnClickListener(new View.OnClickListener() {

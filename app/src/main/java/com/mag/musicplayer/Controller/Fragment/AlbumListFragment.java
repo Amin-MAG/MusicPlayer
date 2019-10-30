@@ -1,11 +1,14 @@
 package com.mag.musicplayer.Controller.Fragment;
 
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,8 +16,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
-import android.widget.SearchView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mag.musicplayer.Model.Adapter.AlbumListAdapter;
@@ -135,8 +139,19 @@ public class AlbumListFragment extends Fragment {
             }
         });
 
+        makeSearchViewWhite();
 
     }
+
+    @SuppressLint("ResourceType")
+    private void makeSearchViewWhite() {
+        LinearLayout linearLayout1 = (LinearLayout) searchView.getChildAt(0);
+        LinearLayout linearLayout2 = (LinearLayout) linearLayout1.getChildAt(2);
+        LinearLayout linearLayout3 = (LinearLayout) linearLayout2.getChildAt(1);
+        AutoCompleteTextView autoComplete = (AutoCompleteTextView) linearLayout3.getChildAt(0);
+        autoComplete.setTextColor(Color.parseColor(getResources().getString(R.color.white)));
+    }
+
 
     public interface AlbumListUiCallback {
         void updateMusicBar(Track track);

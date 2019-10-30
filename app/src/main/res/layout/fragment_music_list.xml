@@ -10,6 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
         android:paddingTop="8dp"
         android:paddingBottom="8dp">
 
@@ -37,15 +38,20 @@
             app:layout_constraintEnd_toStartOf="@+id/musicListFragment_shuffleButton"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <SearchView
+        <androidx.appcompat.widget.SearchView
             android:id="@+id/musicListFragment_searchView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:closeIcon="@drawable/ic_search_close"
+            app:searchHintIcon="@drawable/ic_search_hint"
+            app:searchIcon="@drawable/ic_search"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -53,7 +59,6 @@
         android:id="@+id/musicListFragment_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#B426FF4A"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
 </LinearLayout>
