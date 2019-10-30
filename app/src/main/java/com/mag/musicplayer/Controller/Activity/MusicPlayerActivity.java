@@ -75,6 +75,8 @@ public class MusicPlayerActivity extends AppCompatActivity implements MusicPlaye
 
     @Override
     public Track getNext() {
+        if (MusicRepository.getInstance().isRepeatingMode())
+            return getTrackDistance(0);
         return getTrackDistance(+1);
     }
 

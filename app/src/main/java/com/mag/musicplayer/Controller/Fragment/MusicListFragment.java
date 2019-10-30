@@ -28,7 +28,7 @@ public class MusicListFragment extends Fragment {
     private RecyclerView recyclerView;
     private MusicListAdapter adapter;
     private SearchView searchView;
-    private ImageButton reapeatBtn, shuffleBtn;
+    private ImageButton repeatBtn, shuffleBtn;
 
     private MusicListUiCallback uiCallback = null;
 
@@ -76,7 +76,14 @@ public class MusicListFragment extends Fragment {
             }
         });
 
-        reapeatBtn = view.findViewById(R.id.musicListFragment_repeatButton);
+        repeatBtn = view.findViewById(R.id.musicListFragment_repeatButton);
+        repeatBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MusicRepository.getInstance().setRepeatingMode(!MusicRepository.getInstance().isRepeatingMode());
+                updateOptionsBtns();
+            }
+        });
 
         recyclerView = view.findViewById(R.id.musicListFragment_recycler);
         adapter = new MusicListAdapter(MusicRepository.getInstance().getTracks(), new MusicListAdapter.MusicListAdapterCallback() {
@@ -111,7 +118,7 @@ public class MusicListFragment extends Fragment {
         searchView.setOnSearchClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                reapeatBtn.setVisibility(View.GONE);
+                repeatBtn.setVisibility(View.GONE);
                 shuffleBtn.setVisibility(View.GONE);
                 searchView.setVisibility(View.VISIBLE);
             }
@@ -119,7 +126,7 @@ public class MusicListFragment extends Fragment {
         searchView.setOnCloseListener(new SearchView.OnCloseListener() {
             @Override
             public boolean onClose() {
-                reapeatBtn.setVisibility(View.VISIBLE);
+                repeatBtn.setVisibility(View.VISIBLE);
                 shuffleBtn.setVisibility(View.VISIBLE);
                 return false;
             }
@@ -143,6 +150,8 @@ public class MusicListFragment extends Fragment {
     private void updateOptionsBtns() {
 
         shuffleBtn.setBackgroundColor(Color.parseColor(MusicRepository.getInstance().isShuffle() ? "#E6FF1D1D" : "#00FFFFFF"));
+        repeatBtn.setBackgroundColor(Color.parseColor(MusicRepository.getInstance().isRepeatingMode() ? "#E6FF1D1D" : "#00FFFFFF"));
+        repeatBtn.setImageDrawable(MusicRepository.getInstance().isRepeatingMode() ? getResources().getDrawable(R.drawable.ic_repeat_one) : getResources().getDrawable(R.drawable.ic_repeat));
 
     }
 

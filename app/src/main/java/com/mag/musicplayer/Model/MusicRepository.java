@@ -25,7 +25,9 @@ public class MusicRepository {
     private List<Track> shuffleTracks;
     private List<Album> albums = new ArrayList<>();
     private List<Artist> artists = new ArrayList<>();
+
     private boolean isShuffleMode = false;
+    private boolean isRepeatingMode = false;
 
     public void setTracks(List<Track> tracks) {
         this.tracks = tracks;
@@ -96,7 +98,6 @@ public class MusicRepository {
 
     public List<Track> getTrackByArtist(Artist artist) {
         List<Track> items = new ArrayList<>();
-        ;
         for (Track track : tracks)
             if (track.getArtistName().equals(artist.getArtistName())) items.add(track);
         return items;
@@ -117,6 +118,14 @@ public class MusicRepository {
 
     public void setShuffleMode(boolean shuffleMode) {
         isShuffleMode = shuffleMode;
+    }
+
+    public void setRepeatingMode(boolean repeatingMode) {
+        isRepeatingMode = repeatingMode;
+    }
+
+    public boolean isRepeatingMode() {
+        return isRepeatingMode;
     }
 
     public boolean isShuffle() {
