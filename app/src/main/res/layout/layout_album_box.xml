@@ -2,24 +2,26 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/boxLayout_cardView"
-    android:backgroundTint="@color/colorPrimaryMedium"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="4dp">
+    app:cardElevation="0dp"
+    android:layout_margin="8dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="4dp"
+        android:background="@color/colorPrimaryLight"
         android:orientation="vertical"
         android:paddingBottom="8dp">
 
         <ImageView
             android:id="@+id/boxLayout_image"
             android:layout_width="0dp"
-            android:layout_height="219dp"
+            android:layout_height="160dp"
+            android:layout_marginTop="8dp"
             android:src="@drawable/music_icon"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -27,9 +29,10 @@
             android:id="@+id/boxLayout_titile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
             android:text="Album Name"
             android:textColor="@color/white"
-            android:textSize="16dp"
+            android:textSize="12dp"
             app:layout_constraintEnd_toEndOf="@+id/boxLayout_image"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="@+id/boxLayout_image"
@@ -41,7 +44,7 @@
             android:layout_height="wrap_content"
             android:text="Artist Name"
             android:textColor="@color/white"
-            android:textSize="12dp"
+            android:textSize="10dp"
             app:layout_constraintEnd_toEndOf="@+id/boxLayout_titile"
             app:layout_constraintStart_toStartOf="@+id/boxLayout_titile"
             app:layout_constraintTop_toBottomOf="@+id/boxLayout_titile" />

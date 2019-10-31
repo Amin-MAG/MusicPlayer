@@ -3,6 +3,7 @@ package com.mag.musicplayer.Controller.Fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -78,7 +79,8 @@ public class AlbumListFragment extends Fragment {
         searchView = view.findViewById(R.id.albumListFragment_searchview);
 
         albumRecyclerView = view.findViewById(R.id.albumListFragment_albumRecycler);
-        albumRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        int spanCount = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE ? 3 : 2;
+        albumRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), spanCount));
         albumListAdapter = new AlbumListAdapter(MusicRepository.getInstance().getAlbums(), new AlbumListAdapter.AlbumListAdapterCallback() {
             @Override
             public void updateUi(Album album) {

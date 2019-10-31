@@ -3,6 +3,7 @@ package com.mag.musicplayer.Controller.Fragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import com.mag.musicplayer.Controller.Activity.TrackPlayerActivity;
+import com.mag.musicplayer.Model.MusicRepository;
 import com.mag.musicplayer.Model.Track;
 import com.mag.musicplayer.R;
 import com.mag.musicplayer.Util.MusicPlayer;
@@ -25,6 +27,7 @@ import java.io.IOException;
 
 public class MusicBarFragment extends Fragment {
 
+    public static final String ON_SAVE_INSTANCE_TRACK_ID = "on_save_instance_track_id";
     private Track barTrack;
 
     private ConstraintLayout mainLayout;
@@ -58,13 +61,27 @@ public class MusicBarFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if (barTrack != null)
+            outState.putLong(ON_SAVE_INSTANCE_TRACK_ID, barTrack.getTrackId());
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_music_bar, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        if (savedInstanceState != null) {
+            barTrack = MusicRepository.getInstance().getTrackById(savedInstanceState.getLong(ON_SAVE_INSTANCE_TRACK_ID));
+        }
+
+        Log.d("LifeCycle", "OnViewCreated " + barTrack);
 
         findItems(view);
 
@@ -124,6 +141,8 @@ public class MusicBarFragment extends Fragment {
             }
         });
 
+        updateBar(barTrack);
+
     }
 
     private void findItems(@NonNull View view) {
@@ -138,18 +157,15 @@ public class MusicBarFragment extends Fragment {
 
     public void updateBar(Track track) {
 
-        trackName.setText(track.getTrackTitle().length() > 24 ? track.getTrackTitle().substring(0,24) + "..." : track.getTrackTitle());
-        trackArtist.setText(track.getArtistName());
+        if (track != null) {
 
-        updatePlayPause();
+            trackName.setText(track.getTrackTitle().length() > 24 ? track.getTrackTitle().substring(0, 24) + "..." : track.getTrackTitle());
+            trackArtist.setText(track.getArtistName());
+            Picasso.get().load(track.getImagePath()).placeholder(getResources().getDrawable(R.drawable.music_icon)).into(trackImage);
 
-        Picasso.get().load(track.getImagePath()).placeholder(getResources().getDrawable(R.drawable.music_icon)).into(trackImage);
+            barTrack = track;
+        }
 
-        barTrack = track;
-
-    }
-
-    public void updateBar() {
         updatePlayPause();
     }
 
@@ -165,6 +181,7 @@ public class MusicBarFragment extends Fragment {
 
     public interface MusicBarCallback {
         Track getTrackDistance(int distance);
+
         void updateRecyclerSelectedTrack(Track track);
     }
 

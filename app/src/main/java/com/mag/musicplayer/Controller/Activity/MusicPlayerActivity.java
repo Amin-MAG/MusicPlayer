@@ -64,13 +64,7 @@ public class MusicPlayerActivity extends AppCompatActivity implements MusicPlaye
 
     @Override
     public void updateMusicBar(Track track) {
-
-        if (track == null) {
-            musicBarFragment.updateBar();
-        } else {
-            musicBarFragment.updateBar(track);
-        }
-
+        musicBarFragment.updateBar(track);
     }
 
     @Override
