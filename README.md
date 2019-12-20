@@ -1,6 +1,6 @@
 # MusicPlayer
 
-## Simple Android Music Player
+### Simple Android Music Player
 
 <br>
 
