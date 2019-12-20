@@ -29,3 +29,7 @@
  - [ ] Playlist
  - [ ] File Explorer
  - [ ] Work with headphone buttons
+ ## External Libraries
+ - Material
+ - Piccasso
+ - GreenDAO
