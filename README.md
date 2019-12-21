@@ -1,33 +1,33 @@
-
-
-
 # MusicPlayer
 
 ### Simple Android Music Player
 
 <br>
 
-| Login View | Register View | Tasks View |
+| Main View | Album View | Track View |
 |--|--|--|
-| <img src="http://uupload.ir/files/diqs_screenshot_1576840803.png" width=250px> | <img src="http://uupload.ir/files/dfvc_screenshot_1576840806.png" width=250px> | <img src="http://uupload.ir/files/flfm_screenshot_1576840885.png" width=250px> |
+| <img src="http://uupload.ir/files/8y54_screenshot_1576834728.png" width=250px> | <img src="http://uupload.ir/files/rx9l_screenshot_1576834733.png" width=250px> | <img src="http://uupload.ir/files/2muq_screenshot_1576834744.png" width=250px> |
 
-
-| Add Task View | Time View | List View |
-|--|--|--|
-| <img src="http://uupload.ir/files/x19u_screenshot_1576840891.png" width=250px> | <img src="http://uupload.ir/files/weey_screenshot_1576840933.png" width=250px> | <img src="http://uupload.ir/files/phcx_screenshot_1576840975.png" width=250px> |
+ - Main View :  Find all musics and show them in first page.
+ - Albums: Show all albums in a page.
+ - Artists: Show all artist in a page.
+ - Playlist: (not completed)
+ - File Explorer: (not completed)
 
 <br>
 
  ## Features
- - [x] Registering Users
- - [x] Add tasks
- - [x] Three task status (to do, doing, done)
- - [x] Set time and date
- - [x] Set image for task (camera)
- - [x] Admin user
- - [x] Default images for non picture tasks
- - [x] Edit and delete tasks
- - [x] Search tasks
- ## Used Library
+ - [x] Get musics form storage and show covers
+ - [x] Filter by album and artists.
+ - [x] Shuffle
+ - [x] Reapeating modes
+ - [x] Search between all
+ - [x] Play next and previous music
+ - [ ] Service
+ - [ ] Playlist
+ - [ ] File Explorer
+ - [ ] Work with headphone buttons
+ ## External Libraries
  - Material
+ - Piccasso
  - GreenDAO
