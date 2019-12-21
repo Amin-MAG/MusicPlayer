@@ -26,10 +26,13 @@ public class MusicPlayerActivity extends AppCompatActivity implements MusicPlaye
     public static final String TAG_FRAGMENT_FILTER_ITEMS_LIST = "tag_fragment_filter_items_list";
     public static final String TAG_FRAGMENT_MUSIC_BAR = "tag_fragment_music_bar";
     public static final String TAG_MUSIC_PLAYER_VIEW_PAGER = "tag_music_player_view_pager";
+    public static final String ON_SAVE_INSTANT_IS_THE_FIRST_TIME = "on_save_instant_isTheFirstTime";
 
     private MusicBarFragment musicBarFragment = MusicBarFragment.newInstance();
     private MusicPlayerViewPagerFragment musicPlayerViewPagerFragment = MusicPlayerViewPagerFragment.newInstance();
     private TabLayout tabLayout;
+
+    private boolean isTheFirstTime = false;
 
     public static Intent newIntent(Context context) {
         return new Intent(context, MusicPlayerActivity.class);
@@ -44,7 +47,15 @@ public class MusicPlayerActivity extends AppCompatActivity implements MusicPlaye
     protected void onResume() {
         super.onResume();
 
-        updateMusicBar(null);
+//        updateMusicBar(null);
+
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putBoolean(ON_SAVE_INSTANT_IS_THE_FIRST_TIME, isTheFirstTime);
 
     }
 
@@ -54,8 +65,17 @@ public class MusicPlayerActivity extends AppCompatActivity implements MusicPlaye
 
         MusicPlayer.getInstance().loadMusics(getContentResolver());
 
+
+//        if (savedInstanceState != null)
+//            isTheFirstTime = savedInstanceState.getBoolean(ON_SAVE_INSTANT_IS_THE_FIRST_TIME);
+//
+//        if (!isTheFirstTime) {
         UiUtil.changeFragment(getSupportFragmentManager(), musicPlayerViewPagerFragment, R.id.musicPlayerActivity_viewPagerFrame, true, TAG_MUSIC_PLAYER_VIEW_PAGER);
         UiUtil.changeFragment(getSupportFragmentManager(), musicBarFragment, R.id.musicPlayerActivity_trackFrame, true, TAG_FRAGMENT_MUSIC_BAR);
+//        Log.d("LifeCycle", getSupportFragmentManager().getFragments().size() + "");
+
+//            isTheFirstTime = true;
+//        }
 
         tabLayout = findViewById(R.id.musicPlayerActivity_tabLayout);
         tabLayout.setupWithViewPager(musicPlayerViewPagerFragment.getViewPager());
@@ -86,13 +106,13 @@ public class MusicPlayerActivity extends AppCompatActivity implements MusicPlaye
             musicPlayerViewPagerFragment.getMusicList().getAdapter().updateUi();
             return track;
         } else {
-            Log.d("SomsomSom", musicPlayerViewPagerFragment.getMusicList() + " ");
             int index = musicPlayerViewPagerFragment
                     .getMusicList()
                     .getAdapter()
                     .findTrackIndex(MusicPlayer
                             .getInstance()
                             .getCurrentTrack()) + n;
+            Log.d("SomsomSom", index + " ");
             int size = musicPlayerViewPagerFragment.getMusicList().getAdapter().getItemCount();
             if (index % size < 0) index += size;
             index %= size;
@@ -100,6 +120,7 @@ public class MusicPlayerActivity extends AppCompatActivity implements MusicPlaye
             musicPlayerViewPagerFragment.getMusicList().getAdapter().setSelectedTrack(track);
             musicPlayerViewPagerFragment.getMusicList().getAdapter().updateUi();
             return track;
+
         }
     }
 

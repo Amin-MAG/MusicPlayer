@@ -8,6 +8,7 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.util.Log;
 
 import com.mag.musicplayer.Model.Album;
 import com.mag.musicplayer.Model.Artist;
@@ -131,6 +132,8 @@ public class MusicPlayer {
     }
 
     public void playMusic(Track track, final Context context) throws IOException {
+
+        Log.d("MusicDebuging", track.getTrackTitle());
 
         mediaPlayer.stop();
 

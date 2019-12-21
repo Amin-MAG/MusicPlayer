@@ -81,7 +81,9 @@ public class MusicBarFragment extends Fragment {
             barTrack = MusicRepository.getInstance().getTrackById(savedInstanceState.getLong(ON_SAVE_INSTANCE_TRACK_ID));
         }
 
-        Log.d("LifeCycle", "OnViewCreated " + barTrack);
+//        Log.d("LifeCycle", "OnViewCreated " + barTrack + " " + this);
+//        Log.d("LifeCycle", getFragmentManager().getFragments().size() + "");
+
 
         findItems(view);
 
@@ -121,8 +123,8 @@ public class MusicBarFragment extends Fragment {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                playPauseBtn.setImageDrawable(getResources().getDrawable(R.drawable.ic_pause));
-                updateBar(nextTrack);
+//                playPauseBtn.setImageDrawable(getResources().getDrawable(R.drawable.ic_pause));
+//                updateBar(nextTrack);
             }
         });
 
@@ -142,6 +144,14 @@ public class MusicBarFragment extends Fragment {
         });
 
         updateBar(barTrack);
+
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+//                Log.d("LifeCycle", "FragmentDestroyed" + " " + this);
 
     }
 
