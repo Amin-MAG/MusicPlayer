@@ -1,12 +1,18 @@
 package com.mag.musicplayer.Controller.Activity;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.google.android.material.tabs.TabLayout;
 import com.mag.musicplayer.Controller.Fragment.AlbumListFragment;
@@ -20,6 +26,8 @@ import com.mag.musicplayer.R;
 import com.mag.musicplayer.Util.MusicPlayer;
 import com.mag.musicplayer.Util.UiUtil;
 
+import java.util.List;
+
 public class MusicPlayerActivity extends AppCompatActivity implements MusicPlayerViewPagerFragment.SyncTabViewPager, MusicListFragment.MusicListUiCallback, MusicBarFragment.MusicBarCallback, AlbumListFragment.AlbumListUiCallback, ArtistListFragment.ArtistListUiCallback {
 
 
@@ -27,6 +35,7 @@ public class MusicPlayerActivity extends AppCompatActivity implements MusicPlaye
     public static final String TAG_FRAGMENT_MUSIC_BAR = "tag_fragment_music_bar";
     public static final String TAG_MUSIC_PLAYER_VIEW_PAGER = "tag_music_player_view_pager";
     public static final String ON_SAVE_INSTANT_IS_THE_FIRST_TIME = "on_save_instant_isTheFirstTime";
+    private static final int MY_PERMISSIONS_REQUEST_READ_STORAGE = 10002;
 
     private MusicBarFragment musicBarFragment = MusicBarFragment.newInstance();
     private MusicPlayerViewPagerFragment musicPlayerViewPagerFragment = MusicPlayerViewPagerFragment.newInstance();
@@ -39,8 +48,26 @@ public class MusicPlayerActivity extends AppCompatActivity implements MusicPlaye
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_READ_STORAGE:
+
+                if (grantResults[0] != -1) {
+                    MusicPlayer.getInstance().loadMusics(getContentResolver());
+                    startActivity(newIntent(this));
+                    finish();
+                }
+
+                break;
+            default:
+                break;
+
+        }
+
+
     }
 
     @Override
@@ -63,7 +90,11 @@ public class MusicPlayerActivity extends AppCompatActivity implements MusicPlaye
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_music_player);
 
-        MusicPlayer.getInstance().loadMusics(getContentResolver());
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, MY_PERMISSIONS_REQUEST_READ_STORAGE);
+        } else {
+            MusicPlayer.getInstance().loadMusics(getContentResolver());
+        }
 
 
 //        if (savedInstanceState != null)
