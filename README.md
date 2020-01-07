@@ -6,7 +6,7 @@
 
 | Main View | Album View | Track View |
 |--|--|--|
-| <img src="http://uupload.ir/files/8y54_screenshot_1576834728.png" width=250px> | <img src="http://uupload.ir/files/rx9l_screenshot_1576834733.png" width=250px> | <img src="http://uupload.ir/files/2muq_screenshot_1576834744.png" width=250px> |
+| <img src="http://bayanbox.ir/download/6978392625462577016/Screenshot-1578396957.png" width=250px> | <img src="http://bayanbox.ir/download/6357589994024945455/Screenshot-1578396969.png" width=250px> | <img src="http://bayanbox.ir/download/824690093911830101/Screenshot-1578397010.png" width=250px> |
 
  - Main View :  Find all musics and show them in first page.
  - Albums: Show all albums in a page.
