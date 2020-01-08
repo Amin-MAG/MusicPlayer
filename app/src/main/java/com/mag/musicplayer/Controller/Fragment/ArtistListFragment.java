@@ -21,11 +21,11 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.mag.musicplayer.Model.Adapter.ArtistListAdapter;
-import com.mag.musicplayer.Model.Adapter.MusicListAdapter;
-import com.mag.musicplayer.Model.Artist;
-import com.mag.musicplayer.Model.MusicRepository;
-import com.mag.musicplayer.Model.Track;
+import com.mag.musicplayer.data.model.Adapter.ArtistListAdapter;
+import com.mag.musicplayer.data.model.Adapter.MusicListAdapter;
+import com.mag.musicplayer.data.model.Artist;
+import com.mag.musicplayer.data.repository.TrackRepository;
+import com.mag.musicplayer.data.model.Track;
 import com.mag.musicplayer.R;
 
 import java.util.ArrayList;
@@ -80,14 +80,14 @@ public class ArtistListFragment extends Fragment {
         artistRecyclerView = view.findViewById(R.id.artistListFragment_artistRecycler);
         int spanCount = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE ? 3 : 2;
         artistRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), spanCount));
-        albumListAdapter = new ArtistListAdapter(MusicRepository.getInstance().getArtists(), new ArtistListAdapter.ArtistListAdapterCallback() {
+        albumListAdapter = new ArtistListAdapter(TrackRepository.getInstance().getArtists(), new ArtistListAdapter.ArtistListAdapterCallback() {
             @Override
             public void updateUi(Artist artist) {
 
                 artistName.setText(artist.getArtistName().length() > 30 ? artist.getArtistName().substring(0, 30) + "..." : artist.getArtistName());
                 artistRecyclerView.setVisibility(View.GONE);
                 searchView.setVisibility(View.GONE);
-                musicListAdapter.setTracks(MusicRepository.getInstance().getTrackByArtist(artist));
+                musicListAdapter.setTracks(TrackRepository.getInstance().getTrackByArtist(artist));
                 musicListAdapter.notifyDataSetChanged();
                 musicRecyclerView.setVisibility(View.VISIBLE);
                 artistName.setVisibility(View.VISIBLE);
@@ -133,7 +133,7 @@ public class ArtistListFragment extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String s) {
-                albumListAdapter.setArtists(MusicRepository.getInstance().getArtists(s.toLowerCase()));
+                albumListAdapter.setArtists(TrackRepository.getInstance().getArtists(s.toLowerCase()));
                 albumListAdapter.notifyDataSetChanged();
                 return false;
             }

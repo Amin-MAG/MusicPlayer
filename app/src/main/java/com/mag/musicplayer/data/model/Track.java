@@ -1,4 +1,4 @@
-package com.mag.musicplayer.Model;
+package com.mag.musicplayer.data.model;
 
 import android.net.Uri;
 

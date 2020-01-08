@@ -1,7 +1,6 @@
 package com.mag.musicplayer.Controller.Activity;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -9,7 +8,6 @@ import android.os.Bundle;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -20,13 +18,11 @@ import com.mag.musicplayer.Controller.Fragment.ArtistListFragment;
 import com.mag.musicplayer.Controller.Fragment.MusicBarFragment;
 import com.mag.musicplayer.Controller.Fragment.MusicListFragment;
 import com.mag.musicplayer.Controller.Fragment.MusicPlayerViewPagerFragment;
-import com.mag.musicplayer.Model.MusicRepository;
-import com.mag.musicplayer.Model.Track;
+import com.mag.musicplayer.data.repository.TrackRepository;
+import com.mag.musicplayer.data.model.Track;
 import com.mag.musicplayer.R;
-import com.mag.musicplayer.Util.MusicPlayer;
-import com.mag.musicplayer.Util.UiUtil;
-
-import java.util.List;
+import com.mag.musicplayer.util.MusicPlayer;
+import com.mag.musicplayer.util.UiUtil;
 
 public class MusicPlayerActivity extends AppCompatActivity implements MusicPlayerViewPagerFragment.SyncTabViewPager, MusicListFragment.MusicListUiCallback, MusicBarFragment.MusicBarCallback, AlbumListFragment.AlbumListUiCallback, ArtistListFragment.ArtistListUiCallback {
 
@@ -120,19 +116,19 @@ public class MusicPlayerActivity extends AppCompatActivity implements MusicPlaye
 
     @Override
     public Track getNext() {
-        if (MusicRepository.getInstance().isRepeatingMode())
+        if (TrackRepository.getInstance().isRepeatingMode())
             return getTrackDistance(0);
         return getTrackDistance(+1);
     }
 
     @Override
     public Track getTrackDistance(int n) {
-        if (MusicRepository.getInstance().isShuffle()) {
-            int index = MusicRepository.getInstance().getTrackIndex(MusicPlayer.getInstance().getCurrentTrack()) + n;
-            int size = MusicRepository.getInstance().getTracks().size();
+        if (TrackRepository.getInstance().isShuffle()) {
+            int index = TrackRepository.getInstance().getTrackIndex(MusicPlayer.getInstance().getCurrentTrack()) + n;
+            int size = TrackRepository.getInstance().getTracks().size();
             if (index % size < 0) index += size;
             index %= size;
-            Track track = MusicRepository.getInstance().getShuffleTracks().get(index);
+            Track track = TrackRepository.getInstance().getShuffleTracks().get(index);
             musicPlayerViewPagerFragment.getMusicList().getAdapter().setSelectedTrack(track);
             musicPlayerViewPagerFragment.getMusicList().getAdapter().updateUi();
             return track;

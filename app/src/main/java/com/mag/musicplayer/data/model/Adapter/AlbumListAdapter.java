@@ -1,4 +1,4 @@
-package com.mag.musicplayer.Model.Adapter;
+package com.mag.musicplayer.data.model.Adapter;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.mag.musicplayer.Model.Album;
+import com.mag.musicplayer.data.model.Album;
 import com.mag.musicplayer.R;
 import com.squareup.picasso.Picasso;
 

@@ -3,8 +3,6 @@ package com.mag.musicplayer.Controller.Fragment;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,13 +13,8 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
-import com.mag.musicplayer.Model.Adapter.MusicViewPagerAdapter;
-import com.mag.musicplayer.Model.MusicRepository;
-import com.mag.musicplayer.Model.Track;
+import com.mag.musicplayer.data.model.Adapter.MusicViewPagerAdapter;
 import com.mag.musicplayer.R;
-
-import java.util.HashMap;
-import java.util.List;
 
 public class MusicPlayerViewPagerFragment extends Fragment {
 

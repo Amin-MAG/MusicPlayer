@@ -18,6 +18,13 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    dataBinding {
+        enabled = true
+    }
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
 }
 
 dependencies {
@@ -31,4 +38,5 @@ dependencies {
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'org.greenrobot:greendao:3.2.2'
     implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
 }

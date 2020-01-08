@@ -3,7 +3,6 @@ package com.mag.musicplayer.Controller.Fragment;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,10 +16,10 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import com.mag.musicplayer.Controller.Activity.TrackPlayerActivity;
-import com.mag.musicplayer.Model.MusicRepository;
-import com.mag.musicplayer.Model.Track;
 import com.mag.musicplayer.R;
-import com.mag.musicplayer.Util.MusicPlayer;
+import com.mag.musicplayer.data.model.Track;
+import com.mag.musicplayer.data.repository.TrackRepository;
+import com.mag.musicplayer.util.MusicPlayer;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
@@ -78,7 +77,7 @@ public class MusicBarFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         if (savedInstanceState != null) {
-            barTrack = MusicRepository.getInstance().getTrackById(savedInstanceState.getLong(ON_SAVE_INSTANCE_TRACK_ID));
+            barTrack = TrackRepository.getInstance().getTrackById(savedInstanceState.getLong(ON_SAVE_INSTANCE_TRACK_ID));
         }
 
 //        Log.d("LifeCycle", "OnViewCreated " + barTrack + " " + this);
@@ -91,23 +90,18 @@ public class MusicBarFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (barTrack != null)
-                    startActivity(TrackPlayerActivity.newIntent(getActivity(), barTrack, new TrackPlayerActivity.TrackActivityCallback() {
-                        @Override
-                        public Track getTrackDistanceFromAdapter(int distance) {
-                            return callback.getTrackDistance(distance);
-                        }
-                    }));
+                    startActivity(TrackPlayerActivity.newIntent(getActivity()));
             }
         });
 
         playPauseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (MusicPlayer.getInstance().getMediaPlayer().isPlaying()) {
-                    MusicPlayer.getInstance().getMediaPlayer().pause();
+                if (MusicPlayer.getInstance().getMediaPlayerOld().isPlaying()) {
+                    MusicPlayer.getInstance().getMediaPlayerOld().pause();
                     playPauseBtn.setImageDrawable(getResources().getDrawable(R.drawable.ic_play));
                 } else {
-                    MusicPlayer.getInstance().getMediaPlayer().start();
+                    MusicPlayer.getInstance().getMediaPlayerOld().start();
                     playPauseBtn.setImageDrawable(getResources().getDrawable(R.drawable.ic_pause));
                 }
             }
@@ -181,7 +175,7 @@ public class MusicBarFragment extends Fragment {
 
     private void updatePlayPause() {
 
-        if (MusicPlayer.getInstance().getMediaPlayer().isPlaying()) {
+        if (MusicPlayer.getInstance().getMediaPlayerOld().isPlaying()) {
             playPauseBtn.setImageDrawable(getResources().getDrawable(R.drawable.ic_pause));
         } else {
             playPauseBtn.setImageDrawable(getResources().getDrawable(R.drawable.ic_play));

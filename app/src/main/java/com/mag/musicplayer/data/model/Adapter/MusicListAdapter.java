@@ -1,4 +1,4 @@
-package com.mag.musicplayer.Model.Adapter;
+package com.mag.musicplayer.data.model.Adapter;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -13,9 +13,9 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.mag.musicplayer.Model.Track;
+import com.mag.musicplayer.data.model.Track;
 import com.mag.musicplayer.R;
-import com.mag.musicplayer.Util.MusicPlayer;
+import com.mag.musicplayer.util.MusicPlayer;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;

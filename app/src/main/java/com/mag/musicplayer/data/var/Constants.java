@@ -1,4 +1,4 @@
-package com.mag.musicplayer.Var;
+package com.mag.musicplayer.data.var;
 
 import android.net.Uri;
 import android.os.Handler;

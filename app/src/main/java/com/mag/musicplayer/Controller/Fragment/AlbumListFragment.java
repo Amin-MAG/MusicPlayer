@@ -22,11 +22,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.mag.musicplayer.Model.Adapter.AlbumListAdapter;
-import com.mag.musicplayer.Model.Adapter.MusicListAdapter;
-import com.mag.musicplayer.Model.Album;
-import com.mag.musicplayer.Model.MusicRepository;
-import com.mag.musicplayer.Model.Track;
+import com.mag.musicplayer.data.model.Adapter.AlbumListAdapter;
+import com.mag.musicplayer.data.model.Adapter.MusicListAdapter;
+import com.mag.musicplayer.data.model.Album;
+import com.mag.musicplayer.data.repository.TrackRepository;
+import com.mag.musicplayer.data.model.Track;
 import com.mag.musicplayer.R;
 
 import java.util.ArrayList;
@@ -81,14 +81,14 @@ public class AlbumListFragment extends Fragment {
         albumRecyclerView = view.findViewById(R.id.albumListFragment_albumRecycler);
         int spanCount = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE ? 3 : 2;
         albumRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), spanCount));
-        albumListAdapter = new AlbumListAdapter(MusicRepository.getInstance().getAlbums(), new AlbumListAdapter.AlbumListAdapterCallback() {
+        albumListAdapter = new AlbumListAdapter(TrackRepository.getInstance().getAlbums(), new AlbumListAdapter.AlbumListAdapterCallback() {
             @Override
             public void updateUi(Album album) {
 
                 albumName.setText(album.getAlbumTitle().length() > 30 ? album.getAlbumTitle().substring(0,30) + "..." : album.getAlbumTitle());
                 albumRecyclerView.setVisibility(View.GONE);
                 searchView.setVisibility(View.GONE);
-                musicListAdapter.setTracks(MusicRepository.getInstance().getTrackByAlbum(album));
+                musicListAdapter.setTracks(TrackRepository.getInstance().getTrackByAlbum(album));
                 musicListAdapter.notifyDataSetChanged();
                 musicRecyclerView.setVisibility(View.VISIBLE);
                 albumName.setVisibility(View.VISIBLE);
@@ -135,7 +135,7 @@ public class AlbumListFragment extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String s) {
-                albumListAdapter.setAlbums(MusicRepository.getInstance().getAlbums(s.toLowerCase()));
+                albumListAdapter.setAlbums(TrackRepository.getInstance().getAlbums(s.toLowerCase()));
                 albumListAdapter.notifyDataSetChanged();
                 return false;
             }

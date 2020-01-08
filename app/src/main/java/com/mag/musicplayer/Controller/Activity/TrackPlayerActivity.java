@@ -5,22 +5,23 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.mag.musicplayer.Controller.Fragment.TrackPlayerFragment;
-import com.mag.musicplayer.Model.Track;
+import com.mag.musicplayer.data.model.Track;
+import com.mag.musicplayer.viewmodel.TrackViewModel;
 
-public class TrackPlayerActivity extends SingleFragmentActivity implements TrackPlayerFragment.TrackPlayerCallback {
+public class TrackPlayerActivity extends SingleFragmentActivity  {
 
     public static final String TAG_TRACK_PLAYER_FRAGMENT = "tag_track_player_fragment";
-    private static Track actvitiyTrack;
+
+    private TrackViewModel viewModel;
+
     private TrackPlayerFragment trackPlayerFragment;
     private static TrackPlayerActivity trackPlayerActivity;
 
-    private static TrackActivityCallback activityCallback;
-
-    public static Intent newIntent(Context context, Track track, TrackActivityCallback callback) {
-        actvitiyTrack = track;
-        activityCallback = callback;
+    public static Intent newIntent(Context context) {
         return new Intent(context, TrackPlayerActivity.class);
     }
 
@@ -28,13 +29,15 @@ public class TrackPlayerActivity extends SingleFragmentActivity implements Track
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        viewModel = ViewModelProviders.of(this).get(TrackViewModel.class);
+
         trackPlayerActivity = this;
 
     }
 
     @Override
     public Fragment getFragment() {
-        trackPlayerFragment = TrackPlayerFragment.newInstance(actvitiyTrack);
+        trackPlayerFragment = TrackPlayerFragment.newInstance();
         return trackPlayerFragment;
     }
 
@@ -43,22 +46,9 @@ public class TrackPlayerActivity extends SingleFragmentActivity implements Track
         return TAG_TRACK_PLAYER_FRAGMENT;
     }
 
-    @Override
-    public Track getTrackDistance(int distance) {
-        return activityCallback.getTrackDistanceFromAdapter(distance);
-    }
 
     public static TrackPlayerActivity getTrackPlayerActivity() {
         return trackPlayerActivity;
-    }
-
-    public void update(Track track) {
-        trackPlayerFragment.update(track);
-    }
-
-
-    public interface TrackActivityCallback {
-        Track getTrackDistanceFromAdapter(int distance);
     }
 
 }

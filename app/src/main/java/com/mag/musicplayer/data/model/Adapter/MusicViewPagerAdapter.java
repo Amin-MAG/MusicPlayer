@@ -1,11 +1,10 @@
-package com.mag.musicplayer.Model.Adapter;
+package com.mag.musicplayer.data.model.Adapter;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class MusicViewPagerAdapter extends FragmentStatePagerAdapter {

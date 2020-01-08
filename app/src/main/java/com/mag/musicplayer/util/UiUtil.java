@@ -1,4 +1,4 @@
-package com.mag.musicplayer.Util;
+package com.mag.musicplayer.util;
 
 import android.graphics.Color;
 import android.view.View;

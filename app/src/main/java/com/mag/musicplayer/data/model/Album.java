@@ -1,4 +1,4 @@
-package com.mag.musicplayer.Model;
+package com.mag.musicplayer.data.model;
 
 import android.net.Uri;
 
@@ -6,22 +6,28 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class Artist {
+public class Album {
 
-    private UUID artistiId;
+    private UUID albumId;
+    private String albumTitle;
     private String artistName;
     private Uri imagePath;
     private List<Long> tracks = new ArrayList<>();
-    private List<UUID> albums = new ArrayList<>();
 
-    public Artist(String artistName, Uri imagePath) {
-        this.artistiId = UUID.randomUUID();
+
+    public Album(String albumTitle, String artistName, Uri imagePath) {
+        this.albumId = UUID.randomUUID();
+        this.albumTitle = albumTitle;
         this.artistName = artistName;
         this.imagePath = imagePath;
     }
 
-    public UUID getArtistiId() {
-        return artistiId;
+    public UUID getAlbumId() {
+        return albumId;
+    }
+
+    public String getAlbumTitle() {
+        return albumTitle;
     }
 
     public String getArtistName() {
@@ -34,10 +40,6 @@ public class Artist {
 
     public List<Long> getTracks() {
         return tracks;
-    }
-
-    public List<UUID> getAlbums() {
-        return albums;
     }
 
 }

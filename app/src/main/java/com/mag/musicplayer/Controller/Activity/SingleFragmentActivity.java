@@ -1,8 +1,6 @@
 package com.mag.musicplayer.Controller.Activity;
 
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,7 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.mag.musicplayer.R;
-import com.mag.musicplayer.Util.UiUtil;
+import com.mag.musicplayer.util.UiUtil;
 
 public abstract class SingleFragmentActivity extends AppCompatActivity {
 

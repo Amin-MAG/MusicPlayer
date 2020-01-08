@@ -19,11 +19,11 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mag.musicplayer.Controller.Activity.TrackPlayerActivity;
-import com.mag.musicplayer.Model.Adapter.MusicListAdapter;
-import com.mag.musicplayer.Model.MusicRepository;
-import com.mag.musicplayer.Model.Track;
+import com.mag.musicplayer.data.model.Adapter.MusicListAdapter;
+import com.mag.musicplayer.data.repository.TrackRepository;
+import com.mag.musicplayer.data.model.Track;
 import com.mag.musicplayer.R;
-import com.mag.musicplayer.Util.MusicPlayer;
+import com.mag.musicplayer.util.MusicPlayer;
 
 public class MusicListFragment extends Fragment {
 
@@ -71,9 +71,9 @@ public class MusicListFragment extends Fragment {
             @SuppressLint("ResourceAsColor")
             @Override
             public void onClick(View view) {
-                MusicRepository.getInstance().setShuffleMode(!MusicRepository.getInstance().isShuffle());
-                if (MusicRepository.getInstance().isShuffle())
-                    MusicRepository.getInstance().makeShuffle();
+                TrackRepository.getInstance().setShuffleMode(!TrackRepository.getInstance().isShuffle());
+                if (TrackRepository.getInstance().isShuffle())
+                    TrackRepository.getInstance().makeShuffle();
                 updateOptionsBtns();
             }
         });
@@ -82,13 +82,13 @@ public class MusicListFragment extends Fragment {
         repeatBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MusicRepository.getInstance().setRepeatingMode(!MusicRepository.getInstance().isRepeatingMode());
+                TrackRepository.getInstance().setRepeatingMode(!TrackRepository.getInstance().isRepeatingMode());
                 updateOptionsBtns();
             }
         });
 
         recyclerView = view.findViewById(R.id.musicListFragment_recycler);
-        adapter = new MusicListAdapter(MusicRepository.getInstance().getTracks(), new MusicListAdapter.MusicListAdapterCallback() {
+        adapter = new MusicListAdapter(TrackRepository.getInstance().getTracks(), new MusicListAdapter.MusicListAdapterCallback() {
             @Override
             public void updateMusicBar(Track track) {
                 if (uiCallback != null)
@@ -108,8 +108,8 @@ public class MusicListFragment extends Fragment {
             @Override
             public void updateUiAutoSkip() {
                 uiCallback.updateMusicBar(nextTrack);
-                if (TrackPlayerActivity.getTrackPlayerActivity() != null)
-                    TrackPlayerActivity.getTrackPlayerActivity().update(nextTrack);
+//                if (TrackPlayerActivity.getTrackPlayerActivity() != null)
+//                    TrackPlayerActivity.getTrackPlayerActivity().update(nextTrack);
             }
 
         });
@@ -141,7 +141,7 @@ public class MusicListFragment extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String s) {
-                adapter.setTracks(MusicRepository.getInstance().getTracks(s.toLowerCase()));
+                adapter.setTracks(TrackRepository.getInstance().getTracks(s.toLowerCase()));
                 adapter.notifyDataSetChanged();
                 return false;
             }
@@ -162,9 +162,9 @@ public class MusicListFragment extends Fragment {
     @SuppressLint("ResourceType")
     private void updateOptionsBtns() {
 
-        shuffleBtn.setBackgroundColor(Color.parseColor(MusicRepository.getInstance().isShuffle() ? getResources().getString(R.color.colorPrimaryDark) : "#00FFFFFF"));
-        repeatBtn.setBackgroundColor(Color.parseColor(MusicRepository.getInstance().isRepeatingMode() ? getResources().getString(R.color.colorPrimaryDark) : "#00FFFFFF"));
-        repeatBtn.setImageDrawable(MusicRepository.getInstance().isRepeatingMode() ? getResources().getDrawable(R.drawable.ic_repeat_one) : getResources().getDrawable(R.drawable.ic_repeat));
+        shuffleBtn.setBackgroundColor(Color.parseColor(TrackRepository.getInstance().isShuffle() ? getResources().getString(R.color.colorPrimaryDark) : "#00FFFFFF"));
+        repeatBtn.setBackgroundColor(Color.parseColor(TrackRepository.getInstance().isRepeatingMode() ? getResources().getString(R.color.colorPrimaryDark) : "#00FFFFFF"));
+        repeatBtn.setImageDrawable(TrackRepository.getInstance().isRepeatingMode() ? getResources().getDrawable(R.drawable.ic_repeat_one) : getResources().getDrawable(R.drawable.ic_repeat));
 
     }
 

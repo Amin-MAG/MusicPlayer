@@ -1,23 +1,32 @@
-package com.mag.musicplayer.Model;
+package com.mag.musicplayer.data.repository;
+
+import androidx.lifecycle.MutableLiveData;
+
+import com.mag.musicplayer.data.model.Album;
+import com.mag.musicplayer.data.model.Artist;
+import com.mag.musicplayer.data.model.Track;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class MusicRepository {
+public class TrackRepository {
 
     // Single Repository
 
-    private static MusicRepository instance;
+    private static TrackRepository instance;
 
-    public static MusicRepository getInstance() {
+    public static TrackRepository getInstance() {
         if (instance == null)
-            instance = new MusicRepository();
+            instance = new TrackRepository();
         return instance;
     }
 
-    private MusicRepository() {
+    private TrackRepository() {
     }
+
+    private MutableLiveData<Track> playingTrack = new MutableLiveData<>();
+    private MutableLiveData<Integer> playingTrackTime = new MutableLiveData<>();
 
     // Music
 
@@ -130,6 +139,22 @@ public class MusicRepository {
 
     public boolean isShuffle() {
         return isShuffleMode;
+    }
+
+    public Track goPreviousTrack() {
+        return null;
+    }
+
+    public Track goNextTrack() {
+        return null;
+    }
+
+    public MutableLiveData<Track> getPlayingTrack() {
+        return playingTrack;
+    }
+
+    public MutableLiveData<Integer> getPlayingTrackTime() {
+        return playingTrackTime;
     }
 
 }
