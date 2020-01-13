@@ -35,12 +35,13 @@ public class MusicPlayerRepository {
     }
 
     private MutableLiveData<MediaPlayer> mediaPlayer = new MutableLiveData<>();
-
+    private MutableLiveData<Boolean> isPlaying = new MutableLiveData<>();
     private MutableLiveData<Track> playingTrack = new MutableLiveData<>();
 
 
     private MusicPlayerRepository() {
         this.mediaPlayer.setValue(new MediaPlayer());
+        this.isPlaying.setValue(mediaPlayer.getValue().isPlaying());
     }
 
     public void loadMusics(ContentResolver contentResolver) {
@@ -159,6 +160,7 @@ public class MusicPlayerRepository {
         });
         mediaPlayer.getValue().prepare();
         mediaPlayer.getValue().start();
+        isPlaying.setValue(true);
 
     }
 
@@ -176,12 +178,26 @@ public class MusicPlayerRepository {
         return (minutes < 10 ? "0" + minutes : minutes) + ":" + (secondReminder < 10 ? "0" + secondReminder : secondReminder);
     }
 
+    public void resume() {
+        mediaPlayer.getValue().start();
+        isPlaying.setValue(true);
+    }
+
+    public void pause() {
+        mediaPlayer.getValue().pause();
+        isPlaying.setValue(false);
+    }
+
     public interface MusicPlayerCallback {
         Track getNextTrack();
 
         void updateUiAutoSkip();
     }
 
+
+    public MutableLiveData<Boolean> isPlaying() {
+        return isPlaying;
+    }
 
     public MutableLiveData<MediaPlayer> getMediaPlayer() {
         return mediaPlayer;

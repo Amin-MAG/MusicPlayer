@@ -52,8 +52,7 @@
                 android:layout_height="72dp"
                 android:layout_marginLeft="4dp"
                 android:background="@drawable/roundcorner"
-                android:paddingLeft="16dp"
-                android:src="@drawable/ic_play" />
+                android:paddingLeft="16dp"/>
 
             <ImageButton
                 android:id="@+id/trackPlayerActivity_skipNext"

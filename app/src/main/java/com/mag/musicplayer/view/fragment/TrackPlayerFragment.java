@@ -2,6 +2,7 @@ package com.mag.musicplayer.view.fragment;
 
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,9 +16,9 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.mag.musicplayer.R;
+import com.mag.musicplayer.data.repository.MusicPlayerRepository;
 import com.mag.musicplayer.data.var.Constants;
 import com.mag.musicplayer.databinding.FragmentTrackPlayerBinding;
-import com.mag.musicplayer.data.repository.MusicPlayerRepository;
 import com.mag.musicplayer.viewmodel.TrackViewModel;
 import com.squareup.picasso.Picasso;
 
@@ -63,7 +64,8 @@ public class TrackPlayerFragment extends Fragment {
         binding.trackPlayerActivityTrackLength.setText(MusicPlayerRepository.getStringTime(viewModel.getTrackLength() / 1000));
         // Track Cover
         Picasso.get().load(viewModel.getCoverSrc()).placeholder(getResources().getDrawable(R.drawable.music_icon)).into(binding.trackPlayerActivityCover);
-        binding.trackPlayerActivityPlayPause.setImageDrawable(getResources().getDrawable(viewModel.isPlayingMusic() ? R.drawable.ic_pause : R.drawable.ic_play));
+        Log.d("onViewCreated", "onViewCreated: " + viewModel.isPlayingMusic().getValue());
+        binding.trackPlayerActivityPlayPause.setImageDrawable(getResources().getDrawable(viewModel.isPlayingMusic().getValue() ? R.drawable.ic_pause : R.drawable.ic_play));
 
 
         seekbarInitialization();
@@ -73,11 +75,23 @@ public class TrackPlayerFragment extends Fragment {
     }
 
     private void setEvents() {
+
         binding.trackPlayerActivityPlayPause.setOnClickListener(btnView -> viewModel.onPausePlayBtnClicked());
 
         binding.trackPlayerActivitySkipPrevious.setOnClickListener(previousBtnView -> viewModel.onPreviousBtnClicked());
 
         binding.trackPlayerActivitySkipNext.setOnClickListener(nextBtnView -> viewModel.onNextBtnClicked());
+
+        setOnChangeEvents();
+
+    }
+
+    private void setOnChangeEvents() {
+
+        viewModel.isPlayingMusic().observe(this, playing -> {
+            binding.trackPlayerActivityPlayPause.setImageDrawable(getResources().getDrawable(playing ? R.drawable.ic_pause : R.drawable.ic_play));
+        });
+
     }
 
     private void seekbarInitialization() {

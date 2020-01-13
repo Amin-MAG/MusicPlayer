@@ -87,21 +87,18 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.Musi
                 trackCardView.setBackgroundColor(Color.parseColor(activity.getString(R.color.colorPrimaryLight)));
             }
 
-            trackCardView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
+            trackCardView.setOnClickListener(view -> {
 
-                    selectedTrack = track;
+                selectedTrack = track;
 
-                    try {
-                        MusicPlayerRepository.getInstance().playMusic(track, activity);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-
-                    updateUi();
-
+                try {
+                    MusicPlayerRepository.getInstance().playMusic(track, activity);
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
+
+                updateUi();
+
             });
 
         }

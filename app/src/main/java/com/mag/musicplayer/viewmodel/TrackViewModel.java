@@ -29,8 +29,8 @@ public class TrackViewModel extends AndroidViewModel {
 
     }
 
-    public boolean isPlayingMusic() {
-        return musicPlayerRepository.getMediaPlayer().getValue().isPlaying();
+    public MutableLiveData<Boolean> isPlayingMusic() {
+        return musicPlayerRepository.isPlaying();
     }
 
     public Uri getCoverSrc() {
@@ -51,7 +51,10 @@ public class TrackViewModel extends AndroidViewModel {
     }
 
     public void onPausePlayBtnClicked() {
-        musicPlayerRepository.getMediaPlayer().getValue().pause();
+        if (isPlayingMusic().getValue())
+            musicPlayerRepository.pause();
+        else
+            musicPlayerRepository.resume();
     }
 
     public void onPreviousBtnClicked() {
