@@ -81,7 +81,7 @@ public class AlbumListFragment extends Fragment {
         albumRecyclerView = view.findViewById(R.id.albumListFragment_albumRecycler);
         int spanCount = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE ? 3 : 2;
         albumRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), spanCount));
-        albumListAdapter = new AlbumListAdapter(TrackRepository.getInstance().getAlbums(), new AlbumListAdapter.AlbumListAdapterCallback() {
+        albumListAdapter = new AlbumListAdapter(TrackRepository.getInstance().getAllAlbums(), new AlbumListAdapter.AlbumListAdapterCallback() {
             @Override
             public void updateUi(Album album) {
 

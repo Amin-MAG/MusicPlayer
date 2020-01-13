@@ -11,7 +11,7 @@
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Controller.Activity.TrackPlayerActivity" />
+        <activity android:name=".view.activity.TrackPlayerActivity" />
         <activity android:name=".Controller.Activity.MusicPlayerActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

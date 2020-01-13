@@ -18,12 +18,11 @@ import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.mag.musicplayer.Controller.Activity.TrackPlayerActivity;
 import com.mag.musicplayer.data.model.Adapter.MusicListAdapter;
 import com.mag.musicplayer.data.repository.TrackRepository;
 import com.mag.musicplayer.data.model.Track;
 import com.mag.musicplayer.R;
-import com.mag.musicplayer.util.MusicPlayer;
+import com.mag.musicplayer.data.repository.MusicPlayerRepository;
 
 public class MusicListFragment extends Fragment {
 
@@ -88,7 +87,7 @@ public class MusicListFragment extends Fragment {
         });
 
         recyclerView = view.findViewById(R.id.musicListFragment_recycler);
-        adapter = new MusicListAdapter(TrackRepository.getInstance().getTracks(), new MusicListAdapter.MusicListAdapterCallback() {
+        adapter = new MusicListAdapter(TrackRepository.getInstance().getAllTracks(), new MusicListAdapter.MusicListAdapterCallback() {
             @Override
             public void updateMusicBar(Track track) {
                 if (uiCallback != null)
@@ -96,7 +95,7 @@ public class MusicListFragment extends Fragment {
             }
         });
 
-        MusicPlayer.getInstance().setCallback(new MusicPlayer.MusicPlayerCallback() {
+        MusicPlayerRepository.getInstance().setCallback(new MusicPlayerRepository.MusicPlayerCallback() {
             private Track nextTrack;
 
             @Override

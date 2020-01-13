@@ -1,4 +1,4 @@
-package com.mag.musicplayer.Controller.Fragment;
+package com.mag.musicplayer.view.fragment;
 
 
 import android.os.Bundle;
@@ -17,7 +17,7 @@ import androidx.lifecycle.ViewModelProviders;
 import com.mag.musicplayer.R;
 import com.mag.musicplayer.data.var.Constants;
 import com.mag.musicplayer.databinding.FragmentTrackPlayerBinding;
-import com.mag.musicplayer.util.MusicPlayer;
+import com.mag.musicplayer.data.repository.MusicPlayerRepository;
 import com.mag.musicplayer.viewmodel.TrackViewModel;
 import com.squareup.picasso.Picasso;
 
@@ -60,7 +60,7 @@ public class TrackPlayerFragment extends Fragment {
 
         binding.trackPlayerActivityTrackTitle.setText(viewModel.getTrackTitle());
         binding.trackPlayerActivityTrackArtist.setText(viewModel.getArtistName());
-        binding.trackPlayerActivityTrackLength.setText(MusicPlayer.getStringTime(viewModel.getTrackLength() / 1000));
+        binding.trackPlayerActivityTrackLength.setText(MusicPlayerRepository.getStringTime(viewModel.getTrackLength() / 1000));
         // Track Cover
         Picasso.get().load(viewModel.getCoverSrc()).placeholder(getResources().getDrawable(R.drawable.music_icon)).into(binding.trackPlayerActivityCover);
         binding.trackPlayerActivityPlayPause.setImageDrawable(getResources().getDrawable(viewModel.isPlayingMusic() ? R.drawable.ic_pause : R.drawable.ic_play));

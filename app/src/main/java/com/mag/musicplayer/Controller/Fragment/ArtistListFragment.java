@@ -80,7 +80,7 @@ public class ArtistListFragment extends Fragment {
         artistRecyclerView = view.findViewById(R.id.artistListFragment_artistRecycler);
         int spanCount = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE ? 3 : 2;
         artistRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), spanCount));
-        albumListAdapter = new ArtistListAdapter(TrackRepository.getInstance().getArtists(), new ArtistListAdapter.ArtistListAdapterCallback() {
+        albumListAdapter = new ArtistListAdapter(TrackRepository.getInstance().getAllArtists(), new ArtistListAdapter.ArtistListAdapterCallback() {
             @Override
             public void updateUi(Artist artist) {
 

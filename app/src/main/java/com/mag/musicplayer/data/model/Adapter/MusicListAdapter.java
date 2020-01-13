@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.mag.musicplayer.data.model.Track;
 import com.mag.musicplayer.R;
-import com.mag.musicplayer.util.MusicPlayer;
+import com.mag.musicplayer.data.repository.MusicPlayerRepository;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
@@ -79,7 +79,7 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.Musi
 
             Picasso.get().load(track.getImagePath()).placeholder(activity.getResources().getDrawable(R.drawable.music_icon)).into(trackImage);
 
-            trackLength.setText(MusicPlayer.getStringTime(track.getTrackLength() / 1000));
+            trackLength.setText(MusicPlayerRepository.getStringTime(track.getTrackLength() / 1000));
 
             if (selectedTrack != null && track.getTrackId() == selectedTrack.getTrackId()) {
                 trackCardView.setBackgroundColor(Color.parseColor(activity.getString(R.color.colorAccent)));
@@ -94,7 +94,7 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.Musi
                     selectedTrack = track;
 
                     try {
-                        MusicPlayer.getInstance().playMusic(track, activity);
+                        MusicPlayerRepository.getInstance().playMusic(track, activity);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

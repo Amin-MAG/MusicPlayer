@@ -1,4 +1,4 @@
-package com.mag.musicplayer.util;
+package com.mag.musicplayer.data.repository;
 
 import android.content.ContentResolver;
 import android.content.ContentUris;
@@ -14,45 +14,45 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.mag.musicplayer.data.model.Album;
 import com.mag.musicplayer.data.model.Artist;
-import com.mag.musicplayer.data.repository.TrackRepository;
 import com.mag.musicplayer.data.model.Track;
 import com.mag.musicplayer.data.var.Constants;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class MusicPlayer {
+public class MusicPlayerRepository {
 
     public static final String CONTENT_MEDIA_EXTERNAL_AUDIO_ALBUMART = "content://media/external/audio/albumart";
-    private static MusicPlayer instance;
+    private static MusicPlayerRepository instance;
     private MusicPlayerCallback callback;
 
-    private MusicPlayer() {
-        this.mediaPlayerOld = new MediaPlayer();
-    }
-
-    public static MusicPlayer getInstance() {
+    public static MusicPlayerRepository getInstance() {
         if (instance == null)
-            instance = new MusicPlayer();
+            instance = new MusicPlayerRepository();
         return instance;
     }
 
-    private MediaPlayer mediaPlayerOld;
     private MutableLiveData<MediaPlayer> mediaPlayer = new MutableLiveData<>();
 
-    private Track currentTrack;
+    private MutableLiveData<Track> playingTrack = new MutableLiveData<>();
+
+
+    private MusicPlayerRepository() {
+        this.mediaPlayer.setValue(new MediaPlayer());
+    }
 
     public void loadMusics(ContentResolver contentResolver) {
 
         Cursor cursor = contentResolver.query(Constants.externalMusicUri, null, null, null, null);
+
         List<Track> tracks = new ArrayList<>();
         List<Album> albums = new ArrayList<>();
         List<Artist> artists = new ArrayList<>();
 
+
+        // UgHH
         while (cursor.moveToNext()) {
 
             // Music Detail
@@ -92,7 +92,6 @@ public class MusicPlayer {
                     artistExists = true;
                     artist.getTracks().add(thisLoopTrack.getTrackId());
 
-
                     // Album For Each Artist
                     boolean artistAlbumExists = false;
                     for (UUID artistAlbums : artist.getAlbums()) {
@@ -118,50 +117,48 @@ public class MusicPlayer {
 
         cursor.close();
 
-        TrackRepository.getInstance().setTracks(tracks);
-        TrackRepository.getInstance().setAlbums(albums);
-        TrackRepository.getInstance().setArtists(artists);
+        TrackRepository.getInstance().setAllTracks(tracks);
+        TrackRepository.getInstance().setAllAlbums(albums);
+        TrackRepository.getInstance().setAllArtists(artists);
+
 
     }
 
-    public static InputStream getInputStreamOfImage(ContentResolver contentResolver, Uri uri) {
-        ContentResolver res = contentResolver;
-        InputStream in = null;
-        try {
-            in = res.openInputStream(uri);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        return in;
-    }
+//    public static InputStream getInputStreamOfImage(ContentResolver contentResolver, Uri uri) {
+//        ContentResolver res = contentResolver;
+//        InputStream in = null;
+//        try {
+//            in = res.openInputStream(uri);
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//        return in;
+//    }
 
     public void playMusic(Track track, final Context context) throws IOException {
 
         Log.d("MusicDebuging", track.getTrackTitle());
 
-        mediaPlayerOld.stop();
+        mediaPlayer.getValue().stop();
 
-        currentTrack = track;
+        playingTrack.setValue(track);
 
-        Uri contentUri = ContentUris.withAppendedId(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, currentTrack.getTrackId());
+        Uri contentUri = ContentUris.withAppendedId(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, playingTrack.getValue().getTrackId());
 
-        mediaPlayerOld = new MediaPlayer();
-        mediaPlayerOld.setAudioStreamType(AudioManager.STREAM_MUSIC);
-        mediaPlayerOld.setDataSource(context.getApplicationContext(), contentUri);
-        mediaPlayerOld.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mediaPlayer) {
-                Track nextTrack = callback.getNextTrack();
-                try {
-                    playMusic(nextTrack, context);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                callback.updateUiAutoSkip();
+        mediaPlayer.setValue(new MediaPlayer());
+        mediaPlayer.getValue().setAudioStreamType(AudioManager.STREAM_MUSIC);
+        mediaPlayer.getValue().setDataSource(context.getApplicationContext(), contentUri);
+        mediaPlayer.getValue().setOnCompletionListener(mediaPlayer -> {
+            Track nextTrack = callback.getNextTrack();
+            try {
+                playMusic(nextTrack, context);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
+            callback.updateUiAutoSkip();
         });
-        mediaPlayerOld.prepare();
-        mediaPlayerOld.start();
+        mediaPlayer.getValue().prepare();
+        mediaPlayer.getValue().start();
 
     }
 
@@ -169,12 +166,8 @@ public class MusicPlayer {
         this.callback = callback;
     }
 
-    public MediaPlayer getMediaPlayerOld() {
-        return mediaPlayerOld;
-    }
-
-    public Track getCurrentTrack() {
-        return currentTrack;
+    public MutableLiveData<Track> getPlayingTrack() {
+        return playingTrack;
     }
 
     public static String getStringTime(int seconds) {

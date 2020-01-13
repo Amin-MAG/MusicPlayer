@@ -1,18 +1,17 @@
-package com.mag.musicplayer.Controller.Activity;
+package com.mag.musicplayer.view.activity;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.mag.musicplayer.Controller.Fragment.TrackPlayerFragment;
-import com.mag.musicplayer.data.model.Track;
+import com.mag.musicplayer.Controller.Activity.SingleFragmentActivity;
+import com.mag.musicplayer.view.fragment.TrackPlayerFragment;
 import com.mag.musicplayer.viewmodel.TrackViewModel;
 
-public class TrackPlayerActivity extends SingleFragmentActivity  {
+public class TrackPlayerActivity extends SingleFragmentActivity {
 
     public static final String TAG_TRACK_PLAYER_FRAGMENT = "tag_track_player_fragment";
 

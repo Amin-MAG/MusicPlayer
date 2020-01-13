@@ -9,8 +9,8 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
 import com.mag.musicplayer.data.model.Track;
+import com.mag.musicplayer.data.repository.MusicPlayerRepository;
 import com.mag.musicplayer.data.repository.TrackRepository;
-import com.mag.musicplayer.util.MusicPlayer;
 import com.mag.musicplayer.util.MusicUtil;
 
 public class TrackViewModel extends AndroidViewModel {
@@ -18,14 +18,14 @@ public class TrackViewModel extends AndroidViewModel {
     private MutableLiveData<Track> playingTrack;
 
     private TrackRepository trackRepository;
-    private MusicPlayer musicPlayerRepository;
+    private MusicPlayerRepository musicPlayerRepository;
 
     public TrackViewModel(@NonNull Application application) {
         super(application);
 
         this.trackRepository = TrackRepository.getInstance();
-        this.musicPlayerRepository = MusicPlayer.getInstance();
-        this.playingTrack = trackRepository.getPlayingTrack();
+        this.musicPlayerRepository = MusicPlayerRepository.getInstance();
+        this.playingTrack = musicPlayerRepository.getPlayingTrack();
 
     }
 

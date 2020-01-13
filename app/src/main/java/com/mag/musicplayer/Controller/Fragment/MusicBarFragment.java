@@ -15,11 +15,11 @@ import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
-import com.mag.musicplayer.Controller.Activity.TrackPlayerActivity;
 import com.mag.musicplayer.R;
 import com.mag.musicplayer.data.model.Track;
+import com.mag.musicplayer.data.repository.MusicPlayerRepository;
 import com.mag.musicplayer.data.repository.TrackRepository;
-import com.mag.musicplayer.util.MusicPlayer;
+import com.mag.musicplayer.view.activity.TrackPlayerActivity;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
@@ -94,32 +94,26 @@ public class MusicBarFragment extends Fragment {
             }
         });
 
-        playPauseBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (MusicPlayer.getInstance().getMediaPlayerOld().isPlaying()) {
-                    MusicPlayer.getInstance().getMediaPlayerOld().pause();
-                    playPauseBtn.setImageDrawable(getResources().getDrawable(R.drawable.ic_play));
-                } else {
-                    MusicPlayer.getInstance().getMediaPlayerOld().start();
-                    playPauseBtn.setImageDrawable(getResources().getDrawable(R.drawable.ic_pause));
-                }
+        playPauseBtn.setOnClickListener(view1 -> {
+            if (MusicPlayerRepository.getInstance().getMediaPlayer().getValue().isPlaying()) {
+                MusicPlayerRepository.getInstance().getMediaPlayer().getValue().pause();
+                playPauseBtn.setImageDrawable(getResources().getDrawable(R.drawable.ic_play));
+            } else {
+                MusicPlayerRepository.getInstance().getMediaPlayer().getValue().start();
+                playPauseBtn.setImageDrawable(getResources().getDrawable(R.drawable.ic_pause));
             }
         });
 
-        skipNextBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Track nextTrack = callback.getTrackDistance(+1);
-                callback.updateRecyclerSelectedTrack(nextTrack);
-                try {
-                    MusicPlayer.getInstance().playMusic(nextTrack, getContext());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+        skipNextBtn.setOnClickListener(view12 -> {
+            Track nextTrack = callback.getTrackDistance(+1);
+            callback.updateRecyclerSelectedTrack(nextTrack);
+            try {
+                MusicPlayerRepository.getInstance().playMusic(nextTrack, getContext());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 //                playPauseBtn.setImageDrawable(getResources().getDrawable(R.drawable.ic_pause));
 //                updateBar(nextTrack);
-            }
         });
 
         skipPreBtn.setOnClickListener(new View.OnClickListener() {
@@ -128,7 +122,7 @@ public class MusicBarFragment extends Fragment {
                 Track previousTrack = callback.getTrackDistance(-1);
                 callback.updateRecyclerSelectedTrack(previousTrack);
                 try {
-                    MusicPlayer.getInstance().playMusic(previousTrack, getContext());
+                    MusicPlayerRepository.getInstance().playMusic(previousTrack, getContext());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -175,7 +169,7 @@ public class MusicBarFragment extends Fragment {
 
     private void updatePlayPause() {
 
-        if (MusicPlayer.getInstance().getMediaPlayerOld().isPlaying()) {
+        if (MusicPlayerRepository.getInstance().getMediaPlayer().getValue().isPlaying()) {
             playPauseBtn.setImageDrawable(getResources().getDrawable(R.drawable.ic_pause));
         } else {
             playPauseBtn.setImageDrawable(getResources().getDrawable(R.drawable.ic_play));

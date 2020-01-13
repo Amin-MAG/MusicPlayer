@@ -21,7 +21,7 @@ import com.mag.musicplayer.Controller.Fragment.MusicPlayerViewPagerFragment;
 import com.mag.musicplayer.data.repository.TrackRepository;
 import com.mag.musicplayer.data.model.Track;
 import com.mag.musicplayer.R;
-import com.mag.musicplayer.util.MusicPlayer;
+import com.mag.musicplayer.data.repository.MusicPlayerRepository;
 import com.mag.musicplayer.util.UiUtil;
 
 public class MusicPlayerActivity extends AppCompatActivity implements MusicPlayerViewPagerFragment.SyncTabViewPager, MusicListFragment.MusicListUiCallback, MusicBarFragment.MusicBarCallback, AlbumListFragment.AlbumListUiCallback, ArtistListFragment.ArtistListUiCallback {
@@ -52,7 +52,7 @@ public class MusicPlayerActivity extends AppCompatActivity implements MusicPlaye
             case MY_PERMISSIONS_REQUEST_READ_STORAGE:
 
                 if (grantResults[0] != -1) {
-                    MusicPlayer.getInstance().loadMusics(getContentResolver());
+                    MusicPlayerRepository.getInstance().loadMusics(getContentResolver());
                     startActivity(newIntent(this));
                     finish();
                 }
@@ -89,7 +89,7 @@ public class MusicPlayerActivity extends AppCompatActivity implements MusicPlaye
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, MY_PERMISSIONS_REQUEST_READ_STORAGE);
         } else {
-            MusicPlayer.getInstance().loadMusics(getContentResolver());
+            MusicPlayerRepository.getInstance().loadMusics(getContentResolver());
         }
 
 
@@ -124,8 +124,8 @@ public class MusicPlayerActivity extends AppCompatActivity implements MusicPlaye
     @Override
     public Track getTrackDistance(int n) {
         if (TrackRepository.getInstance().isShuffle()) {
-            int index = TrackRepository.getInstance().getTrackIndex(MusicPlayer.getInstance().getCurrentTrack()) + n;
-            int size = TrackRepository.getInstance().getTracks().size();
+            int index = TrackRepository.getInstance().getTrackIndex(MusicPlayerRepository.getInstance().getPlayingTrack().getValue()) + n;
+            int size = TrackRepository.getInstance().getAllTracks().size();
             if (index % size < 0) index += size;
             index %= size;
             Track track = TrackRepository.getInstance().getShuffleTracks().get(index);
@@ -136,9 +136,9 @@ public class MusicPlayerActivity extends AppCompatActivity implements MusicPlaye
             int index = musicPlayerViewPagerFragment
                     .getMusicList()
                     .getAdapter()
-                    .findTrackIndex(MusicPlayer
+                    .findTrackIndex(MusicPlayerRepository
                             .getInstance()
-                            .getCurrentTrack()) + n;
+                            .getPlayingTrack().getValue()) + n;
             Log.d("SomsomSom", index + " ");
             int size = musicPlayerViewPagerFragment.getMusicList().getAdapter().getItemCount();
             if (index % size < 0) index += size;
