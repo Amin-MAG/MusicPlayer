@@ -1,61 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/trackLayout_cardView"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+<layout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <data>
+
+        <variable
+            name="trackViewModel"
+            type="com.mag.musicplayer.viewmodel.TrackViewModel" />
+
+    </data>
+
+
+    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/trackLayout_cardView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="2dp">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/trackLayout_trackImage"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/music_icon" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="2dp">
 
-        <TextView
-            android:id="@+id/trackLayout_trackArtistName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="4dp"
-            android:text="Artist Name"
-            android:textColor="#DBDBDB"
-            android:textSize="10dp"
-            app:layout_constraintLeft_toRightOf="@+id/trackLayout_trackImage"
-            app:layout_constraintTop_toBottomOf="@+id/trackLayout_trackName" />
+            <ImageView
+                android:id="@+id/trackLayout_trackImage"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/music_icon" />
 
-        <TextView
-            android:id="@+id/trackLayout_trackLength"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="16dp"
-            android:text="TrackLength"
-            android:textColor="#FFFFFF"
-            android:textSize="12dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.475" />
+            <TextView
+                android:id="@+id/trackLayout_trackArtistName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="4dp"
+                android:text="@{trackViewModel.artistName}"
+                android:textColor="#DBDBDB"
+                android:textSize="10dp"
+                app:layout_constraintLeft_toRightOf="@+id/trackLayout_trackImage"
+                app:layout_constraintTop_toBottomOf="@+id/trackLayout_trackName" />
 
-        <TextView
-            android:id="@+id/trackLayout_trackName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="8dp"
-            android:text="Track Name"
-            android:textColor="#FFFFFF"
-            android:textSize="12dp"
-            app:layout_constraintLeft_toRightOf="@+id/trackLayout_trackImage"
-            app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/trackLayout_trackLength"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="16dp"
+                android:text="@{trackViewModel.length}"
+                android:textColor="#FFFFFF"
+                android:textSize="12dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.475" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/trackLayout_trackName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"
+                android:text="@{trackViewModel.title}"
+                android:textColor="#FFFFFF"
+                android:textSize="12dp"
+                app:layout_constraintLeft_toRightOf="@+id/trackLayout_trackImage"
+                app:layout_constraintTop_toTopOf="parent" />
 
-</androidx.cardview.widget.CardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</layout>

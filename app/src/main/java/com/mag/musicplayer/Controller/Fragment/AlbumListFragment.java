@@ -41,18 +41,6 @@ public class AlbumListFragment extends Fragment {
     private ImageView backBtn;
     private SearchView searchView;
 
-    private AlbumListUiCallback uiCallback;
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-
-        if (getActivity() instanceof AlbumListUiCallback) {
-            uiCallback = (AlbumListUiCallback) getActivity();
-        }
-
-    }
-
     public static AlbumListFragment newInstance() {
 
         Bundle args = new Bundle();
@@ -97,31 +85,21 @@ public class AlbumListFragment extends Fragment {
         albumRecyclerView.setAdapter(albumListAdapter);
 
         musicRecyclerView = view.findViewById(R.id.albumListFragment_musicRecycler);
-        musicListAdapter = new MusicListAdapter(new ArrayList<Track>(), new MusicListAdapter.MusicListAdapterCallback() {
-            @Override
-            public void updateMusicBar(Track track) {
-                if (uiCallback != null){
-                    uiCallback.updateMusicBar(track);
-                }
-            }
-        });
+        musicListAdapter = new MusicListAdapter(new ArrayList<>());
         musicRecyclerView.setAdapter(musicListAdapter);
 
         musicRecyclerView.setVisibility(View.GONE);
         albumName.setVisibility(View.GONE);
         backBtn.setVisibility(View.GONE);
 
-        backBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        backBtn.setOnClickListener(view1 -> {
 
-                albumRecyclerView.setVisibility(View.VISIBLE);
-                searchView.setVisibility(View.VISIBLE);
-                musicRecyclerView.setVisibility(View.GONE);
-                albumName.setVisibility(View.GONE);
-                backBtn.setVisibility(View.GONE);
+            albumRecyclerView.setVisibility(View.VISIBLE);
+            searchView.setVisibility(View.VISIBLE);
+            musicRecyclerView.setVisibility(View.GONE);
+            albumName.setVisibility(View.GONE);
+            backBtn.setVisibility(View.GONE);
 
-            }
         });
 
 
@@ -150,11 +128,6 @@ public class AlbumListFragment extends Fragment {
         LinearLayout linearLayout3 = (LinearLayout) linearLayout2.getChildAt(1);
         AutoCompleteTextView autoComplete = (AutoCompleteTextView) linearLayout3.getChildAt(0);
         autoComplete.setTextColor(Color.parseColor(getResources().getString(R.color.white)));
-    }
-
-
-    public interface AlbumListUiCallback {
-        void updateMusicBar(Track track);
     }
 
     public MusicListAdapter getMusicListAdapter() {

@@ -13,18 +13,15 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.google.android.material.tabs.TabLayout;
-import com.mag.musicplayer.Controller.Fragment.AlbumListFragment;
-import com.mag.musicplayer.Controller.Fragment.ArtistListFragment;
 import com.mag.musicplayer.Controller.Fragment.MusicBarFragment;
-import com.mag.musicplayer.Controller.Fragment.MusicListFragment;
 import com.mag.musicplayer.Controller.Fragment.MusicPlayerViewPagerFragment;
+import com.mag.musicplayer.R;
+import com.mag.musicplayer.data.model.Track;
 import com.mag.musicplayer.data.repository.MusicPlayer;
 import com.mag.musicplayer.data.repository.TrackRepository;
-import com.mag.musicplayer.data.model.Track;
-import com.mag.musicplayer.R;
 import com.mag.musicplayer.util.UiUtil;
 
-public class MusicPlayerActivity extends AppCompatActivity implements MusicPlayerViewPagerFragment.SyncTabViewPager, MusicListFragment.MusicListUiCallback, MusicBarFragment.MusicBarCallback, AlbumListFragment.AlbumListUiCallback, ArtistListFragment.ArtistListUiCallback {
+public class MusicPlayerActivity extends AppCompatActivity implements MusicPlayerViewPagerFragment.SyncTabViewPager, MusicBarFragment.MusicBarCallback {
 
 
     public static final String TAG_FRAGMENT_FILTER_ITEMS_LIST = "tag_fragment_filter_items_list";
@@ -86,6 +83,25 @@ public class MusicPlayerActivity extends AppCompatActivity implements MusicPlaye
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_music_player);
 
+        MusicPlayer.getInstance().setCallback(new MusicPlayer.MusicPlayerCallback() {
+            private Track nextTrack;
+
+            @Override
+            public Track getNextTrack() {
+                nextTrack = getNext();
+                return nextTrack;
+            }
+
+            @Override
+            public void updateUiAutoSkip() {
+                updateMusicBar(nextTrack);
+//                if (TrackPlayerActivity.getTrackPlayerActivity() != null)
+//                    TrackPlayerActivity.getTrackPlayerActivity().update(nextTrack);
+            }
+
+        });
+
+
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, MY_PERMISSIONS_REQUEST_READ_STORAGE);
         } else {
@@ -109,12 +125,10 @@ public class MusicPlayerActivity extends AppCompatActivity implements MusicPlaye
 
     }
 
-    @Override
     public void updateMusicBar(Track track) {
         musicBarFragment.updateBar(track);
     }
 
-    @Override
     public Track getNext() {
         if (TrackRepository.getInstance().isRepeatingMode())
             return getTrackDistance(0);

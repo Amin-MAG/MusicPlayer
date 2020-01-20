@@ -13,9 +13,11 @@ import com.mag.musicplayer.data.repository.MusicPlayer;
 import com.mag.musicplayer.data.repository.TrackRepository;
 import com.mag.musicplayer.util.MusicUtil;
 
+import java.io.IOException;
+
 public class TrackViewModel extends AndroidViewModel {
 
-    private MutableLiveData<Track> playingTrack;
+    private MutableLiveData<Track> track = new MutableLiveData<>();
 
     private TrackRepository trackRepository;
     private MusicPlayer musicPlayer;
@@ -25,26 +27,36 @@ public class TrackViewModel extends AndroidViewModel {
 
         this.trackRepository = TrackRepository.getInstance();
         this.musicPlayer = MusicPlayer.getInstance();
-        this.playingTrack = musicPlayer.getPlayingTrack();
 
     }
 
-    public MutableLiveData<Boolean> isPlayingMusic() {
-        return musicPlayer.isPlaying();
+
+    // Events
+
+    /* Track List Methods */
+
+    public void onTrackClicked() {
+
+        try {
+            musicPlayer.playMusic(track.getValue(), getApplication());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
-    public Uri getCoverSrc() {
-        return playingTrack.getValue().getImagePath();
+
+    public void onTrackClicked(Track track) {
+
+        try {
+            musicPlayer.playMusic(track, getApplication());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
-    public MutableLiveData<Track> getPlayingTrack() {
-        return playingTrack;
-    }
-
-    public MutableLiveData<MediaPlayer> getMediaPlayer() {
-        return musicPlayer.getMediaPlayer();
-    }
-
+    /* Track Activity Methods */
 
     public void seekPlayingMusicTo(int progressChangedValue) {
         getMediaPlayer().getValue().seekTo((int) ((double) (getTrackRawLength() * progressChangedValue) / 100));
@@ -65,20 +77,11 @@ public class TrackViewModel extends AndroidViewModel {
         trackRepository.goNextTrack();
     }
 
-    public String getTrackTitle() {
-        return playingTrack.getValue().getTrackTitle();
-    }
 
-    public String getArtistName() {
-        return playingTrack.getValue().getArtistName();
-    }
+    // Logic
 
-    public int getTrackRawLength() {
-        return playingTrack.getValue().getTrackLength();
-    }
-
-    public String getTrackLength() {
-        return MusicUtil.getStringTime(getTrackRawLength()/1000);
+    public String getLength() {
+        return MusicUtil.getStringTime(getTrackRawLength() / 1000);
     }
 
     public String getProgressTime(int progressChangedValue) {
@@ -92,4 +95,58 @@ public class TrackViewModel extends AndroidViewModel {
     public String getPlayedTime() {
         return MusicUtil.getStringTime(getMediaPlayer().getValue().getCurrentPosition() / 1000);
     }
+
+    public String getShortTitle() {
+        return getTitle().length() > 30 ? getTitle().substring(0, 30) + "..." : getTitle();
+    }
+
+
+    // Getter
+
+    public String getTitle() {
+        return track.getValue().getTrackTitle();
+    }
+
+    public String getArtistName() {
+        return track.getValue().getArtistName();
+    }
+
+    public int getTrackRawLength() {
+        return track.getValue().getTrackLength();
+    }
+
+    public MutableLiveData<Boolean> isPlayingMusic() {
+        return musicPlayer.isPlaying();
+    }
+
+    public boolean isPlayingTrack() {
+        if (getPlayingTrack().getValue() != null && track.getValue().getTrackId() == getPlayingTrack().getValue().getTrackId())
+            return true;
+        return false;
+    }
+
+    public Uri getCoverSrc() {
+        return track.getValue().getImagePath();
+    }
+
+    public MutableLiveData<Track> getPlayingTrack() {
+        return musicPlayer.getPlayingTrack();
+    }
+
+    public Track getTrack() {
+        return track.getValue();
+    }
+
+    public MutableLiveData<MediaPlayer> getMediaPlayer() {
+        return musicPlayer.getMediaPlayer();
+    }
+
+
+    // Setter
+
+    public void setTrack(Track playingTrack) {
+        this.track.setValue(playingTrack);
+    }
+
+
 }

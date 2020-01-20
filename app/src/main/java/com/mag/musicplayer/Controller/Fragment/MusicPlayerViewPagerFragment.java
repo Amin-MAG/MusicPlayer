@@ -15,6 +15,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.tabs.TabLayout;
 import com.mag.musicplayer.data.model.Adapter.MusicViewPagerAdapter;
 import com.mag.musicplayer.R;
+import com.mag.musicplayer.view.fragment.MusicListFragment;
 
 public class MusicPlayerViewPagerFragment extends Fragment {
 

@@ -96,7 +96,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:gravity="center"
-            android:text='@{trackViewModel.trackTitle}'
+            android:text="@{trackViewModel.title}"
             android:textColor="@color/white"
             android:textSize="24dp"
             app:layout_constraintBottom_toTopOf="@+id/trackPlayerActivity_trackArtist"
@@ -134,7 +134,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="12dp"
-            android:text="@{trackViewModel.trackLength}"
+            android:text="@{trackViewModel.length}"
             android:textColor="#FFFFFF"
             android:textSize="12dp"
             app:layout_constraintBottom_toBottomOf="@+id/trackPlayerActivity_seekbar"

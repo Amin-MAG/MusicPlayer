@@ -4,49 +4,45 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.graphics.Color;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.mag.musicplayer.data.model.Track;
 import com.mag.musicplayer.R;
-import com.mag.musicplayer.data.repository.MusicPlayer;
+import com.mag.musicplayer.data.model.Track;
+import com.mag.musicplayer.databinding.LayoutTrackBinding;
+import com.mag.musicplayer.viewmodel.TrackViewModel;
 import com.squareup.picasso.Picasso;
 
-import java.io.IOException;
 import java.util.List;
 
 public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.MusicListViewHolder> {
 
     private List<Track> tracks;
     private Track selectedTrack;
-    private MusicListAdapterCallback callBack;
 
 
     private Activity activity;
 
-    public MusicListAdapter(List<Track> tracks, MusicListAdapterCallback callBack) {
+    public MusicListAdapter(List<Track> tracks) {
         this.tracks = tracks;
-        this.callBack = callBack;
     }
 
     @NonNull
     @Override
     public MusicListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         activity = (Activity) parent.getContext();
-        View view = LayoutInflater.from(activity).inflate(R.layout.layout_track, parent, false);
-        return new MusicListViewHolder(view);
+        LayoutTrackBinding binding = DataBindingUtil.inflate(LayoutInflater.from(activity), R.layout.layout_track, parent, false);
+        return new MusicListViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MusicListViewHolder holder, int position) {
-        Track track = tracks.get(position);
-        holder.bind(track);
+        holder.bind(tracks.get(position));
     }
 
     @Override
@@ -56,49 +52,36 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.Musi
 
     public class MusicListViewHolder extends RecyclerView.ViewHolder {
 
-        private ImageView trackImage;
-        private TextView trackName, trackArtistName, trackLength;
-        private CardView trackCardView;
+        private LayoutTrackBinding binding;
 
-        public MusicListViewHolder(@NonNull View view) {
-            super(view);
+        private TrackViewModel viewModel;
 
-            trackCardView = view.findViewById(R.id.trackLayout_cardView);
-            trackImage = view.findViewById(R.id.trackLayout_trackImage);
-            trackName = view.findViewById(R.id.trackLayout_trackName);
-            trackArtistName = view.findViewById(R.id.trackLayout_trackArtistName);
-            trackLength = view.findViewById(R.id.trackLayout_trackLength);
+
+        public MusicListViewHolder(@NonNull LayoutTrackBinding binding) {
+            super(binding.getRoot());
+
+            this.binding = binding;
+            this.viewModel = ViewModelProviders.of((FragmentActivity) activity).get(TrackViewModel.class);
 
         }
 
         @SuppressLint("ResourceType")
         public void bind(final Track track) {
 
-            trackName.setText(track.getTrackTitle().length() > 30 ? track.getTrackTitle().substring(0, 30) + "..." : track.getTrackTitle());
-            trackArtistName.setText(track.getArtistName());
+            viewModel.setTrack(track);
+            binding.setTrackViewModel(viewModel);
+            binding.executePendingBindings();
 
-            Picasso.get().load(track.getImagePath()).placeholder(activity.getResources().getDrawable(R.drawable.music_icon)).into(trackImage);
 
-            trackLength.setText(MusicPlayer.getStringTime(track.getTrackLength() / 1000));
+            // Track Cover
+            Picasso.get().load(viewModel.getCoverSrc()).placeholder(activity.getResources().getDrawable(R.drawable.music_icon)).into(binding.trackLayoutTrackImage);
 
-            if (selectedTrack != null && track.getTrackId() == selectedTrack.getTrackId()) {
-                trackCardView.setBackgroundColor(Color.parseColor(activity.getString(R.color.colorAccent)));
-            } else {
-                trackCardView.setBackgroundColor(Color.parseColor(activity.getString(R.color.colorPrimaryLight)));
-            }
+            binding.trackLayoutCardView.setBackgroundColor(Color.parseColor(activity.getString((viewModel.isPlayingTrack()) ? R.color.colorAccent : R.color.colorPrimaryLight)));
 
-            trackCardView.setOnClickListener(view -> {
-
-                selectedTrack = track;
-
-                try {
-                    MusicPlayer.getInstance().playMusic(track, activity);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                updateUi();
-
+            binding.trackLayoutCardView.setOnClickListener(view -> {
+                viewModel.setTrack(track);
+                viewModel.onTrackClicked();
+                notifyDataSetChanged();
             });
 
         }
@@ -108,7 +91,6 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.Musi
 
     public void updateUi() {
 
-        callBack.updateMusicBar(selectedTrack);
         notifyDataSetChanged();
 
     }
@@ -131,11 +113,6 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.Musi
 
     public void setSelectedTrack(Track selectedTrack) {
         this.selectedTrack = selectedTrack;
-    }
-
-    public interface MusicListAdapterCallback {
-        void updateMusicBar(Track track);
-
     }
 
 
