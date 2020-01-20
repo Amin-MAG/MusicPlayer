@@ -96,7 +96,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:gravity="center"
-            android:text="@{trackViewModel.title}"
+            android:text="@{trackViewModel.playingTitle}"
             android:textColor="@color/white"
             android:textSize="24dp"
             app:layout_constraintBottom_toTopOf="@+id/trackPlayerActivity_trackArtist"
@@ -110,7 +110,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="28dp"
             android:gravity="center"
-            android:text='@{trackViewModel.artistName}'
+            android:text='@{trackViewModel.playingArtist}'
             android:textColor="@color/white"
             app:layout_constraintBottom_toTopOf="@+id/trackPlayerActivity_seekbar"
             app:layout_constraintEnd_toEndOf="@+id/trackPlayerActivity_trackTitle"
@@ -134,7 +134,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="12dp"
-            android:text="@{trackViewModel.length}"
+            android:text="@{trackViewModel.playingLength}"
             android:textColor="#FFFFFF"
             android:textSize="12dp"
             app:layout_constraintBottom_toBottomOf="@+id/trackPlayerActivity_seekbar"

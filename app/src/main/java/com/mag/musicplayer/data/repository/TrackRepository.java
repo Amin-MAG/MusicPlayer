@@ -1,5 +1,10 @@
 package com.mag.musicplayer.data.repository;
 
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+import androidx.lifecycle.MutableLiveData;
+
 import com.mag.musicplayer.data.model.Album;
 import com.mag.musicplayer.data.model.Artist;
 import com.mag.musicplayer.data.model.Track;
@@ -7,6 +12,7 @@ import com.mag.musicplayer.data.model.Track;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class TrackRepository {
 
@@ -21,6 +27,8 @@ public class TrackRepository {
     }
 
     private TrackRepository() {
+        isShuffleMode.setValue(false);
+        isRepeatingMode.setValue(false);
     }
 
     // Music
@@ -30,8 +38,8 @@ public class TrackRepository {
 
     private List<Track> shuffleTracks;
 
-    private boolean isShuffleMode = false;
-    private boolean isRepeatingMode = false;
+    private MutableLiveData<Boolean> isShuffleMode = new MutableLiveData<>();
+    private MutableLiveData<Boolean> isRepeatingMode = new MutableLiveData<>();
 
     public void setAllTracks(List<Track> allTracks) {
         this.allTracks = allTracks;
@@ -45,16 +53,13 @@ public class TrackRepository {
         return shuffleTracks;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public List<Track> getTracks(String search) {
-        List<Track> target = new ArrayList<>();
-        for (Track track : allTracks)
-            if (track.getTrackTitle().toLowerCase().contains(search) || track.getAlbumName().toLowerCase().contains(search) || track.getArtistName().toLowerCase().contains(search))
-                target.add(track);
-        return target;
+        return allTracks.stream().filter(track -> track.getTitle().toLowerCase().contains(search) || track.getAlbumName().toLowerCase().contains(search) || track.getArtist().toLowerCase().contains(search)).collect(Collectors.toList());
     }
 
     public int getTrackIndex(Track track) {
-        List<Track> allItems = isShuffleMode ? shuffleTracks : allTracks;
+        List<Track> allItems = isShuffleMode.getValue() ? shuffleTracks : allTracks;
         for (int i = 0; i < allItems.size(); i++)
             if (allItems.get(i).getTrackId() == track.getTrackId())
                 return i;
@@ -78,7 +83,7 @@ public class TrackRepository {
     public List<Track> getTrackByArtist(Artist artist) {
         List<Track> items = new ArrayList<>();
         for (Track track : allTracks)
-            if (track.getArtistName().equals(artist.getArtistName())) items.add(track);
+            if (track.getArtist().equals(artist.getArtistName())) items.add(track);
         return items;
     }
 
@@ -88,19 +93,20 @@ public class TrackRepository {
     }
 
 
-    public void setShuffleMode(boolean shuffleMode) {
-        isShuffleMode = shuffleMode;
+    public void switchShuffle() {
+        isShuffleMode.setValue(!isShuffleMode.getValue());
+        if (isShuffleMode.getValue()) makeShuffle();
     }
 
-    public void setRepeatingMode(boolean repeatingMode) {
-        isRepeatingMode = repeatingMode;
+    public void switchRepeating() {
+        this.isRepeatingMode.setValue(!isRepeatingMode.getValue());
     }
 
-    public boolean isRepeatingMode() {
+    public MutableLiveData<Boolean> isRepeating() {
         return isRepeatingMode;
     }
 
-    public boolean isShuffle() {
+    public MutableLiveData<Boolean> isShuffle() {
         return isShuffleMode;
     }
 

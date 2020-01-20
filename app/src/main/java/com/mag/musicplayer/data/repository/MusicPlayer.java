@@ -138,7 +138,7 @@ public class MusicPlayer {
 
     public void playMusic(Track track, final Context context) throws IOException {
 
-        Log.d("MusicDebuging", track.getTrackTitle());
+        Log.d("MusicDebuging", track.getTitle());
 
         mediaPlayer.getValue().stop();
 

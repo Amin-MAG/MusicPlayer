@@ -13,7 +13,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.google.android.material.tabs.TabLayout;
-import com.mag.musicplayer.Controller.Fragment.MusicBarFragment;
+import com.mag.musicplayer.view.fragment.MusicBarFragment;
 import com.mag.musicplayer.Controller.Fragment.MusicPlayerViewPagerFragment;
 import com.mag.musicplayer.R;
 import com.mag.musicplayer.data.model.Track;
@@ -21,7 +21,7 @@ import com.mag.musicplayer.data.repository.MusicPlayer;
 import com.mag.musicplayer.data.repository.TrackRepository;
 import com.mag.musicplayer.util.UiUtil;
 
-public class MusicPlayerActivity extends AppCompatActivity implements MusicPlayerViewPagerFragment.SyncTabViewPager, MusicBarFragment.MusicBarCallback {
+public class MusicPlayerActivity extends AppCompatActivity implements MusicPlayerViewPagerFragment.SyncTabViewPager {
 
 
     public static final String TAG_FRAGMENT_FILTER_ITEMS_LIST = "tag_fragment_filter_items_list";
@@ -94,9 +94,9 @@ public class MusicPlayerActivity extends AppCompatActivity implements MusicPlaye
 
             @Override
             public void updateUiAutoSkip() {
-                updateMusicBar(nextTrack);
-//                if (TrackPlayerActivity.getTrackPlayerActivity() != null)
-//                    TrackPlayerActivity.getTrackPlayerActivity().update(nextTrack);
+//                updateMusicBar(nextTrack);
+////                if (TrackPlayerActivity.getTrackPlayerActivity() != null)
+////                    TrackPlayerActivity.getTrackPlayerActivity().update(nextTrack);
             }
 
         });
@@ -125,19 +125,15 @@ public class MusicPlayerActivity extends AppCompatActivity implements MusicPlaye
 
     }
 
-    public void updateMusicBar(Track track) {
-        musicBarFragment.updateBar(track);
-    }
 
     public Track getNext() {
-        if (TrackRepository.getInstance().isRepeatingMode())
+        if (TrackRepository.getInstance().isRepeating().getValue())
             return getTrackDistance(0);
         return getTrackDistance(+1);
     }
 
-    @Override
     public Track getTrackDistance(int n) {
-        if (TrackRepository.getInstance().isShuffle()) {
+        if (TrackRepository.getInstance().isShuffle().getValue()) {
             int index = TrackRepository.getInstance().getTrackIndex(MusicPlayer.getInstance().getPlayingTrack().getValue()) + n;
             int size = TrackRepository.getInstance().getAllTracks().size();
             if (index % size < 0) index += size;
@@ -165,7 +161,6 @@ public class MusicPlayerActivity extends AppCompatActivity implements MusicPlaye
         }
     }
 
-    @Override
     public void updateRecyclerSelectedTrack(Track track) {
         musicPlayerViewPagerFragment.getMusicList().getAdapter().setSelectedTrack(track);
 //        musicPlayerViewPagerFragment.getAlbumList().getMusicListAdapter().setSelectedTrack(track);
@@ -180,5 +175,6 @@ public class MusicPlayerActivity extends AppCompatActivity implements MusicPlaye
     public interface musicPlayerActivity {
         TabLayout getTablayout();
     }
+
 
 }

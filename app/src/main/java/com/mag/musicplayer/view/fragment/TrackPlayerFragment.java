@@ -56,17 +56,13 @@ public class TrackPlayerFragment extends Fragment {
 
         findComponents();
 
-
         binding.setTrackViewModel(viewModel);
-
-        Picasso.get().load(viewModel.getCoverSrc()).placeholder(getResources().getDrawable(R.drawable.music_icon)).into(binding.trackPlayerActivityCover);
-        binding.trackPlayerActivityPlayPause.setImageDrawable(getResources().getDrawable(viewModel.isPlayingMusic().getValue() ? R.drawable.ic_pause : R.drawable.ic_play));
-
 
         seekbarInitialization();
 
         setEvents();
 
+        setOnChangeEvents();
     }
 
     private void setEvents() {
@@ -77,7 +73,6 @@ public class TrackPlayerFragment extends Fragment {
 
         binding.trackPlayerActivitySkipNext.setOnClickListener(nextBtnView -> viewModel.onNextBtnClicked());
 
-        setOnChangeEvents();
 
     }
 
@@ -85,7 +80,10 @@ public class TrackPlayerFragment extends Fragment {
 
         viewModel.isPlayingMusic().observe(this, playing -> binding.trackPlayerActivityPlayPause.setImageDrawable(getResources().getDrawable(playing ? R.drawable.ic_pause : R.drawable.ic_play)));
 
-        viewModel.getPlayingTrack().observe(this, track -> binding.setTrackViewModel(viewModel));
+        viewModel.getPlayingTrack().observe(this, track -> {
+            binding.setTrackViewModel(viewModel);
+            Picasso.get().load(viewModel.getPlayingCoverSrc()).placeholder(getResources().getDrawable(R.drawable.music_icon)).into(binding.trackPlayerActivityCover);
+        });
 
     }
 

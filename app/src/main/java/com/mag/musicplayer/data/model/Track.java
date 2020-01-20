@@ -37,7 +37,7 @@ public class Track {
         return trackId;
     }
 
-    public String getTrackTitle() {
+    public String getTitle() {
         return trackTitle;
     }
 
@@ -45,7 +45,7 @@ public class Track {
         return albumName;
     }
 
-    public String getArtistName() {
+    public String getArtist() {
         return artistName;
     }
 
@@ -53,7 +53,7 @@ public class Track {
         return imagePath;
     }
 
-    public int getTrackLength() {
+    public int getLength() {
         return trackLength;
     }
 

@@ -22,13 +22,13 @@ import com.mag.musicplayer.R;
 import com.mag.musicplayer.data.model.Adapter.MusicListAdapter;
 import com.mag.musicplayer.data.repository.TrackRepository;
 import com.mag.musicplayer.databinding.FragmentMusicListBinding;
-import com.mag.musicplayer.viewmodel.TrackListViewModel;
+import com.mag.musicplayer.viewmodel.TrackViewModel;
 
 public class MusicListFragment extends Fragment {
 
     private FragmentMusicListBinding binding;
 
-    private TrackListViewModel viewModel;
+    private TrackViewModel viewModel;
 
     private MusicListAdapter adapter;
     private SearchView searchView;
@@ -51,7 +51,7 @@ public class MusicListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(LayoutInflater.from(getActivity()), R.layout.fragment_music_list, container, false);
-        viewModel = ViewModelProviders.of(getActivity()).get(TrackListViewModel.class);
+        viewModel = ViewModelProviders.of(getActivity()).get(TrackViewModel.class);
         return binding.getRoot();
     }
 
@@ -72,25 +72,31 @@ public class MusicListFragment extends Fragment {
 
         makeSearchViewWhite();
 
+        setOnChangeEvents();
+
+    }
+
+    @SuppressLint("ResourceType")
+    private void setOnChangeEvents() {
+
+        viewModel.isShuffle().observe(this, isShuffle -> shuffleBtn.setBackgroundColor(Color.parseColor(isShuffle ? getResources().getString(R.color.colorPrimaryDark) : "#00FFFFFF")));
+
+        viewModel.isRepeating().observe(this, isRepeating -> {
+            repeatBtn.setBackgroundColor(Color.parseColor(isRepeating ? getResources().getString(R.color.colorPrimaryDark) : "#00FFFFFF"));
+            repeatBtn.setImageDrawable(isRepeating ? getResources().getDrawable(R.drawable.ic_repeat_one) : getResources().getDrawable(R.drawable.ic_repeat));
+        });
+
     }
 
     private void setEvents() {
 
         // Shuffle
 
-        shuffleBtn.setOnClickListener(shuffleBtn -> {
-            TrackRepository.getInstance().setShuffleMode(!TrackRepository.getInstance().isShuffle());
-            if (TrackRepository.getInstance().isShuffle())
-                TrackRepository.getInstance().makeShuffle();
-            updateOptionsBtns();
-        });
+        shuffleBtn.setOnClickListener(shuffleBtn -> TrackRepository.getInstance().switchShuffle());
 
         // Repeat Button
 
-        repeatBtn.setOnClickListener(repeatBtn -> {
-            TrackRepository.getInstance().setRepeatingMode(!TrackRepository.getInstance().isRepeatingMode());
-            updateOptionsBtns();
-        });
+        repeatBtn.setOnClickListener(repeatBtn -> TrackRepository.getInstance().switchRepeating());
 
         // SearchView Events
 
@@ -113,8 +119,8 @@ public class MusicListFragment extends Fragment {
             }
 
             @Override
-            public boolean onQueryTextChange(String s) {
-                adapter.setTracks(TrackRepository.getInstance().getTracks(s.toLowerCase()));
+            public boolean onQueryTextChange(String searchingString) {
+                adapter.setTracks(viewModel.search(searchingString));
                 adapter.notifyDataSetChanged();
                 return false;
             }
@@ -135,13 +141,6 @@ public class MusicListFragment extends Fragment {
         LinearLayout linearLayout3 = (LinearLayout) linearLayout2.getChildAt(1);
         AutoCompleteTextView autoComplete = (AutoCompleteTextView) linearLayout3.getChildAt(0);
         autoComplete.setTextColor(Color.parseColor(getResources().getString(R.color.white)));
-    }
-
-    @SuppressLint("ResourceType")
-    private void updateOptionsBtns() {
-        shuffleBtn.setBackgroundColor(Color.parseColor(TrackRepository.getInstance().isShuffle() ? getResources().getString(R.color.colorPrimaryDark) : "#00FFFFFF"));
-        repeatBtn.setBackgroundColor(Color.parseColor(TrackRepository.getInstance().isRepeatingMode() ? getResources().getString(R.color.colorPrimaryDark) : "#00FFFFFF"));
-        repeatBtn.setImageDrawable(TrackRepository.getInstance().isRepeatingMode() ? getResources().getDrawable(R.drawable.ic_repeat_one) : getResources().getDrawable(R.drawable.ic_repeat));
     }
 
 
