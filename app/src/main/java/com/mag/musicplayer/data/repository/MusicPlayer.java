@@ -22,24 +22,25 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class MusicPlayerRepository {
+public class MusicPlayer {
 
     public static final String CONTENT_MEDIA_EXTERNAL_AUDIO_ALBUMART = "content://media/external/audio/albumart";
-    private static MusicPlayerRepository instance;
+    private static MusicPlayer instance;
     private MusicPlayerCallback callback;
 
-    public static MusicPlayerRepository getInstance() {
+    public static MusicPlayer getInstance() {
         if (instance == null)
-            instance = new MusicPlayerRepository();
+            instance = new MusicPlayer();
         return instance;
     }
 
     private MutableLiveData<MediaPlayer> mediaPlayer = new MutableLiveData<>();
     private MutableLiveData<Boolean> isPlaying = new MutableLiveData<>();
     private MutableLiveData<Track> playingTrack = new MutableLiveData<>();
+    private MutableLiveData<List<Track>> playingList = new MutableLiveData<>();
 
 
-    private MusicPlayerRepository() {
+    private MusicPlayer() {
         this.mediaPlayer.setValue(new MediaPlayer());
         this.isPlaying.setValue(mediaPlayer.getValue().isPlaying());
     }
@@ -119,9 +120,8 @@ public class MusicPlayerRepository {
         cursor.close();
 
         TrackRepository.getInstance().setAllTracks(tracks);
-        TrackRepository.getInstance().setAllAlbums(albums);
-        TrackRepository.getInstance().setAllArtists(artists);
-
+        AlbumRepository.getInstance().setAllAlbums(albums);
+        ArtistRepository.getInstance().setAllArtists(artists);
 
     }
 
@@ -151,6 +151,12 @@ public class MusicPlayerRepository {
         mediaPlayer.getValue().setDataSource(context.getApplicationContext(), contentUri);
         mediaPlayer.getValue().setOnCompletionListener(mediaPlayer -> {
             Track nextTrack = callback.getNextTrack();
+//            int trackIndex = TrackRepository.getInstance().getTrackIndex(track);
+//            if (trackIndex + 1 > TrackRepository.getInstance().getAllTracks().size())
+//                trackIndex = 0;
+//            else if (trackIndex - 1 < 0)
+//                trackIndex = TrackRepository.getInstance().getPlayingList().getValue().size() - 1;
+//            Track nextTrack = TrackRepository.getInstance().getPlayingList().getValue().get(trackIndex + 1);
             try {
                 playMusic(nextTrack, context);
             } catch (IOException e) {

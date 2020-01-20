@@ -1,7 +1,5 @@
 package com.mag.musicplayer.data.repository;
 
-import androidx.lifecycle.MutableLiveData;
-
 import com.mag.musicplayer.data.model.Album;
 import com.mag.musicplayer.data.model.Artist;
 import com.mag.musicplayer.data.model.Track;
@@ -25,14 +23,9 @@ public class TrackRepository {
     private TrackRepository() {
     }
 
-    private MutableLiveData<Integer> playingTrackTime = new MutableLiveData<>();
-    private MutableLiveData<List<Track>> playingList = new MutableLiveData<>();
-
     // Music
 
     private List<Track> allTracks = new ArrayList<>();
-    private List<Album> allAlbums = new ArrayList<>();
-    private List<Artist> allArtists = new ArrayList<>();
 
 
     private List<Track> shuffleTracks;
@@ -68,31 +61,6 @@ public class TrackRepository {
         return 0;
     }
 
-    public List<Album> getAllAlbums() {
-        return allAlbums;
-    }
-
-    public List<Album> getAlbums(String search) {
-        List<Album> target = new ArrayList<>();
-        for (Album album : allAlbums)
-            if (album.getAlbumTitle().toLowerCase().contains(search) || album.getArtistName().toLowerCase().contains(search))
-                target.add(album);
-        return target;
-    }
-
-
-    public List<Artist> getAllArtists() {
-        return allArtists;
-    }
-
-    public List<Artist> getArtists(String search) {
-        List<Artist> target = new ArrayList<>();
-        for (Artist artist : allArtists)
-            if (artist.getArtistName().toLowerCase().contains(search))
-                target.add(artist);
-        return target;
-    }
-
 
     public Track getTrackById(long trackId) {
         for (Track track : allTracks)
@@ -119,13 +87,6 @@ public class TrackRepository {
         Collections.shuffle(shuffleTracks);
     }
 
-    public void setAllAlbums(List<Album> allAlbums) {
-        this.allAlbums = allAlbums;
-    }
-
-    public void setAllArtists(List<Artist> allArtists) {
-        this.allArtists = allArtists;
-    }
 
     public void setShuffleMode(boolean shuffleMode) {
         isShuffleMode = shuffleMode;
@@ -149,10 +110,6 @@ public class TrackRepository {
 
     public Track goNextTrack() {
         return null;
-    }
-
-    public MutableLiveData<Integer> getPlayingTrackTime() {
-        return playingTrackTime;
     }
 
 }

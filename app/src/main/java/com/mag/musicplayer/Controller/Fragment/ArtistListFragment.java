@@ -24,6 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.mag.musicplayer.data.model.Adapter.ArtistListAdapter;
 import com.mag.musicplayer.data.model.Adapter.MusicListAdapter;
 import com.mag.musicplayer.data.model.Artist;
+import com.mag.musicplayer.data.repository.ArtistRepository;
 import com.mag.musicplayer.data.repository.TrackRepository;
 import com.mag.musicplayer.data.model.Track;
 import com.mag.musicplayer.R;
@@ -80,20 +81,17 @@ public class ArtistListFragment extends Fragment {
         artistRecyclerView = view.findViewById(R.id.artistListFragment_artistRecycler);
         int spanCount = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE ? 3 : 2;
         artistRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), spanCount));
-        albumListAdapter = new ArtistListAdapter(TrackRepository.getInstance().getAllArtists(), new ArtistListAdapter.ArtistListAdapterCallback() {
-            @Override
-            public void updateUi(Artist artist) {
+        albumListAdapter = new ArtistListAdapter(ArtistRepository.getInstance().getAllArtists(), artist -> {
 
-                artistName.setText(artist.getArtistName().length() > 30 ? artist.getArtistName().substring(0, 30) + "..." : artist.getArtistName());
-                artistRecyclerView.setVisibility(View.GONE);
-                searchView.setVisibility(View.GONE);
-                musicListAdapter.setTracks(TrackRepository.getInstance().getTrackByArtist(artist));
-                musicListAdapter.notifyDataSetChanged();
-                musicRecyclerView.setVisibility(View.VISIBLE);
-                artistName.setVisibility(View.VISIBLE);
-                backBtn.setVisibility(View.VISIBLE);
+            artistName.setText(artist.getArtistName().length() > 30 ? artist.getArtistName().substring(0, 30) + "..." : artist.getArtistName());
+            artistRecyclerView.setVisibility(View.GONE);
+            searchView.setVisibility(View.GONE);
+            musicListAdapter.setTracks(TrackRepository.getInstance().getTrackByArtist(artist));
+            musicListAdapter.notifyDataSetChanged();
+            musicRecyclerView.setVisibility(View.VISIBLE);
+            artistName.setVisibility(View.VISIBLE);
+            backBtn.setVisibility(View.VISIBLE);
 
-            }
         });
         artistRecyclerView.setAdapter(albumListAdapter);
 
@@ -133,7 +131,7 @@ public class ArtistListFragment extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String s) {
-                albumListAdapter.setArtists(TrackRepository.getInstance().getArtists(s.toLowerCase()));
+                albumListAdapter.setArtists(ArtistRepository.getInstance().getArtists(s.toLowerCase()));
                 albumListAdapter.notifyDataSetChanged();
                 return false;
             }

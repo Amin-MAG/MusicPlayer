@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="trackViewModel"
+            type="com.mag.musicplayer.viewmodel.TrackViewModel" />
+    </data>
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorPrimary"
@@ -52,7 +59,7 @@
                 android:layout_height="72dp"
                 android:layout_marginLeft="4dp"
                 android:background="@drawable/roundcorner"
-                android:paddingLeft="16dp"/>
+                android:paddingLeft="16dp" />
 
             <ImageButton
                 android:id="@+id/trackPlayerActivity_skipNext"
@@ -84,27 +91,12 @@
 
 
         <TextView
-            android:id="@+id/trackPlayerActivity_trackLength"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:text="TextView"
-            android:textColor="@color/white"
-            android:textSize="12dp"
-            app:layout_constraintBottom_toBottomOf="@+id/trackPlayerActivity_seekbar"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/trackPlayerActivity_seekbar"
-            app:layout_constraintVertical_bias="0.0" />
-
-        <TextView
             android:id="@+id/trackPlayerActivity_trackTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:gravity="center"
-            android:text="TextView"
+            android:text='@{trackViewModel.trackTitle}'
             android:textColor="@color/white"
             android:textSize="24dp"
             app:layout_constraintBottom_toTopOf="@+id/trackPlayerActivity_trackArtist"
@@ -118,7 +110,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="28dp"
             android:gravity="center"
-            android:text="TextView"
+            android:text='@{trackViewModel.artistName}'
             android:textColor="@color/white"
             app:layout_constraintBottom_toTopOf="@+id/trackPlayerActivity_seekbar"
             app:layout_constraintEnd_toEndOf="@+id/trackPlayerActivity_trackTitle"
@@ -129,14 +121,24 @@
             android:id="@+id/trackPlayerActivity_trackTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="4dp"
-            android:text="TextView"
+            android:layout_marginLeft="12dp"
             android:textColor="@color/white"
             android:textSize="12dp"
             app:layout_constraintBottom_toBottomOf="@+id/trackPlayerActivity_seekbar"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/trackPlayerActivity_seekbar"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/trackPlayerActivity_trackLength"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="12dp"
+            android:text="@{trackViewModel.trackLength}"
+            android:textColor="#FFFFFF"
+            android:textSize="12dp"
+            app:layout_constraintBottom_toBottomOf="@+id/trackPlayerActivity_seekbar"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/trackPlayerActivity_seekbar"
             app:layout_constraintVertical_bias="0.0" />
 

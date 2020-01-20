@@ -9,7 +9,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
 import com.mag.musicplayer.data.model.Track;
-import com.mag.musicplayer.data.repository.MusicPlayerRepository;
+import com.mag.musicplayer.data.repository.MusicPlayer;
 import com.mag.musicplayer.data.repository.TrackRepository;
 import com.mag.musicplayer.util.MusicUtil;
 
@@ -18,19 +18,19 @@ public class TrackViewModel extends AndroidViewModel {
     private MutableLiveData<Track> playingTrack;
 
     private TrackRepository trackRepository;
-    private MusicPlayerRepository musicPlayerRepository;
+    private MusicPlayer musicPlayer;
 
     public TrackViewModel(@NonNull Application application) {
         super(application);
 
         this.trackRepository = TrackRepository.getInstance();
-        this.musicPlayerRepository = MusicPlayerRepository.getInstance();
-        this.playingTrack = musicPlayerRepository.getPlayingTrack();
+        this.musicPlayer = MusicPlayer.getInstance();
+        this.playingTrack = musicPlayer.getPlayingTrack();
 
     }
 
     public MutableLiveData<Boolean> isPlayingMusic() {
-        return musicPlayerRepository.isPlaying();
+        return musicPlayer.isPlaying();
     }
 
     public Uri getCoverSrc() {
@@ -42,19 +42,19 @@ public class TrackViewModel extends AndroidViewModel {
     }
 
     public MutableLiveData<MediaPlayer> getMediaPlayer() {
-        return musicPlayerRepository.getMediaPlayer();
+        return musicPlayer.getMediaPlayer();
     }
 
 
     public void seekPlayingMusicTo(int progressChangedValue) {
-        getMediaPlayer().getValue().seekTo((int) ((double) (getTrackLength() * progressChangedValue) / 100));
+        getMediaPlayer().getValue().seekTo((int) ((double) (getTrackRawLength() * progressChangedValue) / 100));
     }
 
-    public void onPausePlayBtnClicked() {
+    public void onPlayPauseBtnClicked() {
         if (isPlayingMusic().getValue())
-            musicPlayerRepository.pause();
+            musicPlayer.pause();
         else
-            musicPlayerRepository.resume();
+            musicPlayer.resume();
     }
 
     public void onPreviousBtnClicked() {
@@ -73,16 +73,20 @@ public class TrackViewModel extends AndroidViewModel {
         return playingTrack.getValue().getArtistName();
     }
 
-    public int getTrackLength() {
+    public int getTrackRawLength() {
         return playingTrack.getValue().getTrackLength();
     }
 
+    public String getTrackLength() {
+        return MusicUtil.getStringTime(getTrackRawLength()/1000);
+    }
+
     public String getProgressTime(int progressChangedValue) {
-        return MusicUtil.getStringTime((int) ((double) (progressChangedValue * getTrackLength() / 1000) / 100));
+        return MusicUtil.getStringTime((int) ((double) (progressChangedValue * getTrackRawLength() / 1000) / 100));
     }
 
     public int getPlayedPercentage() {
-        return (int) (((double) (getMediaPlayer().getValue().getCurrentPosition()) / getTrackLength()) * 100);
+        return (int) (((double) (getMediaPlayer().getValue().getCurrentPosition()) / getTrackRawLength()) * 100);
     }
 
     public String getPlayedTime() {
