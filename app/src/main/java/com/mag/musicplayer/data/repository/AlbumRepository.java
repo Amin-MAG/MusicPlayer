@@ -1,9 +1,14 @@
 package com.mag.musicplayer.data.repository;
 
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
 import com.mag.musicplayer.data.model.Album;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class AlbumRepository {
 
@@ -26,12 +31,9 @@ public class AlbumRepository {
         return allAlbums;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public List<Album> getAlbums(String search) {
-        List<Album> target = new ArrayList<>();
-        for (Album album : allAlbums)
-            if (album.getAlbumTitle().toLowerCase().contains(search) || album.getArtistName().toLowerCase().contains(search))
-                target.add(album);
-        return target;
+        return allAlbums.stream().filter(album -> album.getAlbumTitle().toLowerCase().contains(search) || album.getArtistName().toLowerCase().contains(search)).collect(Collectors.toList());
     }
 
     public void setAllAlbums(List<Album> allAlbums) {

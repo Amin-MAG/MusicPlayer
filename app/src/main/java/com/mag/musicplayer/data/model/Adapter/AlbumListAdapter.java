@@ -2,17 +2,18 @@ package com.mag.musicplayer.data.model.Adapter;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.mag.musicplayer.data.model.Album;
 import com.mag.musicplayer.R;
+import com.mag.musicplayer.data.model.Album;
+import com.mag.musicplayer.databinding.LayoutAlbumBoxBinding;
+import com.mag.musicplayer.viewmodel.AlbumViewModel;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -20,28 +21,24 @@ import java.util.List;
 public class AlbumListAdapter extends RecyclerView.Adapter<AlbumListAdapter.AlbumListViewHolder> {
 
     private List<Album> albums;
-    private Album selectedAlbum;
-    private AlbumListAdapterCallback callback;
 
     private Activity activity;
 
-    public AlbumListAdapter(List<Album> albums, AlbumListAdapterCallback callback)  {
+    public AlbumListAdapter(List<Album> albums) {
         this.albums = albums;
-        this.callback = callback;
     }
 
     @NonNull
     @Override
     public AlbumListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         activity = (Activity) parent.getContext();
-        View view = LayoutInflater.from(activity).inflate(R.layout.layout_album_box, parent, false);
-        return new AlbumListViewHolder(view);
+        LayoutAlbumBoxBinding binding = DataBindingUtil.inflate(LayoutInflater.from(activity), R.layout.layout_album_box, parent, false);
+        return new AlbumListViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull AlbumListViewHolder holder, int position) {
-        Album album = albums.get(position);
-        holder.bind(album);
+        holder.bind(albums.get(position));
     }
 
     @Override
@@ -51,50 +48,37 @@ public class AlbumListAdapter extends RecyclerView.Adapter<AlbumListAdapter.Albu
 
     public class AlbumListViewHolder extends RecyclerView.ViewHolder {
 
-        private CardView cardView;
-        private ImageView albumCover;
-        private TextView albumName, artistName;
+        private LayoutAlbumBoxBinding binding;
+        private AlbumViewModel viewModel;
 
-        public AlbumListViewHolder(@NonNull View itemView) {
-            super(itemView);
+        public AlbumListViewHolder(@NonNull LayoutAlbumBoxBinding binding) {
+            super(binding.getRoot());
 
-            cardView = itemView.findViewById(R.id.boxLayout_cardView);
-            albumCover = itemView.findViewById(R.id.boxLayout_image);
-            albumName= itemView.findViewById(R.id.boxLayout_titile);
-            artistName = itemView.findViewById(R.id.boxLayout_descritption);
+            this.binding = binding;
+            this.viewModel = ViewModelProviders.of((FragmentActivity) activity).get(AlbumViewModel.class);
 
         }
 
         public void bind(final Album album) {
 
-            albumName.setText(album.getAlbumTitle().length() > 24 ? album.getAlbumTitle().substring(0,24)+ "..." : album.getAlbumTitle());
-            artistName.setText(album.getArtistName());
-            Picasso.get().load(album.getImagePath()).placeholder(activity.getResources().getDrawable(R.drawable.music_icon)).into(albumCover);
+            viewModel.setAlbum(album);
+            binding.setAlbumViewModel(viewModel);
+            binding.executePendingBindings();
 
-            cardView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
+            Picasso.get().load(viewModel.getCoverSrc()).placeholder(activity.getResources().getDrawable(R.drawable.music_icon)).into(binding.boxLayoutImage);
 
-                    selectedAlbum = album;
-                    callback.updateUi(album);
-
-                }
+            binding.getRoot().setOnClickListener(view -> {
+                viewModel.setAlbum(album);
+                viewModel.showTrackView();
             });
 
         }
 
     }
 
-    public Album getSelectedAlbum() {
-        return selectedAlbum;
-    }
-
     public void setAlbums(List<Album> albums) {
         this.albums = albums;
     }
 
-    public interface AlbumListAdapterCallback {
-        void updateUi(Album album);
-    }
 
 }

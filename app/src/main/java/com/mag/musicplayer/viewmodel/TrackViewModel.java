@@ -3,8 +3,10 @@ package com.mag.musicplayer.viewmodel;
 import android.app.Application;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Build;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
@@ -20,15 +22,11 @@ public class TrackViewModel extends AndroidViewModel {
 
     private MutableLiveData<Track> track = new MutableLiveData<>();
 
-    private TrackRepository trackRepository;
-    private MusicPlayer musicPlayer;
+    private TrackRepository trackRepository = TrackRepository.getInstance();
+    private MusicPlayer musicPlayer = MusicPlayer.getInstance() ;
 
     public TrackViewModel(@NonNull Application application) {
         super(application);
-
-        this.trackRepository = TrackRepository.getInstance();
-        this.musicPlayer = MusicPlayer.getInstance();
-
     }
 
 
@@ -70,6 +68,7 @@ public class TrackViewModel extends AndroidViewModel {
 
     // Logic
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public List<Track> search(String searchingString) {
         return trackRepository.getTracks(searchingString.toLowerCase());
     }
@@ -178,5 +177,8 @@ public class TrackViewModel extends AndroidViewModel {
         this.track.setValue(playingTrack);
     }
 
+    public List<Track> getTrackList() {
+        return trackRepository.getAllTracks();
+    }
 
 }

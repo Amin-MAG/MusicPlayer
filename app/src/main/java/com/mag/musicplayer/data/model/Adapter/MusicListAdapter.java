@@ -18,6 +18,7 @@ import com.mag.musicplayer.databinding.LayoutTrackBinding;
 import com.mag.musicplayer.viewmodel.TrackViewModel;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.MusicListViewHolder> {
@@ -30,6 +31,10 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.Musi
 
     public MusicListAdapter(List<Track> tracks) {
         this.tracks = tracks;
+    }
+
+    public MusicListAdapter() {
+        this.tracks = new ArrayList<>();
     }
 
     @NonNull
@@ -105,6 +110,7 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.Musi
 
     public void setTracks(List<Track> tracks) {
         this.tracks = tracks;
+        notifyDataSetChanged();
     }
 
     public List<Track> getTracks() {

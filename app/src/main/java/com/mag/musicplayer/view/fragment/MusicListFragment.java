@@ -61,12 +61,7 @@ public class MusicListFragment extends Fragment {
 
         findComponents();
 
-
-        adapter = new MusicListAdapter(TrackRepository.getInstance().getAllTracks());
-
-
-        binding.musicListFragmentRecycler.setAdapter(adapter);
-
+        setMusicAdapter();
 
         setEvents();
 
@@ -74,6 +69,11 @@ public class MusicListFragment extends Fragment {
 
         setOnChangeEvents();
 
+    }
+
+    private void setMusicAdapter() {
+        adapter = new MusicListAdapter(viewModel.getTrackList());
+        binding.musicListFragmentRecycler.setAdapter(adapter);
     }
 
     @SuppressLint("ResourceType")

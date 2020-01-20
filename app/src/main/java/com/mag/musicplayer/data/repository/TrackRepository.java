@@ -73,11 +73,9 @@ public class TrackRepository {
         return null;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public List<Track> getTrackByAlbum(Album album) {
-        List<Track> items = new ArrayList<>();
-        for (Track track : allTracks)
-            if (track.getAlbumName().equals(album.getAlbumTitle())) items.add(track);
-        return items;
+        return allTracks.stream().filter(track -> track.getAlbumName().equals(album.getAlbumTitle())).collect(Collectors.toList());
     }
 
     public List<Track> getTrackByArtist(Artist artist) {
