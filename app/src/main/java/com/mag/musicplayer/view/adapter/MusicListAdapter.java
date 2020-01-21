@@ -24,8 +24,6 @@ import java.util.List;
 public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.MusicListViewHolder> {
 
     private List<Track> tracks;
-    private Track selectedTrack;
-
 
     private Activity activity;
 
@@ -94,31 +92,9 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.Musi
     }
 
 
-    public void updateUi() {
-
-        notifyDataSetChanged();
-
-    }
-
-    public int findTrackIndex(Track track) {
-        for (int i = 0; i < tracks.size(); i++) {
-            if (tracks.get(i).getTrackId() == track.getTrackId())
-                return i;
-        }
-        return -1;
-    }
-
     public void setTracks(List<Track> tracks) {
         this.tracks = tracks;
         notifyDataSetChanged();
-    }
-
-    public List<Track> getTracks() {
-        return tracks;
-    }
-
-    public void setSelectedTrack(Track selectedTrack) {
-        this.selectedTrack = selectedTrack;
     }
 
 
