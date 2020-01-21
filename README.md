@@ -13,6 +13,8 @@
  - Artists: Show all artist in a page.
  - Playlist: (not completed)
  - File Explorer: (not completed)
+ - MVVM Architecture
+ - Using LiveData and DataBinding
 
 <br>
 
