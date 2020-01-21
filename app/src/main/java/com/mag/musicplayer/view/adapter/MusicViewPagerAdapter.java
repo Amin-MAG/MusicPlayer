@@ -1,4 +1,4 @@
-package com.mag.musicplayer.data.model.Adapter;
+package com.mag.musicplayer.view.adapter;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;

@@ -19,7 +19,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.mag.musicplayer.R;
-import com.mag.musicplayer.data.model.Adapter.MusicListAdapter;
+import com.mag.musicplayer.view.adapter.MusicListAdapter;
 import com.mag.musicplayer.data.repository.TrackRepository;
 import com.mag.musicplayer.databinding.FragmentMusicListBinding;
 import com.mag.musicplayer.viewmodel.TrackViewModel;

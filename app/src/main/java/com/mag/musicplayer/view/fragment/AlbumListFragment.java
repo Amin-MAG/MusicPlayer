@@ -26,7 +26,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.mag.musicplayer.R;
 import com.mag.musicplayer.view.adapter.AlbumListAdapter;
-import com.mag.musicplayer.data.model.Adapter.MusicListAdapter;
+import com.mag.musicplayer.view.adapter.MusicListAdapter;
 import com.mag.musicplayer.databinding.FragmentAlbumListBinding;
 import com.mag.musicplayer.viewmodel.AlbumViewModel;
 

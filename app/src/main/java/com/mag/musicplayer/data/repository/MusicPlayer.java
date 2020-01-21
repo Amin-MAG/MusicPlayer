@@ -26,7 +26,6 @@ public class MusicPlayer {
 
     public static final String CONTENT_MEDIA_EXTERNAL_AUDIO_ALBUMART = "content://media/external/audio/albumart";
     private static MusicPlayer instance;
-    private MusicPlayerCallback callback;
 
     public static MusicPlayer getInstance() {
         if (instance == null)
@@ -150,28 +149,24 @@ public class MusicPlayer {
         mediaPlayer.getValue().setAudioStreamType(AudioManager.STREAM_MUSIC);
         mediaPlayer.getValue().setDataSource(context.getApplicationContext(), contentUri);
         mediaPlayer.getValue().setOnCompletionListener(mediaPlayer -> {
-            Track nextTrack = callback.getNextTrack();
+//            Track nextTrack = callback.getNextTrack();
 //            int trackIndex = TrackRepository.getInstance().getTrackIndex(track);
 //            if (trackIndex + 1 > TrackRepository.getInstance().getAllTracks().size())
 //                trackIndex = 0;
 //            else if (trackIndex - 1 < 0)
 //                trackIndex = TrackRepository.getInstance().getPlayingList().getValue().size() - 1;
 //            Track nextTrack = TrackRepository.getInstance().getPlayingList().getValue().get(trackIndex + 1);
-            try {
-                playMusic(nextTrack, context);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            callback.updateUiAutoSkip();
+//            try {
+//                playMusic(nextTrack, context);
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//            callback.updateUiAutoSkip();
         });
         mediaPlayer.getValue().prepare();
         mediaPlayer.getValue().start();
         isPlaying.setValue(true);
 
-    }
-
-    public void setCallback(MusicPlayerCallback callback) {
-        this.callback = callback;
     }
 
     public MutableLiveData<Track> getPlayingTrack() {
@@ -192,12 +187,6 @@ public class MusicPlayer {
     public void pause() {
         mediaPlayer.getValue().pause();
         isPlaying.setValue(false);
-    }
-
-    public interface MusicPlayerCallback {
-        Track getNextTrack();
-
-        void updateUiAutoSkip();
     }
 
 

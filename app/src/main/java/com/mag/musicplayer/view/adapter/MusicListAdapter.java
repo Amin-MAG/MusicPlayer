@@ -1,4 +1,4 @@
-package com.mag.musicplayer.data.model.Adapter;
+package com.mag.musicplayer.view.adapter;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;

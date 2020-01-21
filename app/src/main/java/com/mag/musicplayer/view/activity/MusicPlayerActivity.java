@@ -1,4 +1,4 @@
-package com.mag.musicplayer.Controller.Activity;
+package com.mag.musicplayer.view.activity;
 
 import android.Manifest;
 import android.content.Context;

@@ -7,11 +7,11 @@ import androidx.lifecycle.AndroidViewModel;
 
 import com.mag.musicplayer.data.repository.MusicPlayer;
 
-public class MusicViewModel extends AndroidViewModel {
+public class MusicPlayerViewModel extends AndroidViewModel {
 
     private MusicPlayer musicPlayer = MusicPlayer.getInstance();
 
-    public MusicViewModel(@NonNull Application application) {
+    public MusicPlayerViewModel(@NonNull Application application) {
         super(application);
     }
 

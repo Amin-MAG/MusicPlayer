@@ -16,48 +16,16 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <FrameLayout
-        android:id="@+id/musicPlayerActivity_viewPagerFrame"
+        android:id="@+id/musicPlayerActivity_mainFrame"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/musicPlayerActivity_trackFrame"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/musicPlayerActivity_collapsingToolbar"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.516" />
 
 
-    <com.google.android.material.appbar.CollapsingToolbarLayout
-        android:id="@+id/musicPlayerActivity_collapsingToolbar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:contentScrim="@color/colorAccent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_scrollFlags="scroll">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/musicPlayerActivity_tabLayout"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:background="@color/colorPrimary"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:tabMode="scrollable"
-                app:tabSelectedTextColor="@color/colorAccent"
-                app:tabTextColor="@color/white" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-    </com.google.android.material.appbar.CollapsingToolbarLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
