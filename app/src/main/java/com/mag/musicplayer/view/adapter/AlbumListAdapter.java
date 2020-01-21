@@ -1,4 +1,4 @@
-package com.mag.musicplayer.data.model.Adapter;
+package com.mag.musicplayer.view.adapter;
 
 import android.app.Activity;
 import android.view.LayoutInflater;

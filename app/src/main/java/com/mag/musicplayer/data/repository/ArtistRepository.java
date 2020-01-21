@@ -1,10 +1,15 @@
 package com.mag.musicplayer.data.repository;
 
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
 import com.mag.musicplayer.data.model.Album;
 import com.mag.musicplayer.data.model.Artist;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ArtistRepository {
 
@@ -27,12 +32,9 @@ public class ArtistRepository {
         return allArtists;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public List<Artist> getArtists(String search) {
-        List<Artist> target = new ArrayList<>();
-        for (Artist artist : allArtists)
-            if (artist.getArtistName().toLowerCase().contains(search))
-                target.add(artist);
-        return target;
+        return allArtists.stream().filter((artist)-> artist.getArtistName().toLowerCase().contains(search)).collect(Collectors.toList());
     }
 
     public void setAllArtists(List<Artist> allArtists) {

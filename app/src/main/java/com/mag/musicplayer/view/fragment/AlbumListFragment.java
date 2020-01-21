@@ -1,4 +1,4 @@
-package com.mag.musicplayer.Controller.Fragment;
+package com.mag.musicplayer.view.fragment;
 
 
 import android.annotation.SuppressLint;
@@ -25,7 +25,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mag.musicplayer.R;
-import com.mag.musicplayer.data.model.Adapter.AlbumListAdapter;
+import com.mag.musicplayer.view.adapter.AlbumListAdapter;
 import com.mag.musicplayer.data.model.Adapter.MusicListAdapter;
 import com.mag.musicplayer.databinding.FragmentAlbumListBinding;
 import com.mag.musicplayer.viewmodel.AlbumViewModel;

@@ -78,11 +78,9 @@ public class TrackRepository {
         return allTracks.stream().filter(track -> track.getAlbumName().equals(album.getAlbumTitle())).collect(Collectors.toList());
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public List<Track> getTrackByArtist(Artist artist) {
-        List<Track> items = new ArrayList<>();
-        for (Track track : allTracks)
-            if (track.getArtist().equals(artist.getArtistName())) items.add(track);
-        return items;
+        return allTracks.stream().filter((track -> track.getArtist().equals(artist.getArtistName()))).collect(Collectors.toList());
     }
 
     public void makeShuffle() {

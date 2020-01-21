@@ -1,8 +1,8 @@
-package com.mag.musicplayer.Controller.Activity;
+package com.mag.musicplayer.view.activity;
 
 import androidx.fragment.app.Fragment;
 
-import com.mag.musicplayer.Controller.Fragment.SettingFragment;
+import com.mag.musicplayer.view.fragment.SettingFragment;
 
 public class SettingActivity extends SingleFragmentActivity {
 

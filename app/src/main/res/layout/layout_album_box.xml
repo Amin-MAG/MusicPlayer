@@ -50,7 +50,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/boxLayout_image" />
 
             <TextView
-                android:id="@+id/boxLayout_descritption"
+                android:id="@+id/boxLayout_albumCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{albumViewModel.artist}"
