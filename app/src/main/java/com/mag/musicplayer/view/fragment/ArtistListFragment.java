@@ -29,6 +29,7 @@ import com.mag.musicplayer.view.adapter.ArtistListAdapter;
 import com.mag.musicplayer.view.adapter.MusicListAdapter;
 import com.mag.musicplayer.databinding.FragmentArtistListBinding;
 import com.mag.musicplayer.viewmodel.ArtistViewModel;
+import com.mag.musicplayer.viewmodel.TrackViewModel;
 
 import java.util.ArrayList;
 
@@ -37,6 +38,8 @@ public class ArtistListFragment extends Fragment {
     private FragmentArtistListBinding binding;
 
     private ArtistViewModel viewModel;
+    private TrackViewModel trackViewModel;
+
 
     private RecyclerView artistRecyclerView, musicRecyclerView;
     private ArtistListAdapter albumListAdapter;
@@ -62,6 +65,7 @@ public class ArtistListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(LayoutInflater.from(getActivity()), R.layout.fragment_artist_list, container, false);
         viewModel = ViewModelProviders.of(getActivity()).get(ArtistViewModel.class);
+        trackViewModel = ViewModelProviders.of(getActivity()).get(TrackViewModel.class);
         return binding.getRoot();
     }
 
@@ -111,6 +115,11 @@ public class ArtistListFragment extends Fragment {
 
             }
 
+        });
+
+        trackViewModel.getPlayingTrack().observe(this, track -> {
+            trackViewModel.setTrack(track);
+            musicListAdapter.notifyDataSetChanged();
         });
 
 

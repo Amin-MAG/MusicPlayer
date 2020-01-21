@@ -8,7 +8,6 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.provider.MediaStore;
-import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
@@ -137,8 +136,6 @@ public class MusicPlayer {
 
     public void playMusic(Track track, final Context context) throws IOException {
 
-        Log.d("MusicDebuging", track.getTitle());
-
         mediaPlayer.getValue().stop();
 
         playingTrack.setValue(track);
@@ -149,19 +146,12 @@ public class MusicPlayer {
         mediaPlayer.getValue().setAudioStreamType(AudioManager.STREAM_MUSIC);
         mediaPlayer.getValue().setDataSource(context.getApplicationContext(), contentUri);
         mediaPlayer.getValue().setOnCompletionListener(mediaPlayer -> {
-//            Track nextTrack = callback.getNextTrack();
-//            int trackIndex = TrackRepository.getInstance().getTrackIndex(track);
-//            if (trackIndex + 1 > TrackRepository.getInstance().getAllTracks().size())
-//                trackIndex = 0;
-//            else if (trackIndex - 1 < 0)
-//                trackIndex = TrackRepository.getInstance().getPlayingList().getValue().size() - 1;
-//            Track nextTrack = TrackRepository.getInstance().getPlayingList().getValue().get(trackIndex + 1);
-//            try {
-//                playMusic(nextTrack, context);
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//            callback.updateUiAutoSkip();
+            try {
+                if (track.getIndex() + 1 < playingList.getValue().size())
+                    playMusic(playingList.getValue().get(track.getIndex() + 1), context);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         });
         mediaPlayer.getValue().prepare();
         mediaPlayer.getValue().start();
@@ -192,6 +182,10 @@ public class MusicPlayer {
 
     public MutableLiveData<Boolean> isPlaying() {
         return isPlaying;
+    }
+
+    public MutableLiveData<List<Track>> getPlayingList() {
+        return playingList;
     }
 
     public MutableLiveData<MediaPlayer> getMediaPlayer() {

@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -63,6 +65,7 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.Musi
         public MusicListViewHolder(@NonNull LayoutTrackBinding binding) {
             super(binding.getRoot());
 
+
             this.binding = binding;
             this.viewModel = ViewModelProviders.of((FragmentActivity) activity).get(TrackViewModel.class);
 
@@ -83,6 +86,7 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.Musi
 
             binding.trackLayoutCardView.setOnClickListener(view -> {
                 viewModel.setTrack(track);
+                viewModel.setPlayingList(tracks);
                 viewModel.onTrackClicked();
                 notifyDataSetChanged();
             });

@@ -29,12 +29,15 @@ import com.mag.musicplayer.view.adapter.AlbumListAdapter;
 import com.mag.musicplayer.view.adapter.MusicListAdapter;
 import com.mag.musicplayer.databinding.FragmentAlbumListBinding;
 import com.mag.musicplayer.viewmodel.AlbumViewModel;
+import com.mag.musicplayer.viewmodel.TrackViewModel;
 
 public class AlbumListFragment extends Fragment {
 
     private FragmentAlbumListBinding binding;
 
     private AlbumViewModel viewModel;
+    private TrackViewModel trackViewModel;
+
 
     private RecyclerView albumRecyclerView, musicRecyclerView;
     private AlbumListAdapter albumListAdapter;
@@ -60,6 +63,7 @@ public class AlbumListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(LayoutInflater.from(getActivity()), R.layout.fragment_album_list, container, false);
         viewModel = ViewModelProviders.of(getActivity()).get(AlbumViewModel.class);
+        trackViewModel = ViewModelProviders.of(getActivity()).get(TrackViewModel.class);
         return binding.getRoot();
     }
 
@@ -144,6 +148,11 @@ public class AlbumListFragment extends Fragment {
 
             }
 
+        });
+
+        trackViewModel.getPlayingTrack().observe(this, track -> {
+            trackViewModel.setTrack(track);
+            musicListAdapter.notifyDataSetChanged();
         });
 
 

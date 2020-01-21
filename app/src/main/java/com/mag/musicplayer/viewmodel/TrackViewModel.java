@@ -4,6 +4,7 @@ import android.app.Application;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -23,7 +24,7 @@ public class TrackViewModel extends AndroidViewModel {
     private MutableLiveData<Track> track = new MutableLiveData<>();
 
     private TrackRepository trackRepository = TrackRepository.getInstance();
-    private MusicPlayer musicPlayer = MusicPlayer.getInstance() ;
+    private MusicPlayer musicPlayer = MusicPlayer.getInstance();
 
     public TrackViewModel(@NonNull Application application) {
         super(application);
@@ -57,12 +58,26 @@ public class TrackViewModel extends AndroidViewModel {
             musicPlayer.resume();
     }
 
-    public void onPreviousBtnClicked() {
-        trackRepository.goPreviousTrack();
+    public void onPreviousBtnClicked()  {
+        int index = getPlayingTrack().getValue().getIndex() - 1;
+        if (index < 0)
+            index += getPlayingList().getValue().size();
+        try {
+            musicPlayer.playMusic(musicPlayer.getPlayingList().getValue().get(index), getApplication());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void onNextBtnClicked() {
-        trackRepository.goNextTrack();
+    public void onNextBtnClicked()  {
+        int index = getPlayingTrack().getValue().getIndex() + 1;
+        if (index >= getPlayingList().getValue().size())
+            index = 0;
+        try {
+            musicPlayer.playMusic(musicPlayer.getPlayingList().getValue().get(index), getApplication());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -171,6 +186,10 @@ public class TrackViewModel extends AndroidViewModel {
         return trackRepository.isRepeating();
     }
 
+    public MutableLiveData<List<Track>> getPlayingList() {
+        return musicPlayer.getPlayingList();
+    }
+
     // Setter
 
     public void setTrack(Track playingTrack) {
@@ -179,6 +198,18 @@ public class TrackViewModel extends AndroidViewModel {
 
     public List<Track> getTrackList() {
         return trackRepository.getAllTracks();
+    }
+
+    public void setPlayingList(List<Track> tracks) {
+
+        for (int i = 0; i < tracks.size(); i++)
+            tracks.get(i).setIndex(i);
+
+        for (int i = 0; i < tracks.size(); i++)
+            Log.d("setPlayingList", "setPlayingList: " + tracks.get(i).getIndex());
+
+
+        getPlayingList().setValue(tracks);
     }
 
 }

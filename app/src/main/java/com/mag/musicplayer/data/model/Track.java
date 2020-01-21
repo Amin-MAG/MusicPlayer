@@ -16,6 +16,8 @@ public class Track {
     private Date lastModified;
     private int trackPlayCount;
 
+    private int index;
+
 
     public Track(long trackId, String trackTitle, String albumName, String artistName, Uri imagePath, int trackLength, Date lastModified, int trackPlayCount) {
         this.trackId = trackId;
@@ -67,6 +69,14 @@ public class Track {
 
     public void addCount() {
         trackPlayCount++;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
     }
 
 }

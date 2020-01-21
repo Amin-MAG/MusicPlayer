@@ -3,6 +3,7 @@ package com.mag.musicplayer.view.fragment;
 
 import android.annotation.SuppressLint;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,9 +14,11 @@ import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.SearchView;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.mag.musicplayer.R;
@@ -86,6 +89,11 @@ public class MusicListFragment extends Fragment {
             repeatBtn.setImageDrawable(isRepeating ? getResources().getDrawable(R.drawable.ic_repeat_one) : getResources().getDrawable(R.drawable.ic_repeat));
         });
 
+        viewModel.getPlayingTrack().observe(this, track -> {
+            viewModel.setTrack(track);
+            adapter.notifyDataSetChanged();
+        });
+
     }
 
     private void setEvents() {
@@ -118,6 +126,7 @@ public class MusicListFragment extends Fragment {
                 return false;
             }
 
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public boolean onQueryTextChange(String searchingString) {
                 adapter.setTracks(viewModel.search(searchingString));
@@ -141,11 +150,6 @@ public class MusicListFragment extends Fragment {
         LinearLayout linearLayout3 = (LinearLayout) linearLayout2.getChildAt(1);
         AutoCompleteTextView autoComplete = (AutoCompleteTextView) linearLayout3.getChildAt(0);
         autoComplete.setTextColor(Color.parseColor(getResources().getString(R.color.white)));
-    }
-
-
-    public MusicListAdapter getAdapter() {
-        return adapter;
     }
 
 }
