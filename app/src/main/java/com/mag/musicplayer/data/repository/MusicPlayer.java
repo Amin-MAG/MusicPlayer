@@ -3,6 +3,7 @@ package com.mag.musicplayer.data.repository;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -15,6 +16,7 @@ import com.mag.musicplayer.data.model.Album;
 import com.mag.musicplayer.data.model.Artist;
 import com.mag.musicplayer.data.model.Track;
 import com.mag.musicplayer.data.var.Constants;
+import com.mag.musicplayer.services.old.MusicPlayerService;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -153,8 +155,18 @@ public class MusicPlayer {
                 e.printStackTrace();
             }
         });
+
         mediaPlayer.getValue().prepare();
         mediaPlayer.getValue().start();
+
+//        context.startService(new Intent(context, MusicService.class));
+//
+
+        Intent intent = new Intent(context, MusicPlayerService.class);
+//        intent.setAction(MusicPlayerService.ACTION_START_FOREGROUND_SERVICE);
+        context.startService(intent);
+
+
         isPlaying.setValue(true);
 
     }
@@ -191,4 +203,5 @@ public class MusicPlayer {
     public MutableLiveData<MediaPlayer> getMediaPlayer() {
         return mediaPlayer;
     }
+
 }
