@@ -1,9 +1,14 @@
 package com.mag.musicplayer.view.activity;
 
 import android.Manifest;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,9 +19,11 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.mag.musicplayer.R;
 import com.mag.musicplayer.data.repository.MusicPlayer;
+import com.mag.musicplayer.services.MusicPlayerService;
 import com.mag.musicplayer.util.UiUtil;
 import com.mag.musicplayer.view.fragment.MusicBarFragment;
 import com.mag.musicplayer.view.fragment.MusicPlayerMainFragment;
+import com.mag.musicplayer.view.notification.MusicPlayerServiceNotification;
 import com.mag.musicplayer.viewmodel.MusicPlayerViewModel;
 
 import java.util.HashMap;
@@ -26,14 +33,16 @@ public class MusicPlayerActivity extends AppCompatActivity {
     public static final String TAG_FRAGMENT_MUSIC_BAR = "tag_fragment_music_bar";
     public static final String TAG_MUSIC_PLAYER_VIEW_PAGER = "tag_music_player_view_pager";
     public static final String STORAGE_PERMISSION = "android.permission.READ_EXTERNAL_STORAGE";
+    public static final String SERVICE_LEARNING = "SERVICE_LEARNING";
     private static final int REQUEST_READ_STORAGE = 10002;
+
 
     private MusicPlayerViewModel viewModel;
 
     private MusicBarFragment musicBarFragment = MusicBarFragment.newInstance();
     private MusicPlayerMainFragment musicPlayerMainFragment = MusicPlayerMainFragment.newInstance();
 
-    HashMap<String, Boolean> permissionsStatus = new HashMap<>();
+    private HashMap<String, Boolean> permissionsStatus = new HashMap<>();
 
     public static Intent newIntent(Context context) {
         return new Intent(context, MusicPlayerActivity.class);
@@ -66,7 +75,6 @@ public class MusicPlayerActivity extends AppCompatActivity {
     }
 
 
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_music_player);
@@ -77,6 +85,18 @@ public class MusicPlayerActivity extends AppCompatActivity {
 
         UiUtil.changeFragment(getSupportFragmentManager(), musicPlayerMainFragment, R.id.musicPlayerActivity_mainFrame, true, TAG_MUSIC_PLAYER_VIEW_PAGER);
         UiUtil.changeFragment(getSupportFragmentManager(), musicBarFragment, R.id.musicPlayerActivity_trackFrame, true, TAG_FRAGMENT_MUSIC_BAR);
+
+
+        // Run Service
+
+        Intent notificationIntent = new Intent(this, MusicPlayer.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
+
+
+        final NotificationManager notificationManager = getSystemService(NotificationManager.class);
+        MusicPlayerServiceNotification.getInstance().prepare(MusicPlayerActivity.this, notificationManager, pendingIntent, pendingIntent, pendingIntent);
+        MusicPlayerServiceNotification.getInstance().run();
+
 
     }
 

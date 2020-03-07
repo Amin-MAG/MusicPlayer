@@ -17,19 +17,9 @@
 
         <!-- Services-->
 
-        <service
-            android:name=".services.old.MusicPlayerService"
-            android:enabled="true"
-            android:exported="true" />
-
 
         <service
             android:name=".services.MusicPlayerService"
-            android:enabled="true"
-            android:exported="true" />
-
-        <service
-            android:name=".services.old.MyService"
             android:enabled="true"
             android:exported="true" />
 

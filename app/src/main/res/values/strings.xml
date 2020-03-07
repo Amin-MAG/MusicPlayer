@@ -1,4 +1,12 @@
 <resources>
+
     <string name="app_name">MusicPlayer</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Notification -->
+    <string name="notification_titile">MusicPlayer</string>
+<!--    <string name="notification_messa">MusicPlayer</string>-->
+<!--    <string name="notification_messa">MusicPlayer</string>-->
+<!--    <string name="notification_messa">MusicPlayer</string>-->
+
+
 </resources>
