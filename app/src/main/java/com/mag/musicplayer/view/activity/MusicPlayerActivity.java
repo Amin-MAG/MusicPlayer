@@ -1,14 +1,9 @@
 package com.mag.musicplayer.view.activity;
 
 import android.Manifest;
-import android.app.Notification;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -23,7 +18,6 @@ import com.mag.musicplayer.services.MusicPlayerService;
 import com.mag.musicplayer.util.UiUtil;
 import com.mag.musicplayer.view.fragment.MusicBarFragment;
 import com.mag.musicplayer.view.fragment.MusicPlayerMainFragment;
-import com.mag.musicplayer.view.notification.MusicPlayerServiceNotification;
 import com.mag.musicplayer.viewmodel.MusicPlayerViewModel;
 
 import java.util.HashMap;
@@ -88,15 +82,8 @@ public class MusicPlayerActivity extends AppCompatActivity {
 
 
         // Run Service
-
-        Intent notificationIntent = new Intent(this, MusicPlayer.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
-
-
-        final NotificationManager notificationManager = getSystemService(NotificationManager.class);
-        MusicPlayerServiceNotification.getInstance().prepare(MusicPlayerActivity.this, notificationManager, pendingIntent, pendingIntent, pendingIntent);
-        MusicPlayerServiceNotification.getInstance().run();
-
+        Intent intent = new Intent(MusicPlayerActivity.this, MusicPlayerService.class);
+        startForegroundService(intent);
 
     }
 
@@ -106,6 +93,5 @@ public class MusicPlayerActivity extends AppCompatActivity {
         else
             MusicPlayer.getInstance().loadMusics(getContentResolver());
     }
-
 
 }

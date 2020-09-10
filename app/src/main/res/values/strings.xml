@@ -1,12 +1,5 @@
 <resources>
-
     <string name="app_name">MusicPlayer</string>
-
     <!-- Notification -->
-    <string name="notification_titile">MusicPlayer</string>
-<!--    <string name="notification_messa">MusicPlayer</string>-->
-<!--    <string name="notification_messa">MusicPlayer</string>-->
-<!--    <string name="notification_messa">MusicPlayer</string>-->
-
-
+    <string name="notification_title">MusicPlayer</string>
 </resources>

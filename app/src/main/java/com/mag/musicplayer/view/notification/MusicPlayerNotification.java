@@ -9,28 +9,25 @@ import android.graphics.BitmapFactory;
 
 import com.mag.musicplayer.R;
 
-public class MusicPlayerServiceNotification {
+public class MusicPlayerNotification {
 
-    private static MusicPlayerServiceNotification instance;
+    private static MusicPlayerNotification instance;
 
+    public static final int NOTIFICATION_ID = 20002;
 
     private static final String MAIN_MUSIC_CHANNEL_ID = "MAIN_MUSIC_CHANNEL_ID";
     private static final String CHANNEL_NAME = "MusicPlayer";
 
-
-    public static MusicPlayerServiceNotification getInstance() {
+    public static MusicPlayerNotification getInstance() {
 
         if (instance == null)
-            instance = new MusicPlayerServiceNotification();
+            instance = new MusicPlayerNotification();
 
         return instance;
     }
 
-    private MusicPlayerServiceNotification() {
-
-
+    private MusicPlayerNotification() {
     }
-
 
     private Context context;
     private NotificationManager notificationManager;
@@ -39,9 +36,7 @@ public class MusicPlayerServiceNotification {
     private PendingIntent pausePI;
     private PendingIntent previousPI;
 
-
     public void makeNotificationChannel() {
-
         NotificationChannel channel =
                 new NotificationChannel(
                         MAIN_MUSIC_CHANNEL_ID,
@@ -50,7 +45,6 @@ public class MusicPlayerServiceNotification {
                 );
 
         notificationManager.createNotificationChannel(channel);
-
     }
 
     public void buildNotification() {
@@ -82,14 +76,13 @@ public class MusicPlayerServiceNotification {
 
         makeNotificationChannel();
         buildNotification();
-
-
     }
 
     public void run() {
-
-        notificationManager.notify(20002, notification);
-
+        notificationManager.notify(NOTIFICATION_ID, notification);
     }
 
+    public Notification getNotification() {
+        return notification;
+    }
 }

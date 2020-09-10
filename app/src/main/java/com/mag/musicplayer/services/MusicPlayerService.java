@@ -1,55 +1,32 @@
 package com.mag.musicplayer.services;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 
 import androidx.annotation.Nullable;
 
+import com.mag.musicplayer.data.repository.MusicPlayer;
+import com.mag.musicplayer.view.activity.MusicPlayerActivity;
+import com.mag.musicplayer.view.notification.MusicPlayerNotification;
+
 public class MusicPlayerService extends Service {
 
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        // The button intents
+        Intent notificationIntent = new Intent(this, MusicPlayerActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
 
+        // Track player notification
+        final NotificationManager notificationManager = getSystemService(NotificationManager.class);
+        MusicPlayerNotification.getInstance().prepare(MusicPlayerService.this, notificationManager, pendingIntent, pendingIntent, pendingIntent);
+        MusicPlayerNotification.getInstance().run();
 
-//        // Channel
-//
-//        NotificationChannel channel =
-//                new NotificationChannel(
-//                        MAIN_CHANNEL_ID,
-//                        getString(R.string.channel_name),
-//                        NotificationManager.IMPORTANCE_DEFAULT
-//                );
-//        channel.setDescription(getString(R.string.channel_description));
-//
-//        final NotificationManager notificationManager = getSystemService(NotificationManager.class);
-//        notificationManager.createNotificationChannel(channel);
-//
-//
-//        // Main Notification
-//
-//
-//        Intent notificationIntent = new Intent(this, MainActivity.class);
-//        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
-//
-//
-//        Notification notification =
-//                new Notification.Builder(this, MAIN_CHANNEL_ID)
-//                        .setContentTitle(getText(R.string.notification_title))
-//                        .setContentText(getText(R.string.notification_message))
-//                        .setSmallIcon(R.drawable.icon)
-//                        .setContentIntent(pendingIntent)
-//                        .setPriority(Notification.PRIORITY_HIGH)
-//                        .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.icon))
-//                        .setTicker(getText(R.string.ticker_text))
-//                        .build();
-
-
-//        notificationManager.notify(20002, notification);
-
-//        startForeground(20002, notification);
-
+        startForeground(MusicPlayerNotification.NOTIFICATION_ID, MusicPlayerNotification.getInstance().getNotification());
 
         return START_STICKY;
     }
