@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
             android:paddingTop="8dp"
-            android:paddingBottom="8dp">
+            android:paddingBottom="4dp">
 
             <ImageButton
                 android:id="@+id/musicListFragment_shuffleButton"
