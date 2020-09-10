@@ -3,7 +3,6 @@ package com.mag.musicplayer.data.repository;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -62,12 +61,17 @@ public class MusicPlayer {
             String trackAlbum = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM));
             String trackArtist = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST));
             String trackLength = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.DURATION));
-
             // Music Cover Uri
-            Uri uri = ContentUris.withAppendedId(Uri.parse(CONTENT_MEDIA_EXTERNAL_AUDIO_ALBUMART), Long.parseLong(cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID))));
+            Uri trackCoverUri = null;
+
+            // handle bad cases !
+            if (trackLength == null)
+                continue;
+            if (cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID)) != null && !cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID)).equals(""))
+                trackCoverUri = ContentUris.withAppendedId(Uri.parse(CONTENT_MEDIA_EXTERNAL_AUDIO_ALBUMART), Long.parseLong(cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID))));
 
             // Track
-            Track thisLoopTrack = new Track(Long.parseLong(trackId), trackTitle, trackAlbum, trackArtist, uri, Integer.parseInt(trackLength), null);
+            Track thisLoopTrack = new Track(Long.parseLong(trackId), trackTitle, trackAlbum, trackArtist, trackCoverUri, Integer.parseInt(trackLength), null);
 
             // Albums
             Album thisLoopAlbum = null;
@@ -81,7 +85,7 @@ public class MusicPlayer {
                 }
             }
             if (!albumExists) {
-                thisLoopAlbum = new Album(trackAlbum, trackArtist, uri);
+                thisLoopAlbum = new Album(trackAlbum, trackArtist, trackCoverUri);
                 albums.add(thisLoopAlbum);
             }
 
@@ -108,7 +112,7 @@ public class MusicPlayer {
                 }
             }
             if (!artistExists) {
-                artists.add(new Artist(trackArtist, uri));
+                artists.add(new Artist(trackArtist, trackCoverUri));
             }
 
 
