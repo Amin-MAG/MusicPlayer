@@ -18,6 +18,8 @@ import com.mag.musicplayer.services.MusicPlayerService;
 import com.mag.musicplayer.util.UiUtil;
 import com.mag.musicplayer.view.fragment.MusicBarFragment;
 import com.mag.musicplayer.view.fragment.MusicPlayerMainFragment;
+import com.mag.musicplayer.viewmodel.AlbumViewModel;
+import com.mag.musicplayer.viewmodel.ArtistViewModel;
 import com.mag.musicplayer.viewmodel.MusicPlayerViewModel;
 
 import java.util.HashMap;
@@ -92,6 +94,15 @@ public class MusicPlayerActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_READ_STORAGE);
         else
             MusicPlayer.getInstance().loadMusics(getContentResolver());
+    }
+
+    @Override
+    public void onBackPressed() {
+        // Change it later
+        AlbumViewModel albumModel = ViewModelProviders.of(this).get(AlbumViewModel.class);
+        ArtistViewModel artistModel = ViewModelProviders.of(this).get(ArtistViewModel.class);
+        albumModel.showAlbumView();
+        artistModel.showArtistView();
     }
 
 }

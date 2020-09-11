@@ -51,18 +51,30 @@
 
         </LinearLayout>
 
-        <androidx.appcompat.widget.SearchView
-            android:id="@+id/albumListFragment_searchview"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/albumListFragment_searchview_constratint"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
-            android:paddingTop="4dp"
-            app:closeIcon="@drawable/ic_search_close"
+            android:paddingTop="2dp"
+            android:paddingBottom="4dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:searchHintIcon="@drawable/ic_search_hint"
-            app:searchIcon="@drawable/ic_search" />
+            app:layout_constraintTop_toTopOf="@+id/linearLayout">
+
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/albumListFragment_searchview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                app:closeIcon="@drawable/ic_search_close"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:searchHintIcon="@drawable/ic_search_hint"
+                app:searchIcon="@drawable/ic_search" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/albumListFragment_albumRecycler"
@@ -72,7 +84,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/albumListFragment_searchview" />
+            app:layout_constraintTop_toBottomOf="@+id/albumListFragment_searchview_constratint" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/albumListFragment_musicRecycler"
