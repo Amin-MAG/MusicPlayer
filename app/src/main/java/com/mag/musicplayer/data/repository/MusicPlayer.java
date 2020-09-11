@@ -61,12 +61,17 @@ public class MusicPlayer {
             String trackAlbum = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM));
             String trackArtist = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST));
             String trackLength = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.DURATION));
-
             // Music Cover Uri
-            Uri uri = ContentUris.withAppendedId(Uri.parse(CONTENT_MEDIA_EXTERNAL_AUDIO_ALBUMART), Long.parseLong(cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID))));
+            Uri trackCoverUri = null;
+
+            // handle bad cases !
+            if (trackLength == null)
+                continue;
+            if (cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID)) != null && !cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID)).equals(""))
+                trackCoverUri = ContentUris.withAppendedId(Uri.parse(CONTENT_MEDIA_EXTERNAL_AUDIO_ALBUMART), Long.parseLong(cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID))));
 
             // Track
-            Track thisLoopTrack = new Track(Long.parseLong(trackId), trackTitle, trackAlbum, trackArtist, uri, Integer.parseInt(trackLength), null);
+            Track thisLoopTrack = new Track(Long.parseLong(trackId), trackTitle, trackAlbum, trackArtist, trackCoverUri, Integer.parseInt(trackLength), null);
 
             // Albums
             Album thisLoopAlbum = null;
@@ -80,7 +85,7 @@ public class MusicPlayer {
                 }
             }
             if (!albumExists) {
-                thisLoopAlbum = new Album(trackAlbum, trackArtist, uri);
+                thisLoopAlbum = new Album(trackAlbum, trackArtist, trackCoverUri);
                 albums.add(thisLoopAlbum);
             }
 
@@ -107,7 +112,7 @@ public class MusicPlayer {
                 }
             }
             if (!artistExists) {
-                artists.add(new Artist(trackArtist, uri));
+                artists.add(new Artist(trackArtist, trackCoverUri));
             }
 
 
@@ -153,8 +158,18 @@ public class MusicPlayer {
                 e.printStackTrace();
             }
         });
+
         mediaPlayer.getValue().prepare();
         mediaPlayer.getValue().start();
+
+//        context.startService(new Intent(context, MusicService.class));
+//
+
+//        Intent intent = new Intent(context, MusicPlayerService.class);
+//        intent.setAction(MusicPlayerService.ACTION_START_FOREGROUND_SERVICE);
+//        context.startService(intent);
+
+
         isPlaying.setValue(true);
 
     }
@@ -191,4 +206,5 @@ public class MusicPlayer {
     public MutableLiveData<MediaPlayer> getMediaPlayer() {
         return mediaPlayer;
     }
+
 }

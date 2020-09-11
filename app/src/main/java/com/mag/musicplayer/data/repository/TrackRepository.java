@@ -1,5 +1,6 @@
 package com.mag.musicplayer.data.repository;
 
+import android.hardware.ConsumerIrManager;
 import android.os.Build;
 
 import androidx.annotation.RequiresApi;
@@ -55,7 +56,9 @@ public class TrackRepository {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public List<Track> getTracks(String search) {
-        return allTracks.stream().filter(track -> track.getTitle().toLowerCase().contains(search) || track.getAlbumName().toLowerCase().contains(search) || track.getArtist().toLowerCase().contains(search)).collect(Collectors.toList());
+        if (allTracks != null)
+            return allTracks.stream().filter(track -> track.getTitle().toLowerCase().contains(search) || track.getAlbumName().toLowerCase().contains(search) || track.getArtist().toLowerCase().contains(search)).collect(Collectors.toList());
+        return new ArrayList<>();
     }
 
     public int getTrackIndex(Track track) {

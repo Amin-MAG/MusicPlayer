@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.mag.musicplayer.R;
 import com.mag.musicplayer.data.repository.MusicPlayer;
+import com.mag.musicplayer.services.MusicPlayerService;
 import com.mag.musicplayer.util.UiUtil;
 import com.mag.musicplayer.view.fragment.MusicBarFragment;
 import com.mag.musicplayer.view.fragment.MusicPlayerMainFragment;
@@ -26,14 +27,16 @@ public class MusicPlayerActivity extends AppCompatActivity {
     public static final String TAG_FRAGMENT_MUSIC_BAR = "tag_fragment_music_bar";
     public static final String TAG_MUSIC_PLAYER_VIEW_PAGER = "tag_music_player_view_pager";
     public static final String STORAGE_PERMISSION = "android.permission.READ_EXTERNAL_STORAGE";
+    public static final String SERVICE_LEARNING = "SERVICE_LEARNING";
     private static final int REQUEST_READ_STORAGE = 10002;
+
 
     private MusicPlayerViewModel viewModel;
 
     private MusicBarFragment musicBarFragment = MusicBarFragment.newInstance();
     private MusicPlayerMainFragment musicPlayerMainFragment = MusicPlayerMainFragment.newInstance();
 
-    HashMap<String, Boolean> permissionsStatus = new HashMap<>();
+    private HashMap<String, Boolean> permissionsStatus = new HashMap<>();
 
     public static Intent newIntent(Context context) {
         return new Intent(context, MusicPlayerActivity.class);
@@ -77,6 +80,11 @@ public class MusicPlayerActivity extends AppCompatActivity {
         UiUtil.changeFragment(getSupportFragmentManager(), musicPlayerMainFragment, R.id.musicPlayerActivity_mainFrame, true, TAG_MUSIC_PLAYER_VIEW_PAGER);
         UiUtil.changeFragment(getSupportFragmentManager(), musicBarFragment, R.id.musicPlayerActivity_trackFrame, true, TAG_FRAGMENT_MUSIC_BAR);
 
+
+        // Run Service
+        Intent intent = new Intent(MusicPlayerActivity.this, MusicPlayerService.class);
+        startForegroundService(intent);
+
     }
 
     private void checkStoragePermission() {
@@ -85,6 +93,5 @@ public class MusicPlayerActivity extends AppCompatActivity {
         else
             MusicPlayer.getInstance().loadMusics(getContentResolver());
     }
-
 
 }
