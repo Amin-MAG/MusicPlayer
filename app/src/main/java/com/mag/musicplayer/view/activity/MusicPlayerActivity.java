@@ -5,11 +5,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.mag.musicplayer.R;
@@ -19,6 +22,7 @@ import com.mag.musicplayer.util.UiUtil;
 import com.mag.musicplayer.view.fragment.MusicBarFragment;
 import com.mag.musicplayer.view.fragment.MusicPlayerMainFragment;
 import com.mag.musicplayer.viewmodel.MusicPlayerViewModel;
+import com.mag.musicplayer.viewmodel.TrackViewModel;
 
 import java.util.HashMap;
 
@@ -79,11 +83,6 @@ public class MusicPlayerActivity extends AppCompatActivity {
 
         UiUtil.changeFragment(getSupportFragmentManager(), musicPlayerMainFragment, R.id.musicPlayerActivity_mainFrame, true, TAG_MUSIC_PLAYER_VIEW_PAGER);
         UiUtil.changeFragment(getSupportFragmentManager(), musicBarFragment, R.id.musicPlayerActivity_trackFrame, true, TAG_FRAGMENT_MUSIC_BAR);
-
-
-        // Run Service
-        Intent intent = new Intent(MusicPlayerActivity.this, MusicPlayerService.class);
-        startForegroundService(intent);
 
     }
 

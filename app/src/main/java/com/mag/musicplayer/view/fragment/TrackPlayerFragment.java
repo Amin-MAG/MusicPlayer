@@ -52,16 +52,10 @@ public class TrackPlayerFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-
         findComponents();
-
         binding.setTrackViewModel(viewModel);
-
         seekbarInitialization();
-
         setEvents();
-
         setOnChangeEvents();
     }
 

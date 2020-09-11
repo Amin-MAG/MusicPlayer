@@ -3,6 +3,7 @@ package com.mag.musicplayer.data.repository;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -15,6 +16,8 @@ import com.mag.musicplayer.data.model.Album;
 import com.mag.musicplayer.data.model.Artist;
 import com.mag.musicplayer.data.model.Track;
 import com.mag.musicplayer.data.var.Constants;
+import com.mag.musicplayer.services.MusicPlayerService;
+import com.mag.musicplayer.view.activity.MusicPlayerActivity;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -36,6 +39,8 @@ public class MusicPlayer {
     private MutableLiveData<Boolean> isPlaying = new MutableLiveData<>();
     private MutableLiveData<Track> playingTrack = new MutableLiveData<>();
     private MutableLiveData<List<Track>> playingList = new MutableLiveData<>();
+
+    private Context playingContext;
 
 
     private MusicPlayer() {
@@ -141,6 +146,8 @@ public class MusicPlayer {
 
     public void playMusic(Track track, final Context context) throws IOException {
 
+        playingContext = context;
+
         mediaPlayer.getValue().stop();
 
         playingTrack.setValue(track);
@@ -162,13 +169,7 @@ public class MusicPlayer {
         mediaPlayer.getValue().prepare();
         mediaPlayer.getValue().start();
 
-//        context.startService(new Intent(context, MusicService.class));
-//
-
-//        Intent intent = new Intent(context, MusicPlayerService.class);
-//        intent.setAction(MusicPlayerService.ACTION_START_FOREGROUND_SERVICE);
-//        context.startService(intent);
-
+        bindService();
 
         isPlaying.setValue(true);
 
@@ -187,13 +188,21 @@ public class MusicPlayer {
     public void resume() {
         mediaPlayer.getValue().start();
         isPlaying.setValue(true);
+        bindService();
     }
 
     public void pause() {
         mediaPlayer.getValue().pause();
         isPlaying.setValue(false);
+        bindService();
     }
 
+    // Service bind
+    private void bindService() {
+        // Run Service
+        Intent intent = new Intent(playingContext, MusicPlayerService.class);
+        playingContext.startForegroundService(intent);
+    }
 
     public MutableLiveData<Boolean> isPlaying() {
         return isPlaying;

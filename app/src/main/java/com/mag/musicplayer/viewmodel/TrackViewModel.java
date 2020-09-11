@@ -34,19 +34,15 @@ public class TrackViewModel extends AndroidViewModel {
     // Events
 
     /* Track List Methods */
-
     public void onTrackClicked() {
-
         try {
             musicPlayer.playMusic(track.getValue(), getApplication());
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     /* Track Activity Methods */
-
     public void seekPlayingMusicTo(int progressChangedValue) {
         getMediaPlayer().getValue().seekTo((int) ((double) (getPlayingRawLength() * progressChangedValue) / 100));
     }
@@ -58,7 +54,7 @@ public class TrackViewModel extends AndroidViewModel {
             musicPlayer.resume();
     }
 
-    public void onPreviousBtnClicked()  {
+    public void onPreviousBtnClicked() {
         int index = getPlayingTrack().getValue().getIndex() - 1;
         if (index < 0)
             index += getPlayingList().getValue().size();
@@ -69,7 +65,7 @@ public class TrackViewModel extends AndroidViewModel {
         }
     }
 
-    public void onNextBtnClicked()  {
+    public void onNextBtnClicked() {
         int index = getPlayingTrack().getValue().getIndex() + 1;
         if (index >= getPlayingList().getValue().size())
             index = 0;

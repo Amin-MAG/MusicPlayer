@@ -14,8 +14,8 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 import com.mag.musicplayer.R;
-import com.mag.musicplayer.view.adapter.MusicViewPagerAdapter;
 import com.mag.musicplayer.databinding.FragmentMusicPlayerMainBinding;
+import com.mag.musicplayer.view.adapter.MusicViewPagerAdapter;
 
 public class MusicPlayerMainFragment extends Fragment {
 
@@ -36,6 +36,7 @@ public class MusicPlayerMainFragment extends Fragment {
     }
 
     public MusicPlayerMainFragment() {
+
     }
 
     @Override
@@ -47,16 +48,10 @@ public class MusicPlayerMainFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         findComponents();
-
         setViewPagerAdapter();
-
         setViewpager();
-
         setEvents();
-
-
     }
 
     private void setEvents() {
