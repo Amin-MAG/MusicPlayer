@@ -56,7 +56,7 @@ public class ArtistViewModel extends AndroidViewModel {
     }
 
     public String getArtistName() {
-        return artist.getValue().getArtistName().length() > 24 ? artist.getValue().getArtistName().substring(0, 24) + "..." : artist.getValue().getArtistName();
+        return artist.getValue().getArtistName().length() > 16 ? artist.getValue().getArtistName().substring(0, 16) + "..." : artist.getValue().getArtistName();
     }
 
 

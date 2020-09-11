@@ -43,11 +43,11 @@ public class AlbumViewModel extends AndroidViewModel {
     }
 
     public String getTitle() {
-        return album.getValue().getAlbumTitle().length() > 24 ? album.getValue().getAlbumTitle().substring(0, 24) + "..." : album.getValue().getAlbumTitle();
+        return album.getValue().getAlbumTitle().length() > 16 ? album.getValue().getAlbumTitle().substring(0, 16) + "..." : album.getValue().getAlbumTitle();
     }
 
     public String getArtist() {
-        return album.getValue().getArtistName();
+        return album.getValue().getArtistName().length() > 18 ? album.getValue().getArtistName().substring(0, 18) + "..." : album.getValue().getArtistName();
     }
 
     public Uri getCoverSrc() {

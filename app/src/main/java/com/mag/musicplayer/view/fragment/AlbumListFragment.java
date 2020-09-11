@@ -159,12 +159,11 @@ public class AlbumListFragment extends Fragment {
     }
 
     private void setAlbumAdapter() {
-
-        int spanCount = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE ? 3 : 2;
+//        int spanCount = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE ? 3 : 2;
+        int spanCount = 3;
         albumRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), spanCount));
         albumListAdapter = new AlbumListAdapter(viewModel.getAlbumList());
         albumRecyclerView.setAdapter(albumListAdapter);
-
     }
 
     @SuppressLint("ResourceType")

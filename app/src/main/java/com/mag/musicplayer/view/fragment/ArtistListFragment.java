@@ -152,7 +152,8 @@ public class ArtistListFragment extends Fragment {
     }
 
     private void setArtistAdapter() {
-        int spanCount = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE ? 3 : 2;
+//        int spanCount = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE ? 3 : 2;
+        int spanCount = 3;
         artistRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), spanCount));
         albumListAdapter = new ArtistListAdapter(viewModel.getArtists());
         artistRecyclerView.setAdapter(albumListAdapter);
