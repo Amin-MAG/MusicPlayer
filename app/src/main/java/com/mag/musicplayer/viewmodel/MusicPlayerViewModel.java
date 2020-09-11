@@ -4,6 +4,7 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.MutableLiveData;
 
 import com.mag.musicplayer.data.repository.MusicPlayer;
 
@@ -17,6 +18,10 @@ public class MusicPlayerViewModel extends AndroidViewModel {
 
     public void loadMusics() {
         musicPlayer.loadMusics(getApplication().getContentResolver());
+    }
+
+    public MutableLiveData<Boolean> isPlayingMusic() {
+        return musicPlayer.isPlaying();
     }
 
 }

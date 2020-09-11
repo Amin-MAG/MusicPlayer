@@ -35,6 +35,8 @@
         </activity>
         <activity android:name=".view.activity.SettingActivity" />
 
+        <receiver android:name=".Broadcasts.NotificationReceiver" />
+
     </application>
 
 </manifest>

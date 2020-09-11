@@ -25,7 +25,8 @@
  - [x] Reapeating modes
  - [x] Search between all
  - [x] Play next and previous music
- - [ ] Service
+ - [x] Service
+ - [ ] Lyrics
  - [ ] Playlist
  - [ ] File Explorer
  - [ ] Work with headphone buttons
