@@ -16,7 +16,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/musicBarFragment_mainLayout"
         android:layout_width="match_parent"
-        android:layout_height="63dp"
+        android:layout_height="72dp"
         android:background="@color/colorPrimary"
         android:padding="4dp"
         android:visibility="gone"
@@ -27,8 +27,8 @@
 
         <ImageView
             android:id="@+id/musicBarFragment_trackImage"
-            android:layout_width="48dp"
-            android:layout_height="52dp"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
             android:background="#00FA1E1E"
             android:src="@drawable/music_icon"
             app:layout_constraintStart_toStartOf="parent"
@@ -82,7 +82,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="10dp"
             android:text="@{trackViewModel.playingArtist}"
             android:textColor="#DBDBDB"
             android:textSize="10dp"
@@ -97,7 +97,7 @@
             android:layout_marginTop="8dp"
             android:text="@{trackViewModel.playingTitle}"
             android:textColor="#FFFFFF"
-            android:textSize="14dp"
+            android:textSize="15dp"
             app:layout_constraintLeft_toRightOf="@+id/musicBarFragment_trackImage"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintWidth_max="210dp" />
